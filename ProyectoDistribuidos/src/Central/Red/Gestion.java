@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Cliente;
+package Central.Red;
 
 /**
  *
- * @author Junior
+ * @author pepo
  */
-public class ControladorC {
-
-    public ControladorC() {
-        new VistaC().run();
-    }
-
+public class Gestion {
+    
 }

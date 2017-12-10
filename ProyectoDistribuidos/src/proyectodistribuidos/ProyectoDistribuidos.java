@@ -5,6 +5,9 @@
  */
 package proyectodistribuidos;
 
+import Central.Controlador;
+import Cliente.ControladorC;
+import Servidor.ControladorS;
 import java.util.Scanner;
 
 /**
@@ -35,14 +38,17 @@ public class ProyectoDistribuidos {
            
             case 1:{
             // LOGICA CLIENTE
+            new ControladorC();
             break;
             }
             case 2: {
                 //LOGICA SERVIDOR
+                new ControladorS();
                 break;
             }
             case 3:{
             // LOGICA SERVIDOR FANTASMA
+            new Controlador();
             break;
             }
             case 4: {

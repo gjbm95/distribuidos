@@ -10,5 +10,9 @@ package Servidor;
  * @author Junior
  */
 public class ControladorS {
-    
+
+    public ControladorS() {
+        new VistaS().run();
+    }
+
 }
