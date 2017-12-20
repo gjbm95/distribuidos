@@ -194,7 +194,7 @@ public class DaoCentral {
                       Iterator i = nodos.iterator();
                          while (i.hasNext()) {
                               Element e = (Element) i.next();
-                              resultados.add(Integer.parseInt(aux.getAttributeValue("id")));
+                              resultados.add(Integer.parseInt(e.getAttributeValue("id")));
                           }    
                 fis.close();
                 return resultados; 

@@ -30,7 +30,7 @@ public class RecepcionArchivo extends Thread {
                 while (true)
                   {   
                       Socket recibo = reves6.accept();              
-                      new GestionArchivo(reves6,recibo).start();
+                      new EnvioArchivo(reves6,recibo).start();
                       
                    }
                } catch (IOException ex) {

@@ -5,6 +5,8 @@
  */
 package Cliente;
 
+import Cliente.Red.ReciboArchivo;
+import Dominio.Sistema;
 import java.util.Scanner;
 
 /**
@@ -33,7 +35,7 @@ public class VistaC extends Thread {
                     System.out.println("Introduzca el nombre del recurso que desea buscar: ");
                     String recurso= sc.next();
                     int hash = recurso.hashCode();
-                    
+                    new ReciboArchivo().descargarArchivo(Sistema.ipserver,Sistema.puertoserver,hash);
                     break;
                 }
                 case 2: {
