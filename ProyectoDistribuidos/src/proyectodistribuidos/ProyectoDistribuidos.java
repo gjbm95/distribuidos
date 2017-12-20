@@ -21,16 +21,7 @@ public class ProyectoDistribuidos {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // Probando DAO (Esto se quita)
-         DaoCentral dao = new DaoCentral(); 
-         dao.crearXML();
-         dao.agregarNodo("192.168.4.1");
-         System.out.println("Se guardo: "+dao.obtenerIp("192.168.4.1"));
-        
-        
-        //---------------------------
-        
-        
+
         Scanner sc = new Scanner(System.in);
         System.out.println("Bienvendo al proyecto de distribuidos");
         System.out.println("Realizado por:");

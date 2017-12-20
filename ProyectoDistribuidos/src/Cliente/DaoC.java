@@ -14,6 +14,7 @@ public class DaoC {
     private static final int saltLen = 32;
     private static final int desiredKeyLen = 256;
 
+ 
     /** Computes a salted PBKDF2 hash of given plaintext password
         suitable for storing in a database. 
         Empty passwords are not supported. */

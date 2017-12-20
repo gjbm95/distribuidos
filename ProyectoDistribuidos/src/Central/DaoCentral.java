@@ -142,7 +142,6 @@ public class DaoCentral {
     public String obtenerIp(String direccion){
        File xmlFile = new File(filelocation);
         Document document = null;
-        
         if(xmlFile.exists()) {
             try {
                 // try to load document from xml file if it exist
