@@ -8,6 +8,7 @@ package proyectodistribuidos;
 import Central.Controlador;
 import Central.DaoCentral;
 import Cliente.ControladorC;
+import Dominio.Sistema;
 import Servidor.ControladorS;
 import java.util.Scanner;
 
@@ -21,7 +22,7 @@ public class ProyectoDistribuidos {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
+        Sistema sistema = new Sistema(); 
         Scanner sc = new Scanner(System.in);
         System.out.println("Bienvendo al proyecto de distribuidos");
         System.out.println("Realizado por:");
@@ -40,11 +41,13 @@ public class ProyectoDistribuidos {
            
             case 1:{
             // LOGICA CLIENTE
+            new Cliente.Red.Recepcion(sistema).start();
             new ControladorC();
             break;
             }
             case 2: {
                 //LOGICA SERVIDOR
+                new Servidor.Red.Recepcion(sistema).start();
                 new ControladorS();
                 break;
             }
