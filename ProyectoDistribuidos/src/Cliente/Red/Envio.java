@@ -30,11 +30,17 @@ public class Envio {
     int in;
     
     
-     public static Object enviardato(Object dato){
+     public static Object enviardato(Object dato,String tiposerver){
          try {
                ObjectOutputStream salidaObjeto;      
                //Se colocan los datos del servidor central (Direccion IP y Puerto).
-               Socket reves = new Socket (Sistema.ipserver,Sistema.puertoserver);
+               Socket reves = null;
+               if(tiposerver.equals("server")) 
+               reves = new Socket (Sistema.ipserver,Sistema.puertoserver);
+               if(tiposerver.equals("client")) 
+               reves = new Socket (Sistema.ip,Sistema.miPuerto);
+               if(tiposerver.equals("center")) 
+               reves = new Socket (Sistema.ipcenter,Sistema.puertocenter);
                salidaObjeto = new ObjectOutputStream(reves.getOutputStream());
                //El cliente manda: 
                salidaObjeto.writeObject(dato);

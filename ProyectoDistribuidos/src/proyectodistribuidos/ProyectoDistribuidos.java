@@ -8,6 +8,7 @@ package proyectodistribuidos;
 import Central.Controlador;
 import Central.DaoCentral;
 import Cliente.ControladorC;
+import Cliente.Red.Envio;
 import Dominio.Sistema;
 import Servidor.ControladorS;
 import java.util.Scanner;
@@ -40,13 +41,20 @@ public class ProyectoDistribuidos {
            
             case 1:{
             // LOGICA CLIENTE
+            int cantidad = (int)Envio.enviardato("2:","center");
+            Sistema.miPuerto=9092+100*cantidad;
+            Sistema.miPuertoArchivo=9092+100*cantidad+1;
+                System.out.println("Puerto asignado: "+ Sistema.miPuerto);
+                System.out.println("Puerto asignado: "+ Sistema.miPuertoArchivo);
             new Cliente.Red.Recepcion().start();
             new Cliente.Red.RecepcionArchivo().start();
+            Envio.enviardato("0:"+Sistema.ip,"center");
             new ControladorC();
             break;
             }
             case 2: {
                 //LOGICA SERVIDOR
+                Sistema.miPuerto=9091;
                 new Servidor.Red.Recepcion().start();
                 new ControladorS();
                 break;
@@ -60,6 +68,7 @@ public class ProyectoDistribuidos {
             }
             case 4: {
             // SALIR
+            
             break;
             }
             default:

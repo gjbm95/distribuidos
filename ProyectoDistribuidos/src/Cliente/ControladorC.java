@@ -14,12 +14,12 @@ import Cliente.Red.Envio;
 public class ControladorC {
 
     public ControladorC() {
-        new VistaC().run();
+         new VistaC().run();
     }
     
       
     public static void buscarRecurso(int valor){
-      Envio.enviardato("3:"+valor);
+      Envio.enviardato("3:"+valor,"server");
     }
 
 }

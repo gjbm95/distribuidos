@@ -42,47 +42,28 @@ public class Gestion extends Thread{
                ObjectOutputStream salidaObjeto = new ObjectOutputStream(recibo.getOutputStream()); 
                //Mensaje que llega:
                 mensaje = (String)ois.readObject();
+                DaoCentral almacen = new DaoCentral(); 
+               //Preparo respuesta:
+                Object respuesta = null;
                //RESPUESTAS DEL SERVIDOR:
                //----------------------------------------------------------------------
-               //Condiciones de Garry:
                switch(mensaje.split(":")[0]){
-                   case "0":
-                       
+                    case "0":
+                    almacen.agregarNodo(mensaje.split(":")[1]);
                     break;
-                   case"1":
+                    case"1":
+                    almacen.eliminarNodo(mensaje.split(":")[1]);   
+                    break;
+                    case"2":
+                    respuesta = almacen.numeroNodos();  
+                        System.out.println("Cantidad de nodos es : " + (int)respuesta);
+                    
                     break;
                
                }
-//                 String [] operacion = mensaje.split(":");  
-//                 if (operacion[0].equals("1"))
-//                   salidaObjeto.writeObject(new Controlador_Garry(sistema).registrarusuario(operacion[1],operacion[2],operacion[3]));
-//                 if (operacion[0].equals("2"))
-//                   salidaObjeto.writeObject(new Controlador_Garry(sistema).iniciarsesion(operacion[1],operacion[2]));
-//                 if (operacion[0].equals("5"))
-//                   salidaObjeto.writeObject(new Controlador_Garry(sistema).solicitadescargaA(operacion[1])); 
-//                 if (operacion[0].equals("8"))
-//                   salidaObjeto.writeObject(new Controlador_Garry(sistema).registrarTransaccion(operacion[1],operacion[2],operacion[3],operacion[4]));
-//                 if (operacion[0].equals("9")) 
-//                   salidaObjeto.writeObject(new Controlador_Garry(sistema).registroServidor(operacion[1],Integer.parseInt(operacion[2])));  
-//                 if (operacion[0].equals("12"))  
-//                   salidaObjeto.writeObject(new Controlador_Garry(sistema).registrarlibros(operacion[2],Integer.parseInt(operacion[1])));
-//                 if (operacion[0].equals("13"))
-//                   salidaObjeto.writeObject(new Controlador_Garry(sistema).solicitaLibro(operacion[1]));  
-//                 if (operacion[0].equals("14"))  
-//                   salidaObjeto.writeObject(new Controlador_Garry(sistema).registrarlibros2(operacion[2],Integer.parseInt(operacion[1])));
-//                 //----------------------------------------------------------------------
-//               //Condiciones de Aquiles:
-//                 if (operacion[0].equals("3")) 
-//                   salidaObjeto.writeObject(new Controlador_Aquiles(sistema).todoslosAutores(operacion[1]));
-//                 if (operacion[0].equals("4"))                  
-//                   salidaObjeto.writeObject(new Controlador_Aquiles(sistema).todoslosGeneros(operacion[1]));
-//                 if (operacion[0].equals("10"))  
-//                   salidaObjeto.writeObject(new Controlador_Aquiles(sistema).LibrosDescargados()); 
-//                 if (operacion[0].equals("11"))  
-//                   salidaObjeto.writeObject(new Controlador_Aquiles(sistema).ClienteFieles(operacion[1]));
-                 
+    
                //Con este codigo es que responde el servidor:
-               // salidaObjeto.writeObject("");
+               salidaObjeto.writeObject(respuesta);
                
                //----------------------------------------------------------------------
                

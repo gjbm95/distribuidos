@@ -23,15 +23,13 @@ public class RecepcionArchivo extends Thread {
     
     public void run () 
     {
-       //Solicitudes concurrentes:
-                   
+       //Solicitudes concurrentes:       
            try {
-                ServerSocket reves6 = new ServerSocket(Sistema.miPuerto);
+                ServerSocket reves6 = new ServerSocket(Sistema.miPuertoArchivo);
                 while (true)
                   {   
                       Socket recibo = reves6.accept();              
                       new EnvioArchivo(reves6,recibo).start();
-                      
                    }
                } catch (IOException ex) {
                    //Logger.getLogger(Recepcion.class.getName()).log(Level.SEVERE, null, ex);

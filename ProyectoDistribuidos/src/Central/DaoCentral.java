@@ -72,6 +72,7 @@ public class DaoCentral {
          } 
             Element nodo = new Element("nodo");
             nodo.setAttribute(new Attribute("ip",direccion));
+            nodo.setAttribute(new Attribute("id",Integer.toString(direccion.hashCode())));
             root.addContent(nodo);
             document.removeContent();
             document.addContent(root);
@@ -188,8 +189,8 @@ public class DaoCentral {
                 document = sb.build(fis);
                 // get the root element of the document
                 root = document.getRootElement();
-                    Element aux = new Element("recursos");
-                    List nodos = root.getChildren("recursos"); 
+                    Element aux = new Element("nodo");
+                    List nodos = root.getChildren("nodo"); 
                     ArrayList<String> resultados = new ArrayList<>(); 
                       Iterator i = nodos.iterator();
                          while (i.hasNext()) {
@@ -205,6 +206,39 @@ public class DaoCentral {
             }
          } 
         return null; 
+    }
+  
+    public int numeroNodos(){
+       File xmlFile = new File(filelocation);
+        Document document = null;
+        if(xmlFile.exists()) {
+            try {
+                // try to load document from xml file if it exist
+                // create a file input stream
+                FileInputStream fis = new FileInputStream(xmlFile);
+                // create a sax builder to parse the document
+                SAXBuilder sb = new SAXBuilder();
+                // parse the xml content provided by the file input stream and create a Document object
+                document = sb.build(fis);
+                // get the root element of the document
+                root = document.getRootElement();
+                    Element aux = new Element("nodo");
+                    List nodos = root.getChildren("nodo"); 
+                    int resultados =0;  
+                      Iterator i = nodos.iterator();
+                         while (i.hasNext()) {
+                              Element e = (Element) i.next();
+                              resultados++;
+                          }    
+                fis.close();
+                return resultados; 
+            } catch (JDOMException ex) {
+                Logger.getLogger(DaoCentral.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(DaoCentral.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         } 
+        return 0; 
     }
     
     
