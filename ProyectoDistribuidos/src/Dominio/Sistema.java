@@ -10,25 +10,12 @@ package Dominio;
  * @author Junior
  */
 public class Sistema {
-    String ip; 
-    int miPuerto; 
+    public static String ip; 
+    public static int miPuerto; 
+    public static String ipserver; 
+    public static int puertoserver; 
 
-    public String getIp() {
-        return ip;
-    }
 
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
-
-    public int getMiPuerto() {
-        return miPuerto;
-    }
-
-    public void setMiPuerto(int miPuerto) {
-        this.miPuerto = miPuerto;
-    }
     
-    
-    
+  
 }

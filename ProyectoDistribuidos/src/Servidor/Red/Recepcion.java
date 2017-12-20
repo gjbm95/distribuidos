@@ -17,24 +17,24 @@ import java.util.logging.Logger;
  * @author Junior
  */
 public class Recepcion extends Thread{ 
-    Sistema sistema; 
-    
-    public Recepcion(Sistema sistema)
+
+  
+    public Recepcion()
     {
-       this.sistema = sistema; 
+       
     }
     
     public void run () 
     {
       try {     
-        ServerSocket reves = new ServerSocket(sistema.getMiPuerto());
+        ServerSocket reves = new ServerSocket(Sistema.miPuerto);
        //Contador de procesos; 
         int i=1;
        //Solicitudes concurrentes:
        while (true)
        {        
                   Socket recibo = reves.accept();
-                  new Cliente.Red.Gestion(sistema,reves,recibo,i).start();
+                  new Cliente.Red.Gestion(reves,recibo,i).start();
                   i++;
        }  
         } catch (IOException ex) {

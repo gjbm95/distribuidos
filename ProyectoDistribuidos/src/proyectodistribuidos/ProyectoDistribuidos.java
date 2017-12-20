@@ -41,13 +41,13 @@ public class ProyectoDistribuidos {
            
             case 1:{
             // LOGICA CLIENTE
-            new Cliente.Red.Recepcion(sistema).start();
+            new Cliente.Red.Recepcion().start();
             new ControladorC();
             break;
             }
             case 2: {
                 //LOGICA SERVIDOR
-                new Servidor.Red.Recepcion(sistema).start();
+                new Servidor.Red.Recepcion().start();
                 new ControladorS();
                 break;
             }
