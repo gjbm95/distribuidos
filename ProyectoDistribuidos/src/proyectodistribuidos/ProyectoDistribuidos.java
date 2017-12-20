@@ -52,8 +52,8 @@ public class ProyectoDistribuidos {
             }
             case 3:{
             // LOGICA SERVIDOR FANTASMA
-            sistema.setMiPuerto(9090);
-            new Central.Red.Recepcion(sistema).start();
+            Sistema.miPuerto=9090;
+            new Central.Red.Recepcion().start();
                 new Controlador();
             break;
             }
