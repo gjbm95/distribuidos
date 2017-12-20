@@ -190,7 +190,7 @@ public class DaoCentral {
                 root = document.getRootElement();
                     Element aux = new Element("recursos");
                     List nodos = root.getChildren("recursos"); 
-                    ArrayList<String> resultados = new ArrayList<String>(); 
+                    ArrayList<String> resultados = new ArrayList<>(); 
                       Iterator i = nodos.iterator();
                          while (i.hasNext()) {
                               Element e = (Element) i.next();
