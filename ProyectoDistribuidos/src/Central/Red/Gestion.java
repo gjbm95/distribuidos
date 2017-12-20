@@ -12,6 +12,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  *
@@ -24,6 +25,7 @@ public class Gestion extends Thread{
     private int proceso =0; 
     private String mensaje; 
     private DaoCentral dao;
+    private int conexiones=0; 
     
     public Gestion (ServerSocket reves6,Socket recibo,int proceso)
     {
@@ -49,17 +51,20 @@ public class Gestion extends Thread{
                //----------------------------------------------------------------------
                switch(mensaje.split(":")[0]){
                     case "0":
-                    almacen.agregarNodo(mensaje.split(":")[1]);
+                    almacen.agregarNodo(mensaje.split(":")[1],mensaje.split(":")[2]);
+                    distribuirUsuarios(almacen.obtenerIps());
                     break;
                     case"1":
                     almacen.eliminarNodo(mensaje.split(":")[1]);   
                     break;
                     case"2":
-                    respuesta = almacen.numeroNodos();  
-                        System.out.println("Cantidad de nodos es : " + (int)respuesta);
-                    
+                    conexiones = conexiones + almacen.numeroNodos();  
+                    respuesta = conexiones; 
+                    System.out.println("Cantidad de nodos es : " + (int)respuesta);
                     break;
-               
+                    case"3":
+                    respuesta = almacen.obtenerIps(); 
+                    break;
                }
     
                //Con este codigo es que responde el servidor:
@@ -72,5 +77,13 @@ public class Gestion extends Thread{
                System.out.println("Hay un error de Conexion! o Ocurrio un error en la solicitud recibida: " + mensaje);
                //Logger.getLogger(GestionSolicitudes.class.getName()).log(Level.SEVERE, null, ex);
            }
+    }
+    
+    private void distribuirUsuarios(ArrayList<String> almacen){
+        for (String direccion : almacen){
+          Envio.enviardato(almacen,direccion.split(":")[0],
+                  Integer.parseInt(direccion.split(":")[2]));
+        } 
+    
     }
 }

@@ -11,6 +11,7 @@ import Cliente.ControladorC;
 import Cliente.Red.Envio;
 import Dominio.Sistema;
 import Servidor.ControladorS;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -48,7 +49,8 @@ public class ProyectoDistribuidos {
                 System.out.println("Puerto asignado: "+ Sistema.miPuertoArchivo);
             new Cliente.Red.Recepcion().start();
             new Cliente.Red.RecepcionArchivo().start();
-            Envio.enviardato("0:"+Sistema.ip,"center");
+            Envio.enviardato("0:"+Sistema.ip+":"+Sistema.miPuerto,"center");
+            Sistema.anillo = (ArrayList<String>)Envio.enviardato("4:","center");
             new ControladorC();
             break;
             }

@@ -2,6 +2,7 @@ package Cliente;
 
 import Central.DaoCentral;
 import Dominio.Recurso;
+import Dominio.Sistema;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -25,14 +26,14 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
-public class DaoC {
+public class DaoFinger {
     // The higher the number of iterations the more 
     // expensive computing the hash is for us and
     // also for an attacker.
     private static final int iterations = 20*1000;
     private static final int saltLen = 32;
     private static final int desiredKeyLen = 256;
-    String filelocation = "cliente.xml";
+    String filelocation = "tabla-"+Sistema.ip.hashCode()+"-"+Sistema.miPuerto+".xml";
     Element root;
     
     /*
@@ -156,7 +157,7 @@ public class DaoC {
                     while (aux != null) {
                         aux = obtenerIdRecurso(nodos,id);
                          
-                        resultado =  new Recurso(Integer.parseInt(aux.getAttributeValue("id"))
+                         resultado =  new Recurso(Integer.parseInt(aux.getAttributeValue("id"))
                                  ,aux.getAttributeValue("nombre"),aux.getAttributeValue("ruta")
                                  ,aux.getAttributeValue("ip"),
                                  Integer.parseInt(aux.getAttributeValue("iphash")));
@@ -230,6 +231,11 @@ public class DaoC {
       return null; 
     }
     
+    public void eliminarArchivo(){
+      File fichero = new File(filelocation);
+      fichero.delete();
+    }
+    
     /*
      Creando archivo XML 
     */
@@ -266,10 +272,7 @@ public class DaoC {
         }
     }
     
-    public void eliminarArchivo(){
-      File fichero = new File(filelocation);
-      fichero.delete();
-    }
+    
     
     
  

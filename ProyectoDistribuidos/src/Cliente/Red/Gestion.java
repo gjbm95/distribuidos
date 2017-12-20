@@ -11,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,7 +21,7 @@ public class Gestion extends Thread {
     ServerSocket reves6;
     Socket recibo;
     int proceso =0; 
-    String mensaje; 
+    Object mensaje; 
     
    public Gestion (ServerSocket reves6,Socket recibo,int proceso)
     {
@@ -37,40 +38,25 @@ public class Gestion extends Thread {
                ObjectInputStream ois = new ObjectInputStream(recibo.getInputStream());
                ObjectOutputStream salidaObjeto = new ObjectOutputStream(recibo.getOutputStream()); 
                //Mensaje que llega:
-                mensaje = (String)ois.readObject();
-               //RESPUESTAS DEL SERVIDOR:
+                mensaje = ois.readObject();
+               //RESPUESTAS DEL NODO:
                //----------------------------------------------------------------------
-               //Condiciones de Garry:
-//                 String [] operacion = mensaje.split(":");  
-//                 if (operacion[0].equals("1"))
-//                   salidaObjeto.writeObject(new Controlador_Garry(sistema).registrarusuario(operacion[1],operacion[2],operacion[3]));
-//                 if (operacion[0].equals("2"))
-//                   salidaObjeto.writeObject(new Controlador_Garry(sistema).iniciarsesion(operacion[1],operacion[2]));
-//                 if (operacion[0].equals("5"))
-//                   salidaObjeto.writeObject(new Controlador_Garry(sistema).solicitadescargaA(operacion[1])); 
-//                 if (operacion[0].equals("8"))
-//                   salidaObjeto.writeObject(new Controlador_Garry(sistema).registrarTransaccion(operacion[1],operacion[2],operacion[3],operacion[4]));
-//                 if (operacion[0].equals("9")) 
-//                   salidaObjeto.writeObject(new Controlador_Garry(sistema).registroServidor(operacion[1],Integer.parseInt(operacion[2])));  
-//                 if (operacion[0].equals("12"))  
-//                   salidaObjeto.writeObject(new Controlador_Garry(sistema).registrarlibros(operacion[2],Integer.parseInt(operacion[1])));
-//                 if (operacion[0].equals("13"))
-//                   salidaObjeto.writeObject(new Controlador_Garry(sistema).solicitaLibro(operacion[1]));  
-//                 if (operacion[0].equals("14"))  
-//                   salidaObjeto.writeObject(new Controlador_Garry(sistema).registrarlibros2(operacion[2],Integer.parseInt(operacion[1])));
-//                 //----------------------------------------------------------------------
-//               //Condiciones de Aquiles:
-//                 if (operacion[0].equals("3")) 
-//                   salidaObjeto.writeObject(new Controlador_Aquiles(sistema).todoslosAutores(operacion[1]));
-//                 if (operacion[0].equals("4"))                  
-//                   salidaObjeto.writeObject(new Controlador_Aquiles(sistema).todoslosGeneros(operacion[1]));
-//                 if (operacion[0].equals("10"))  
-//                   salidaObjeto.writeObject(new Controlador_Aquiles(sistema).LibrosDescargados()); 
-//                 if (operacion[0].equals("11"))  
-//                   salidaObjeto.writeObject(new Controlador_Aquiles(sistema).ClienteFieles(operacion[1]));
+               if (mensaje instanceof String){
+                    String dato = (String)mensaje; 
+                   switch(dato.split(":")[0]){
+                       case "0":
+
+                       break;
+                    }
+               } 
+               
+               if (mensaje instanceof ArrayList){
+                 Sistema.anillo = (ArrayList<String>)mensaje; 
+                   System.out.println("Actualizando tabla de direcciones");
+               } 
                  
                //Con este codigo es que responde el servidor:
-               // salidaObjeto.writeObject("");
+               //salidaObjeto.writeObject("");
                
                //----------------------------------------------------------------------
                

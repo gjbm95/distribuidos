@@ -45,7 +45,7 @@ public class VistaC extends Thread {
                 }
                 case 3: {
                     // LOGICA SALIR
-                    Envio.enviardato("1:"+Sistema.ip,"center");
+                    Envio.enviardato("1:"+Sistema.ip+":"+Sistema.miPuerto,"center");
                     continuar = false;
                     System.exit(0);
                     break;

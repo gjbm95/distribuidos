@@ -10,14 +10,18 @@ package Dominio;
  * @author Junior
  */
 public class Recurso {
-    int id; 
-    String nombre;
-    String ruta; 
-
-    public Recurso(int id, String nombre, String ruta) {
+    private int id; 
+    private String nombre;
+    private String ruta; 
+    private String propietario;
+    private int codigoprop;
+    
+    public Recurso(int id, String nombre, String ruta,String propietario,int codigoprop) {
         this.id = id;
         this.nombre = nombre;
         this.ruta = ruta;
+        this.propietario = propietario; 
+        this.codigoprop = codigoprop;
     }
     
 
@@ -45,5 +49,22 @@ public class Recurso {
         this.ruta = ruta;
     }
 
+    public String getPropietario() {
+        return propietario;
+    }
+
+    public void setPropietario(String propietario) {
+        this.propietario = propietario;
+    }
+
+    public int getCodigoprop() {
+        return codigoprop;
+    }
+
+    public void setCodigoprop(int codigoprop) {
+        this.codigoprop = codigoprop;
+    }
+
+    
     
 }

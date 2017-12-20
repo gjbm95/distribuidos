@@ -64,6 +64,8 @@ public class DaoS {
             recurso.setAttribute("id", Integer.toString(archivo.getId()));
             recurso.setAttribute("nombre",archivo.getNombre());
             recurso.setAttribute("ruta",archivo.getRuta());
+            recurso.setAttribute("ip",archivo.getPropietario());
+            recurso.setAttribute("iphash",Integer.toString(archivo.getCodigoprop()));
             root.addContent(recurso);
             document.removeContent();
             document.addContent(root);
@@ -153,8 +155,10 @@ public class DaoS {
                     while (aux != null) {
                         aux = obtenerIdRecurso(nodos,id);
                          
-                         resultado =  new Recurso(Integer.parseInt(aux.getAttributeValue("id"))
-                                 ,aux.getAttributeValue("nombre"),aux.getAttributeValue("ruta"));
+                        resultado =  new Recurso(Integer.parseInt(aux.getAttributeValue("id"))
+                                 ,aux.getAttributeValue("nombre"),aux.getAttributeValue("ruta")
+                                 ,aux.getAttributeValue("ip"),
+                                 Integer.parseInt(aux.getAttributeValue("iphash")));
                     }
                 fis.close();
                 return resultado; 
@@ -193,7 +197,9 @@ public class DaoS {
                          while (i.hasNext()) {
                               Element e = (Element) i.next();
                               resultados.add(new Recurso(Integer.parseInt(aux.getAttributeValue("id"))
-                               ,aux.getAttributeValue("nombre"),aux.getAttributeValue("ruta")));
+                                 ,aux.getAttributeValue("nombre"),aux.getAttributeValue("ruta")
+                                 ,aux.getAttributeValue("ip"),
+                                 Integer.parseInt(aux.getAttributeValue("iphash"))));
                           }    
                 fis.close();
                 return resultados; 

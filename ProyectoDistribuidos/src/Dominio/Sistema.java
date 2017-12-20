@@ -5,6 +5,8 @@
  */
 package Dominio;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Junior
@@ -19,6 +21,7 @@ public class Sistema {
     public static int miPuertoArchivo = 9095;
     public static int puertocenterArchivo = 9093; 
     public static int puertoserverArchivo = 9094;
+    public static ArrayList<String> anillo;
 
     
   
