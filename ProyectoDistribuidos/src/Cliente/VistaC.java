@@ -26,7 +26,8 @@ public class VistaC extends Thread {
             System.out.println("Que deseas hacer?");
             System.out.println("Presiona 1 para buscar un recurso");
             System.out.println("Presiona 2 para ver el estado de solicitudes");
-            System.out.println("Presiona 3 para salir");
+            System.out.println("Presiona 3 para agregar archivos");
+            System.out.println("Presiona 4 para salir");
             System.out.println("Ingresa tu opcion: ");
             opcion = sc.nextInt();
 
@@ -36,7 +37,7 @@ public class VistaC extends Thread {
                     System.out.println("Introduzca el nombre del recurso que desea buscar: ");
                     String recurso= sc.next();
                     int hash = recurso.hashCode();
-                    //new ReciboArchivo().descargarArchivo(Sistema.ipserver,Sistema.puertoserver,hash);
+                    
                     break;
                 }
                 case 2: {
@@ -44,6 +45,14 @@ public class VistaC extends Thread {
                     break;
                 }
                 case 3: {
+                    //LOGICA AGREGAR ARCHIVOS
+                    System.out.println("Ingrese el nombre del archivo:");
+                    sc = new Scanner(System.in);
+                    String archivo = sc.nextLine();
+                    ControladorC.agregarArchivo(archivo);
+                    break;
+                }
+                case 4: {
                     // LOGICA SALIR
                     Envio.enviardato("1:"+Sistema.ip+":"+Sistema.miPuerto,"center");
                     continuar = false;

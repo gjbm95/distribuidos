@@ -33,7 +33,7 @@ public class DaoFinger {
     private static final int iterations = 20*1000;
     private static final int saltLen = 32;
     private static final int desiredKeyLen = 256;
-    String filelocation = "tabla-"+Sistema.ip.hashCode()+"-"+Sistema.miPuerto+".xml";
+    String filelocation = "tabla-"+Math.abs(Sistema.ip.hashCode())+"-"+Sistema.miPuerto+".xml";
     Element root;
     
     /*
@@ -63,10 +63,6 @@ public class DaoFinger {
          } 
             Element recurso = new Element("recurso");
             recurso.setAttribute("id", Integer.toString(archivo.getId()));
-            recurso.setAttribute("nombre",archivo.getNombre());
-            recurso.setAttribute("hash",archivo.getNombre());
-            recurso.setAttribute("ruta",archivo.getRuta());
-            recurso.setAttribute("ip",archivo.getPropietario());
             recurso.setAttribute("iphash",Integer.toString(archivo.getCodigoprop()));
             root.addContent(recurso);
             document.removeContent();
@@ -158,9 +154,7 @@ public class DaoFinger {
                         aux = obtenerIdRecurso(nodos,id);
                          
                          resultado =  new Recurso(Integer.parseInt(aux.getAttributeValue("id"))
-                                 ,aux.getAttributeValue("nombre"),aux.getAttributeValue("ruta")
-                                 ,aux.getAttributeValue("ip"),
-                                 Integer.parseInt(aux.getAttributeValue("iphash")));
+                                 ,Integer.parseInt(aux.getAttributeValue("iphash")));
                     }
                 fis.close();
                 return resultado; 
@@ -199,9 +193,7 @@ public class DaoFinger {
                          while (i.hasNext()) {
                               Element e = (Element) i.next();
                               resultados.add(new Recurso(Integer.parseInt(aux.getAttributeValue("id"))
-                                 ,aux.getAttributeValue("nombre"),aux.getAttributeValue("ruta")
-                                 ,aux.getAttributeValue("ip"),
-                                 Integer.parseInt(aux.getAttributeValue("iphash"))));
+                                 ,Integer.parseInt(aux.getAttributeValue("iphash"))));
                           }    
                 fis.close();
                 return resultados; 
@@ -241,7 +233,7 @@ public class DaoFinger {
     */
     public void crearXML(){
          try {
-		Element anillo = new Element("anillo");
+		Element anillo = new Element("recursos");
 		Document doc = new Document(anillo);
 		doc.setRootElement(anillo);
 		// new XMLOutputter().output(doc, System.out);

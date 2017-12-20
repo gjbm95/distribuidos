@@ -8,6 +8,7 @@ package proyectodistribuidos;
 import Central.Controlador;
 import Central.DaoCentral;
 import Cliente.ControladorC;
+import Cliente.DaoFinger;
 import Cliente.Red.Envio;
 import Dominio.Sistema;
 import Servidor.ControladorS;
@@ -25,6 +26,7 @@ public class ProyectoDistribuidos {
      */
     public static void main(String[] args) {
         Sistema sistema = new Sistema(); 
+        
         Scanner sc = new Scanner(System.in);
         System.out.println("Bienvendo al proyecto de distribuidos");
         System.out.println("Realizado por:");
@@ -49,8 +51,9 @@ public class ProyectoDistribuidos {
                 System.out.println("Puerto asignado: "+ Sistema.miPuertoArchivo);
             new Cliente.Red.Recepcion().start();
             new Cliente.Red.RecepcionArchivo().start();
+            new DaoFinger().crearXML();
             Envio.enviardato("0:"+Sistema.ip+":"+Sistema.miPuerto,"center");
-            Sistema.anillo = (ArrayList<String>)Envio.enviardato("4:","center");
+            //Sistema.anillo = (ArrayList<String>)Envio.enviardato("4:","center");
             new ControladorC();
             break;
             }

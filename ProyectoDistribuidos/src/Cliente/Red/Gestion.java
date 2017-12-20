@@ -5,6 +5,8 @@
  */
 package Cliente.Red;
 
+import Cliente.DaoFinger;
+import Dominio.Recurso;
 import Dominio.Sistema;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -44,8 +46,11 @@ public class Gestion extends Thread {
                if (mensaje instanceof String){
                     String dato = (String)mensaje; 
                    switch(dato.split(":")[0]){
-                       case "0":
-
+                       case "2":
+                         DaoFinger almacen = new DaoFinger(); 
+                         almacen.agregarRecurso(new Recurso(Integer.parseInt(dato.split(":")[1]),
+                                 Integer.parseInt(dato.split(":")[2])));
+                           System.out.println("Actualizando tabla Finger");
                        break;
                     }
                } 

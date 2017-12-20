@@ -72,7 +72,7 @@ public class DaoCentral {
          } 
             Element nodo = new Element("nodo");
             nodo.setAttribute(new Attribute("ip",direccion));
-            nodo.setAttribute(new Attribute("id",Integer.toString(direccion.hashCode())));
+            nodo.setAttribute(new Attribute("id",Integer.toString(Math.abs(direccion.hashCode()))));
             nodo.setAttribute(new Attribute("port",puerto));
             root.addContent(nodo);
             document.removeContent();
@@ -242,8 +242,7 @@ public class DaoCentral {
          } 
         return 0; 
     }
-    
-    
+
     /*
      Retorna la ip del nodo en HASH almacenada
     */

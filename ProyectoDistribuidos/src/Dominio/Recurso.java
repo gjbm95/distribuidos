@@ -23,6 +23,13 @@ public class Recurso {
         this.propietario = propietario; 
         this.codigoprop = codigoprop;
     }
+
+    public Recurso(int id, int codigoprop) {
+        this.id = id;
+        this.codigoprop = codigoprop;
+    }
+    
+    
     
 
     public int getId() {
