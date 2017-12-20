@@ -174,7 +174,7 @@ public class DaoCentral {
     }
     
     
-    public ArrayList<Integer> obtenerIps(){
+    public ArrayList<String> obtenerIps(){
        File xmlFile = new File(filelocation);
         Document document = null;
         if(xmlFile.exists()) {
@@ -190,11 +190,11 @@ public class DaoCentral {
                 root = document.getRootElement();
                     Element aux = new Element("recursos");
                     List nodos = root.getChildren("recursos"); 
-                    ArrayList<Integer> resultados = new ArrayList<Integer>(); 
+                    ArrayList<String> resultados = new ArrayList<String>(); 
                       Iterator i = nodos.iterator();
                          while (i.hasNext()) {
                               Element e = (Element) i.next();
-                              resultados.add(Integer.parseInt(aux.getAttributeValue("id")));
+                              resultados.add(aux.getAttributeValue("id"));
                           }    
                 fis.close();
                 return resultados; 
