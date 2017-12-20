@@ -17,17 +17,15 @@ import java.net.Socket;
  * @author Junior
  */
 public class Gestion extends Thread {
-    Sistema sistema; 
     ServerSocket reves6;
     Socket recibo;
     int proceso =0; 
     String mensaje; 
     
-   public Gestion (Sistema sistema,ServerSocket reves6,Socket recibo,int proceso)
+   public Gestion (ServerSocket reves6,Socket recibo,int proceso)
     {
         this.reves6 = reves6; 
         this.recibo = recibo;
-        this.sistema = sistema; 
         this.proceso = proceso;
     }
    
