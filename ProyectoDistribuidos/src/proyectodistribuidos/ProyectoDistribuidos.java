@@ -41,6 +41,7 @@ public class ProyectoDistribuidos {
             case 1:{
             // LOGICA CLIENTE
             new Cliente.Red.Recepcion().start();
+            new Cliente.Red.RecepcionArchivo().start();
             new ControladorC();
             break;
             }

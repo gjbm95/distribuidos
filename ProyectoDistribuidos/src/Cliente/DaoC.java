@@ -63,6 +63,7 @@ public class DaoC {
             Element recurso = new Element("recurso");
             recurso.setAttribute("id", Integer.toString(archivo.getId()));
             recurso.setAttribute("nombre",archivo.getNombre());
+            recurso.setAttribute("hash",archivo.getNombre());
             recurso.setAttribute("ruta",archivo.getRuta());
             root.addContent(recurso);
             document.removeContent();

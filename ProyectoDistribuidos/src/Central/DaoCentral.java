@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 package Central;
+import Dominio.Recurso;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -168,6 +170,40 @@ public class DaoCentral {
             }
          } 
 
+        return null; 
+    }
+    
+    
+    public ArrayList<Integer> obtenerIps(){
+       File xmlFile = new File(filelocation);
+        Document document = null;
+        if(xmlFile.exists()) {
+            try {
+                // try to load document from xml file if it exist
+                // create a file input stream
+                FileInputStream fis = new FileInputStream(xmlFile);
+                // create a sax builder to parse the document
+                SAXBuilder sb = new SAXBuilder();
+                // parse the xml content provided by the file input stream and create a Document object
+                document = sb.build(fis);
+                // get the root element of the document
+                root = document.getRootElement();
+                    Element aux = new Element("recursos");
+                    List nodos = root.getChildren("recursos"); 
+                    ArrayList<Integer> resultados = new ArrayList<Integer>(); 
+                      Iterator i = nodos.iterator();
+                         while (i.hasNext()) {
+                              Element e = (Element) i.next();
+                              resultados.add(Integer.parseInt(aux.getAttributeValue("id")));
+                          }    
+                fis.close();
+                return resultados; 
+            } catch (JDOMException ex) {
+                Logger.getLogger(DaoCentral.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(DaoCentral.class.getName()).log(Level.SEVERE, null, ex);
+            }
+         } 
         return null; 
     }
     
