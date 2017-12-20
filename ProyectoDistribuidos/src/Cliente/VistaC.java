@@ -33,6 +33,7 @@ public class VistaC extends Thread {
                     System.out.println("Introduzca el nombre del recurso que desea buscar: ");
                     String recurso= sc.next();
                     int hash = recurso.hashCode();
+                    
                     break;
                 }
                 case 2: {
