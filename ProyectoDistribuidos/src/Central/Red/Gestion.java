@@ -5,6 +5,7 @@
  */
 package Central.Red;
 
+import Central.DaoCentral;
 import Dominio.Sistema;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -22,12 +23,14 @@ public class Gestion extends Thread{
     private Socket recibo;
     private int proceso =0; 
     private String mensaje; 
+    private DaoCentral dao;
     
     public Gestion (ServerSocket reves6,Socket recibo,int proceso)
     {
         this.reves6 = reves6; 
         this.recibo = recibo;
         this.proceso = proceso;
+        this.dao= new DaoCentral();
     }
     
     @Override
@@ -42,6 +45,14 @@ public class Gestion extends Thread{
                //RESPUESTAS DEL SERVIDOR:
                //----------------------------------------------------------------------
                //Condiciones de Garry:
+               switch(mensaje.split(":")[0]){
+                   case "0":
+                       
+                    break;
+                   case"1":
+                    break;
+               
+               }
 //                 String [] operacion = mensaje.split(":");  
 //                 if (operacion[0].equals("1"))
 //                   salidaObjeto.writeObject(new Controlador_Garry(sistema).registrarusuario(operacion[1],operacion[2],operacion[3]));
