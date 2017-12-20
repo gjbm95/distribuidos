@@ -36,7 +36,6 @@ public class ProyectoDistribuidos {
         System.out.println("Presiona 4 para Salir");
         System.out.println("Ingresa tu opcion: ");
         int i = sc.nextInt();
-        
         switch(i){
            
             case 1:{
@@ -53,7 +52,9 @@ public class ProyectoDistribuidos {
             }
             case 3:{
             // LOGICA SERVIDOR FANTASMA
-            new Controlador();
+            sistema.setMiPuerto(9090);
+            new Central.Red.Recepcion(sistema).start();
+                new Controlador();
             break;
             }
             case 4: {
