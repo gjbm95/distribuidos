@@ -11,7 +11,7 @@ package Dominio;
  */
 public class Recurso {
     int id; 
-    String nombre; 
+    String nombre;
     String ruta; 
 
     public Recurso(int id, String nombre, String ruta) {
@@ -19,7 +19,7 @@ public class Recurso {
         this.nombre = nombre;
         this.ruta = ruta;
     }
-
+    
 
     public int getId() {
         return id;
@@ -44,6 +44,6 @@ public class Recurso {
     public void setRuta(String ruta) {
         this.ruta = ruta;
     }
-    
+
     
 }

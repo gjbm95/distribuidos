@@ -41,6 +41,7 @@ public class ProyectoDistribuidos {
             case 1:{
             // LOGICA CLIENTE
             new Cliente.Red.Recepcion().start();
+            new Cliente.Red.RecepcionArchivo().start();
             new ControladorC();
             break;
             }
@@ -52,7 +53,7 @@ public class ProyectoDistribuidos {
             }
             case 3:{
             // LOGICA SERVIDOR FANTASMA
-            sistema.setMiPuerto(9090);
+            Sistema.miPuerto=9090;
             new Central.Red.Recepcion(sistema).start();
                 new Controlador();
             break;

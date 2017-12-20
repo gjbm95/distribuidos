@@ -5,6 +5,8 @@
  */
 package Cliente;
 
+import Cliente.Red.Envio;
+
 /**
  *
  * @author Junior
@@ -13,6 +15,11 @@ public class ControladorC {
 
     public ControladorC() {
         new VistaC().run();
+    }
+    
+      
+    public static void buscarRecurso(int valor){
+      Envio.enviardato("3:"+valor);
     }
 
 }
