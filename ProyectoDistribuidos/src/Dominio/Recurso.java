@@ -17,6 +17,8 @@ public class Recurso {
     private int codigoprop;
     private int descargas=0;
     private String estado;
+    private int tamano;
+    private int tamanototal; 
     
     public Recurso(int id, String nombre, String ruta,String propietario,int codigoprop) {
         this.id = id;
@@ -91,5 +93,24 @@ public class Recurso {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+    public int getTamano() {
+        return tamano;
+    }
+
+    public void setTamano(int tamano) {
+        this.tamano = tamano;
+    }
+
+    public int getTamanototal() {
+        return tamanototal;
+    }
+
+    public void setTamanototal(int tamanototal) {
+        this.tamanototal = tamanototal;
+    }
+    
+    
+    
 
 }

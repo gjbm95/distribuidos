@@ -30,7 +30,9 @@ public class ReciboArchivo {
     
     
      public void descargarArchivo(String ip, int puerto,int nombre){
-       try{          
+        String [] d =null;
+        Recurso re = new Recurso();
+         try{          
                     System.out.println("Iniciando proceso de descarga de archivo");
                      // Se abre una conexion con Servidor Socket
                      Socket cliente = new Socket (ip,puerto);
@@ -41,12 +43,12 @@ public class ReciboArchivo {
                      DataInputStream dis=new DataInputStream(cliente.getInputStream());
                      //Recibimos el nombre del fichero
                      file = dis.readUTF();
-                     String [] d = file.split(":");                    
+                     d = file.split(":");                    
                      d[0] = d[0].substring(d[0].indexOf('\\')+1,d[0].length());
-                     Recurso re = new Recurso();
                      re.setNombre(d[0]);
                      re.setId(d[0].hashCode());
                      re.setEstado("Descargando...");
+                     re.setTamanototal(Integer.parseInt(d[1]));
                      Sistema.agregarRecibo(re);
                      //La data recibida, vendran en paquetes de 1024 bytes. 
                      receivedData = new byte[1024];
@@ -55,7 +57,8 @@ public class ReciboArchivo {
                      int l =0;
                      //Se manejan los datos acerca del libro recibido
                      while ((in = bis.read(receivedData)) != -1){     
-                        bos.write(receivedData,0,in);           
+                        bos.write(receivedData,0,in);  
+                        re.setTamano(re.getTamano()+in);
                         l+=in;
                      }
                      //Se cierra la conexion con el servidor de descarga. 
@@ -65,6 +68,8 @@ public class ReciboArchivo {
                      aumentarReporte(nombre);
                      Sistema.estadoRecibo(d[0].hashCode(),"Descarga Completa");
                      }catch (Exception e ) {
+                         System.out.println("La descarga del archivo "+d[0]+" ha fallado");
+                         re.setEstado("Fallido");
                          System.err.println(e);
                     }
     
@@ -79,4 +84,15 @@ public class ReciboArchivo {
              }
         }
      }
+     
+     public boolean reanudarDescarga(int nombre){
+       for (Recurso r : Sistema.recibiendo )
+       {
+          if ((r.getId()==nombre)&&(r.getEstado().equals("Fallido")))
+          {
+            return true;
+          }
+       }
+      return false; 
+     } 
 }

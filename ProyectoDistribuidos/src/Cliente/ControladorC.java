@@ -172,7 +172,7 @@ public class ControladorC {
         System.out.println("Estado de recursos");
         System.out.println("----------------------------------------------------------");
           for(Recurso r : Sistema.recibiendo){
-              System.out.println("Nombre: "+r.getNombre()+" | Estado: "+r.getEstado());
+              System.out.println("Nombre: "+r.getNombre()+" | Estado: "+r.getEstado() + " | Tamaño total:"+ r.getTamanototal() + " | Tamaño recibido: "+r.getTamano());
           }
         System.out.println("----------------------------------------------------------");
         System.out.println("Presione una tecla para continuar...");
@@ -185,7 +185,7 @@ public class ControladorC {
         System.out.println("Estado de Respuestas");
         System.out.println("----------------------------------------------------------");
           for(Recurso r : Sistema.enviando){
-              System.out.println("Nombre: "+r.getNombre()+" | Estado: "+r.getEstado());
+          System.out.println("Nombre: "+r.getNombre()+" | Estado: "+r.getEstado() + " | Tamaño total:"+ r.getTamanototal() + " | Tamaño recibido: "+r.getTamano());
           }
         System.out.println("----------------------------------------------------------");
         System.out.println("Presione una tecla para continuar...");

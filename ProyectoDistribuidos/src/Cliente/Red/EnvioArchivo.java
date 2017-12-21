@@ -51,17 +51,17 @@ public class EnvioArchivo extends Thread {
     }
     
     
-        public void run ()
-            {
+    public void run (){
+                String [] dt=null;
+                Recurso re = new Recurso();
                try{    
                      System.out.println("Iniciando proceso de envio de archivo.");
                      int id=0;
                      ObjectInputStream ois = new ObjectInputStream(connection.getInputStream());
                      solicitud = (String)ois.readObject();
-                     String [] dt = solicitud.split(":");
+                     dt = solicitud.split(":");
                      File localFile = new File("canciones"+Sistema.miPuerto+"/"+buscarArchivo(Integer.parseInt(dt[1])));
                      System.out.println("El archivo es: " + buscarArchivo(Integer.parseInt(dt[1])));
-                     Recurso re = new Recurso();
                      re.setNombre(buscarArchivo(Integer.parseInt(dt[1])));
                      re.setId(buscarArchivo(Integer.parseInt(dt[1])).hashCode());
                      re.setEstado("Enviando...");
@@ -85,8 +85,20 @@ public class EnvioArchivo extends Thread {
                        System.out.println("Envio de Archivo finalizado!");
                        Sistema.estadoEnvio(buscarArchivo(Integer.parseInt(dt[1])).hashCode(),"Envio Completo");
                     }catch ( Exception e ) {
-                      System.out.println("Error de Envio!");
+                      System.out.println("Error de Envio del archivo "+dt[1]);
+                      re.setEstado("Fallido");
                       Logger.getLogger(GestionArchivo.class.getName()).log(Level.SEVERE, null, e);
                     }
-            }
+    }
+        
+    public boolean reanudarDescarga(int nombre){
+       for (Recurso r : Sistema.recibiendo )
+       {
+          if ((r.getId()==nombre)&&(r.getEstado().equals("Fallido")))
+          {
+            return true;
+          }
+       }
+      return false; 
+    } 
 }
