@@ -95,6 +95,7 @@ public class ControladorC {
     
     public static void recargandoRecursos(){
       File f = new File("canciones"+Sistema.miPuerto);
+      f.mkdir();
       File[] ficheros = f.listFiles();
       DaoC interno = new DaoC(); 
       interno.crearXML();
