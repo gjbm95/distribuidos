@@ -7,22 +7,16 @@ package Cliente.Red;
 
 import Dominio.Sistema;
 
-    public class RealizarDescarga extends Thread
-    {
+public class RealizarDescarga extends Thread
+{
         String ip;
         int Puerto;
         int nombre;
-        String datoslibros; 
-        String numeroS;
-        int id; 
 
-    public RealizarDescarga(int id,String ip, int Puerto, int nombre) {
+    public RealizarDescarga(String ip, int Puerto, int nombre) {
         this.ip = ip;
         this.Puerto = Puerto;
         this.nombre = nombre;
-        this.datoslibros = datoslibros;
-        this.numeroS = numeroS;
-        this.id = id;
     }
         
 
@@ -30,6 +24,6 @@ import Dominio.Sistema;
         { 
            new ReciboArchivo().descargarArchivo(ip,Puerto,nombre);
         }
-    }
+}
  
 

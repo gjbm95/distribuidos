@@ -1,7 +1,10 @@
 package Cliente;
 
 import Central.DaoCentral;
+import static Cliente.ControladorC.seleccionarNodo;
+import Cliente.Red.Envio;
 import Dominio.Recurso;
+import Dominio.Sistema;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -151,11 +154,10 @@ public class DaoC {
                 // get the root element of the document
                 root = document.getRootElement();
                 Recurso resultado = null;
-                    Element aux = new Element("recursos");
-                    List nodos = root.getChildren("recursos");
-                    while (aux != null) {
-                        aux = obtenerIdRecurso(nodos,id);
-                         
+                    Element aux = new Element("recurso");
+                    List nodos = root.getChildren("recurso");
+                    aux = obtenerIdRecurso(nodos,id);
+                    if(aux != null) {
                         resultado =  new Recurso(Integer.parseInt(aux.getAttributeValue("id"))
                                  ,aux.getAttributeValue("nombre"),aux.getAttributeValue("ruta")
                                  ,aux.getAttributeValue("ip"),
@@ -172,6 +174,17 @@ public class DaoC {
 
         return null; 
     }
+    
+   public static String buscarArchivo(int nombre){
+      File f = new File("canciones");
+      File[] ficheros = f.listFiles();
+      for (int x=0;x<ficheros.length;x++){
+          if(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()==nombre){
+           return ficheros[x].getName();
+        }
+      }
+       return null; 
+    } 
     
     
     /*
@@ -191,8 +204,8 @@ public class DaoC {
                 document = sb.build(fis);
                 // get the root element of the document
                 root = document.getRootElement();
-                    Element aux = new Element("recursos");
-                    List nodos = root.getChildren("recursos"); 
+                    Element aux = new Element("recurso");
+                    List nodos = root.getChildren("recurso"); 
                     ArrayList<Recurso> resultados = new ArrayList<Recurso>(); 
                       Iterator i = nodos.iterator();
                          while (i.hasNext()) {

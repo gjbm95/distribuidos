@@ -29,11 +29,12 @@ public class ReciboArchivo {
     
      public void descargarArchivo(String ip, int puerto,int nombre){
        try{          
-                    // Se abre una conexion con Servidor Socket
+                    System.out.println("Iniciando proceso de descarga de archivo");
+                     // Se abre una conexion con Servidor Socket
                      Socket cliente = new Socket (ip,puerto);
                      ObjectOutputStream salidaObjeto = new ObjectOutputStream(cliente.getOutputStream());
                      //Solicito el archivo:
-                     salidaObjeto.writeObject("3:"+Integer.toString(nombre));
+                     salidaObjeto.writeObject("4:"+nombre);
                      bis = new BufferedInputStream(cliente.getInputStream());
                      DataInputStream dis=new DataInputStream(cliente.getInputStream());
                      //Recibimos el nombre del fichero
@@ -53,6 +54,7 @@ public class ReciboArchivo {
                      //Se cierra la conexion con el servidor de descarga. 
                      bos.close();
                      dis.close();
+                     System.out.println("Finalizando proceso de descarga de archivo");
                      }catch (Exception e ) {
                          System.err.println(e);
                     }

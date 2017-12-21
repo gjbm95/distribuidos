@@ -6,6 +6,7 @@
 package Cliente;
 
 import Cliente.Red.Envio;
+import Cliente.Red.RealizarDescarga;
 import Dominio.Recurso;
 import Dominio.Sistema;
 import java.io.File;
@@ -22,7 +23,13 @@ public class ControladorC {
     
       
     public static void buscarRecurso(int valor){
-      Envio.enviardato("3:"+valor,"server");
+      
+        String destino = seleccionarNodo(valor); 
+        if (!destino.equals("")){
+         String data = "3:"+Integer.toString(valor);
+         int ubicacion = (int) Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[1]));
+         new RealizarDescarga(obtenerIp(ubicacion),obtenerPuerto(ubicacion)+1,valor).start(); 
+        } 
     }
     
     public static void agregarArchivo(String nombre){
@@ -60,5 +67,29 @@ public class ControladorC {
          }
         return seleccion;     
     } 
+    
+    public static String obtenerIp(int hash){
+       String direccion; 
+         for(String ip : Sistema.anillo) 
+         {
+           if(hash==Integer.parseInt(ip.split(":")[1]))
+            {
+              return ip.split(":")[0];
+            }
+         }
+       return null; 
+    } 
+
+    public static int obtenerPuerto(int hash){
+       int puerto; 
+         for(String ip : Sistema.anillo) 
+         {
+           if(hash==Integer.parseInt(ip.split(":")[1]))
+            {
+              return Integer.parseInt(ip.split(":")[2]);
+            }
+         }
+       return 0; 
+    }
 
 }

@@ -41,16 +41,23 @@ public class Gestion extends Thread {
                ObjectOutputStream salidaObjeto = new ObjectOutputStream(recibo.getOutputStream()); 
                //Mensaje que llega:
                 mensaje = ois.readObject();
+                 DaoFinger almacen;
+                 Object respuesta = null; 
                //RESPUESTAS DEL NODO:
                //----------------------------------------------------------------------
                if (mensaje instanceof String){
                     String dato = (String)mensaje; 
                    switch(dato.split(":")[0]){
                        case "2":
-                         DaoFinger almacen = new DaoFinger(); 
+                         almacen = new DaoFinger(); 
                          almacen.agregarRecurso(new Recurso(Integer.parseInt(dato.split(":")[1]),
                                  Integer.parseInt(dato.split(":")[2])));
                            System.out.println("Actualizando tabla Finger");
+                       break;
+                       case "3":
+                         almacen = new DaoFinger(); 
+                         Recurso archivo = almacen.obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
+                         respuesta = archivo.getCodigoprop(); 
                        break;
                     }
                } 
@@ -61,7 +68,7 @@ public class Gestion extends Thread {
                } 
                  
                //Con este codigo es que responde el servidor:
-               //salidaObjeto.writeObject("");
+               salidaObjeto.writeObject(respuesta);
                
                //----------------------------------------------------------------------
                

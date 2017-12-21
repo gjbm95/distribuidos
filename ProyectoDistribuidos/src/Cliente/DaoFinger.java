@@ -148,11 +148,10 @@ public class DaoFinger {
                 // get the root element of the document
                 root = document.getRootElement();
                 Recurso resultado = null;
-                    Element aux = new Element("recursos");
-                    List nodos = root.getChildren("recursos");
-                    while (aux != null) {
-                        aux = obtenerIdRecurso(nodos,id);
-                         
+                    Element aux = new Element("recurso");
+                    List nodos = root.getChildren("recurso");
+                    aux = obtenerIdRecurso(nodos,id);
+                    if(aux != null) {
                          resultado =  new Recurso(Integer.parseInt(aux.getAttributeValue("id"))
                                  ,Integer.parseInt(aux.getAttributeValue("iphash")));
                     }
@@ -186,8 +185,8 @@ public class DaoFinger {
                 document = sb.build(fis);
                 // get the root element of the document
                 root = document.getRootElement();
-                    Element aux = new Element("recursos");
-                    List nodos = root.getChildren("recursos"); 
+                    Element aux = new Element("recurso");
+                    List nodos = root.getChildren("recurso"); 
                     ArrayList<Recurso> resultados = new ArrayList<Recurso>(); 
                       Iterator i = nodos.iterator();
                          while (i.hasNext()) {
@@ -214,7 +213,6 @@ public class DaoFinger {
         
          Iterator i = raiz.iterator();
           while (i.hasNext()) {
-            //System.out.println("i tiene algo");
             Element e = (Element) i.next();
             if (id==Integer.parseInt(e.getAttributeValue("id"))) {
                 return e;

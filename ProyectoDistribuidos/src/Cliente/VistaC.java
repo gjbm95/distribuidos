@@ -35,9 +35,10 @@ public class VistaC extends Thread {
 
                 case 1: {
                     System.out.println("Introduzca el nombre del recurso que desea buscar: ");
-                    String recurso= sc.next();
+                     sc = new Scanner(System.in);
+                    String recurso = sc.nextLine();
                     int hash = recurso.hashCode();
-                    
+                    ControladorC.buscarRecurso(hash);
                     break;
                 }
                 case 2: {
