@@ -107,7 +107,25 @@ public class ControladorC {
              Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[1]));
           } 
       }
-      
+    }
+    
+    public static void limpiarFinger(){
+        int i=0;
+        int captura =0;
+           for (Recurso r : new DaoFinger().obtenerRecursos()){
+               i=0;
+               for (String direccion : Sistema.anillo){                        
+                   if (Integer.parseInt(direccion.split(":")[2])!=Sistema.miPuerto){
+                       if(Integer.parseInt(direccion.split(":")[1])==r.getCodigoprop()) 
+                        i++; 
+                   }
+               } 
+               if (i==0)
+               {
+                   new DaoFinger().eliminarRecurso(r.getId());
+               }
+           }
+
     }
 
 }

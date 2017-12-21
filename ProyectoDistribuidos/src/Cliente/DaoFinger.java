@@ -191,8 +191,8 @@ public class DaoFinger {
                       Iterator i = nodos.iterator();
                          while (i.hasNext()) {
                               Element e = (Element) i.next();
-                              resultados.add(new Recurso(Integer.parseInt(aux.getAttributeValue("id"))
-                                 ,Integer.parseInt(aux.getAttributeValue("iphash"))));
+                              resultados.add(new Recurso(Integer.parseInt(e.getAttributeValue("id"))
+                                 ,Integer.parseInt(e.getAttributeValue("iphash"))));
                           }    
                 fis.close();
                 return resultados; 
@@ -210,7 +210,6 @@ public class DaoFinger {
      Retorna la ip del nodo en HASH almacenada
     */
     public Element obtenerIdRecurso(List raiz,int id){
-        
          Iterator i = raiz.iterator();
           while (i.hasNext()) {
             Element e = (Element) i.next();
@@ -226,6 +225,7 @@ public class DaoFinger {
       fichero.delete();
     }
     
+
     /*
      Creando archivo XML 
     */

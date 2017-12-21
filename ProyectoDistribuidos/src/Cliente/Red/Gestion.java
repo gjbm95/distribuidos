@@ -67,6 +67,7 @@ public class Gestion extends Thread {
                  Sistema.anillo = (ArrayList<String>)mensaje; 
                    System.out.println("Actualizando tabla de direcciones");
                    ControladorC.recargandoRecursos();
+                   ControladorC.limpiarFinger();
                } 
                  
                //Con este codigo es que responde el servidor:
