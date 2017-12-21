@@ -10,5 +10,9 @@ package Central;
  * @author Junior
  */
 public class Controlador {
+    public Controlador(){
+       System.out.println("Servidor Fantasma Iniciado...");
+       System.out.println("Esperando peticiones...");
+    }
     
 }
