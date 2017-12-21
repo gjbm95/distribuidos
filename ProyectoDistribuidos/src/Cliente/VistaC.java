@@ -30,7 +30,7 @@ public class VistaC extends Thread {
             System.out.println("Presiona 3 para agregar archivos");
             System.out.println("Presiona 4 para ver Recursos ofrecidos");
             System.out.println("Presiona 5 para ver el estado de respuestas");
-            System.out.println("Presiona 6 para ver el numero de descargas por video");
+            System.out.println("Presiona 6 para ver el numero de descargas por archivo");
             System.out.println("Presiona 7 para salir");
             System.out.println("----------------------------------------------------------");
             System.out.println("Ingresa tu opcion: ");
@@ -61,6 +61,11 @@ public class VistaC extends Thread {
                     sc = new Scanner(System.in);
                     String archivo = sc.nextLine();
                     ControladorC.agregarArchivo(archivo);
+                    break;
+                }
+                case 6: {
+                    //VER LAS CANTIDAD DE DESCARGAS DE LOS RECURSOS OFRECIDOS
+                    ControladorC.verNDescargas();
                     break;
                 }
                 case 7: {

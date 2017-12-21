@@ -15,6 +15,7 @@ public class Recurso {
     private String ruta; 
     private String propietario;
     private int codigoprop;
+    private int descargas=0;
     
     public Recurso(int id, String nombre, String ruta,String propietario,int codigoprop) {
         this.id = id;
@@ -70,6 +71,14 @@ public class Recurso {
 
     public void setCodigoprop(int codigoprop) {
         this.codigoprop = codigoprop;
+    }
+
+    public int getDescargas() {
+        return descargas;
+    }
+
+    public void setDescargas(int descargas) {
+        this.descargas = descargas;
     }
 
     

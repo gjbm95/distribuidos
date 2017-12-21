@@ -94,6 +94,15 @@ public class ControladorC {
        return 0; 
     }
     
+    public static boolean estaRegistrado(Recurso recurso){
+        for (Recurso r :Sistema.recursos)
+           {
+             if(recurso.getId()==r.getId()) 
+              return true; 
+           }
+      return false; 
+    }
+    
     public static void recargandoRecursos(){
       File f = new File("canciones"+Sistema.miPuerto);
       f.mkdir();
@@ -101,8 +110,11 @@ public class ControladorC {
       DaoC interno = new DaoC(); 
       interno.crearXML();
       for (int x=0;x<ficheros.length;x++){
-          interno.agregarRecurso(new Recurso(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode(),ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")),
-                  ficheros[x].getPath(),Sistema.ip,Math.abs(Sistema.ip.hashCode()))); 
+          Recurso r = new Recurso(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode(),ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")),
+                  ficheros[x].getPath(),Sistema.ip,Math.abs(Sistema.ip.hashCode()));
+          interno.agregarRecurso(r); 
+           if (!estaRegistrado(r))
+             Sistema.recursos.add(r);
           String destino = seleccionarNodo(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()); 
           if (!destino.equals("")){
              String data = "2:"+Integer.toString(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode())+":"+Math.abs(Sistema.ip.hashCode());
@@ -132,11 +144,24 @@ public class ControladorC {
     
     public static void verRecursos(){
         System.out.println("Recursos Ofrecidos");
-        System.out.println("-------------------------------------");
-      for(Recurso r : new DaoC().obtenerRecursos()){
-          System.out.println("Nombre: "+r.getNombre());
-      }
-        System.out.println("-------------------------------------");
+        System.out.println("----------------------------------------------------------");
+          for(Recurso r : new DaoC().obtenerRecursos()){
+              System.out.println("Nombre: "+r.getNombre());
+          }
+        System.out.println("----------------------------------------------------------");
+        System.out.println("Presione una tecla para continuar...");
+      Scanner pauser = new Scanner (System.in);
+      pauser.nextLine();  
+    
+    }
+    
+    public static void verNDescargas(){
+        System.out.println("Cantidad de Descargas por Recursos");
+        System.out.println("----------------------------------------------------------");
+          for(Recurso r : Sistema.recursos){
+              System.out.println("Nombre: "+r.getNombre()+" | Nº Descargas: "+r.getDescargas());
+          }
+        System.out.println("----------------------------------------------------------");
         System.out.println("Presione una tecla para continuar...");
       Scanner pauser = new Scanner (System.in);
       pauser.nextLine();  

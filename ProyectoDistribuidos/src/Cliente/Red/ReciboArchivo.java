@@ -5,6 +5,8 @@
  */
 package Cliente.Red;
 
+import Dominio.Recurso;
+import Dominio.Sistema;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
@@ -55,9 +57,20 @@ public class ReciboArchivo {
                      bos.close();
                      dis.close();
                      System.out.println("Finalizando proceso de descarga de archivo");
+                     aumentarReporte(nombre);
                      }catch (Exception e ) {
                          System.err.println(e);
                     }
     
     }
+     
+     public void aumentarReporte(int id){
+         for (Recurso r : Sistema.recursos)
+        {
+            if (r.getId()==id)
+             {
+               r.setDescargas(r.getDescargas()+1);
+             }
+        }
+     }
 }

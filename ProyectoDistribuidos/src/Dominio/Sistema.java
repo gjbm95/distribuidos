@@ -35,7 +35,7 @@ public class Sistema {
     //------------------------------------------------------------
     //Aspectos de Reportes y Estadisticas: 
     //------------------------------------------------------------
-
+    public static ArrayList<Recurso> recursos = new ArrayList<Recurso>();
     //------------------------------------------------------------
     
     private static String obtenerIP(){

@@ -52,8 +52,8 @@ public class Gestion extends Thread {
                        case "2":
                          almacen = new DaoFinger(); 
                          almacen.agregarRecurso(new Recurso(Integer.parseInt(dato.split(":")[1]),
-                                 Integer.parseInt(dato.split(":")[2])));
-                           System.out.println("Actualizando tabla Finger");
+                         Integer.parseInt(dato.split(":")[2]))); 
+                         System.out.println("Actualizando tabla Finger");
                        break;
                        case "3":
                          almacen = new DaoFinger(); 

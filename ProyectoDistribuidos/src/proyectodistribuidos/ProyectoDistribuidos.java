@@ -27,20 +27,21 @@ public class ProyectoDistribuidos {
         Sistema sistema = new Sistema(); 
         
         Scanner sc = new Scanner(System.in);
-        System.out.println("Bienvendo al proyecto de distribuidos");
+        System.out.println("----------------------------------------------------------");
+        System.out.println("Bienvendo al Proyecto de Distribuidos");
+        System.out.println("----------------------------------------------------------");
         System.out.println("Realizado por:");
         System.out.println("Carlos Valero");
         System.out.println("Garry Bruno");
-        System.out.println("");
+        System.out.println("----------------------------------------------------------");
         System.out.println("Con que rol deseas entrar?");
-        System.out.println("Presiona 1 para entrar como Cliente");
-        System.out.println("Presiona 2 para entrar como Servidor");
-        System.out.println("Presiona 3 para entrar como Servidor Fantasma(SOLO 1)");
-        System.out.println("Presiona 4 para Salir");
+        System.out.println("Presiona 1 para entrar como Nodo");
+        System.out.println("Presiona 2 para entrar como Servidor Fantasma(SOLO 1)");
+        System.out.println("Presiona 3 para Salir");
+        System.out.println("----------------------------------------------------------");
         System.out.println("Ingresa tu opcion: ");
         int i = sc.nextInt();
         switch(i){
-           
             case 1:{
             // LOGICA CLIENTE
             int cantidad = (int)Envio.enviardato("2:","center");
@@ -56,20 +57,21 @@ public class ProyectoDistribuidos {
             new ControladorC();
             break;
             }
-            case 3:{
+            case 2:{
             // LOGICA SERVIDOR FANTASMA
             Sistema.miPuerto=9090;
             new Central.Red.Recepcion().start();
                 new Controlador();
             break;
             }
-            case 4: {
+            case 3: {
             // SALIR
-            
+              System.exit(0);
             break;
             }
             default:
                 System.out.println("Opcion erronea, saliendo del programa...");
+                System.exit(0);
             }
         
     }
