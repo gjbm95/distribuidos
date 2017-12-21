@@ -11,7 +11,6 @@ import Cliente.ControladorC;
 import Cliente.DaoFinger;
 import Cliente.Red.Envio;
 import Dominio.Sistema;
-import Servidor.ControladorS;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -56,13 +55,6 @@ public class ProyectoDistribuidos {
             //Sistema.anillo = (ArrayList<String>)Envio.enviardato("4:","center");
             new ControladorC();
             break;
-            }
-            case 2: {
-                //LOGICA SERVIDOR
-                Sistema.miPuerto=9091;
-                new Servidor.Red.Recepcion().start();
-                new ControladorS();
-                break;
             }
             case 3:{
             // LOGICA SERVIDOR FANTASMA

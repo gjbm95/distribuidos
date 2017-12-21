@@ -22,12 +22,17 @@ public class VistaC extends Thread {
         Scanner sc = new Scanner(System.in);
         while (continuar) {
             System.out.println("Bienvendo Cliente");
-            System.out.println("");
-            System.out.println("Que deseas hacer?");
+            System.out.println("----------------------------------------------------------");
+            System.out.println("MENU - Que deseas hacer?");
+            System.out.println("----------------------------------------------------------");
             System.out.println("Presiona 1 para buscar un recurso");
             System.out.println("Presiona 2 para ver el estado de solicitudes");
             System.out.println("Presiona 3 para agregar archivos");
-            System.out.println("Presiona 4 para salir");
+            System.out.println("Presiona 4 para ver Recursos ofrecidos");
+            System.out.println("Presiona 5 para ver el estado de respuestas");
+            System.out.println("Presiona 6 para ver el numero de descargas por video");
+            System.out.println("Presiona 7 para salir");
+            System.out.println("----------------------------------------------------------");
             System.out.println("Ingresa tu opcion: ");
             opcion = sc.nextInt();
 
@@ -45,6 +50,11 @@ public class VistaC extends Thread {
                     //LOGICA ESTADO DE RECURSOS
                     break;
                 }
+                case 4: {
+                    //RECURSOS OFRECIDOS
+                    ControladorC.verRecursos();
+                    break;
+                }
                 case 3: {
                     //LOGICA AGREGAR ARCHIVOS
                     System.out.println("Ingrese el nombre del archivo:");
@@ -53,7 +63,7 @@ public class VistaC extends Thread {
                     ControladorC.agregarArchivo(archivo);
                     break;
                 }
-                case 4: {
+                case 7: {
                     // LOGICA SALIR
                     Envio.enviardato("1:"+Sistema.ip+":"+Sistema.miPuerto,"center");
                     continuar = false;

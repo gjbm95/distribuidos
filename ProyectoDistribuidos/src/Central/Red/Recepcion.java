@@ -24,7 +24,7 @@ public class Recepcion extends Thread {
     public void run () 
     {
       try {     
-        ServerSocket reves = new ServerSocket(Sistema.miPuerto);
+        ServerSocket reves = new ServerSocket(Sistema.puertocenter);
        //Contador de procesos; 
         int i=1;
        //Solicitudes concurrentes:

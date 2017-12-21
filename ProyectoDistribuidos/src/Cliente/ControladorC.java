@@ -10,6 +10,7 @@ import Cliente.Red.RealizarDescarga;
 import Dominio.Recurso;
 import Dominio.Sistema;
 import java.io.File;
+import java.util.Scanner;
 
 /**
  *
@@ -127,6 +128,19 @@ public class ControladorC {
                }
            }
 
+    }
+    
+    public static void verRecursos(){
+        System.out.println("Recursos Ofrecidos");
+        System.out.println("-------------------------------------");
+      for(Recurso r : new DaoC().obtenerRecursos()){
+          System.out.println("Nombre: "+r.getNombre());
+      }
+        System.out.println("-------------------------------------");
+        System.out.println("Presione una tecla para continuar...");
+      Scanner pauser = new Scanner (System.in);
+      pauser.nextLine();  
+    
     }
 
 }

@@ -18,6 +18,10 @@ import java.util.logging.Logger;
  * @author Junior
  */
 public class Sistema {
+    
+    //------------------------------------------------------------
+    //Aspecto de Red: 
+    //-----------------------------------------------------------
     public static String ip = obtenerIP(); 
     public static String ipserver ="localhost"; 
     public static String ipcenter =obtenerIPCentral(); 
@@ -28,7 +32,11 @@ public class Sistema {
     public static int puertocenterArchivo = 9093; 
     public static int puertoserverArchivo = 9094;
     public static ArrayList<String> anillo;
+    //------------------------------------------------------------
+    //Aspectos de Reportes y Estadisticas: 
+    //------------------------------------------------------------
 
+    //------------------------------------------------------------
     
     private static String obtenerIP(){
         FileReader f=null;

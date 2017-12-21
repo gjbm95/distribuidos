@@ -210,10 +210,10 @@ public class DaoC {
                       Iterator i = nodos.iterator();
                          while (i.hasNext()) {
                               Element e = (Element) i.next();
-                              resultados.add(new Recurso(Integer.parseInt(aux.getAttributeValue("id"))
-                                 ,aux.getAttributeValue("nombre"),aux.getAttributeValue("ruta")
-                                 ,aux.getAttributeValue("ip"),
-                                 Integer.parseInt(aux.getAttributeValue("iphash"))));
+                              resultados.add(new Recurso(Integer.parseInt(e.getAttributeValue("id"))
+                                 ,e.getAttributeValue("nombre"),e.getAttributeValue("ruta")
+                                 ,e.getAttributeValue("ip"),
+                                 Integer.parseInt(e.getAttributeValue("iphash"))));
                           }    
                 fis.close();
                 return resultados; 
