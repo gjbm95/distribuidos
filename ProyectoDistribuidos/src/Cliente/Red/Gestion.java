@@ -5,6 +5,7 @@
  */
 package Cliente.Red;
 
+import Cliente.ControladorC;
 import Cliente.DaoFinger;
 import Dominio.Recurso;
 import Dominio.Sistema;
@@ -65,6 +66,7 @@ public class Gestion extends Thread {
                if (mensaje instanceof ArrayList){
                  Sistema.anillo = (ArrayList<String>)mensaje; 
                    System.out.println("Actualizando tabla de direcciones");
+                   ControladorC.recargandoRecursos();
                } 
                  
                //Con este codigo es que responde el servidor:

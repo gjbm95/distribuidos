@@ -57,12 +57,13 @@ public class ControladorC {
          {
              if (iteracion==0) 
              cercania = Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]));
-             if (Sistema.miPuerto!=Integer.parseInt(direccion.split(":")[2])) 
+             if (Sistema.miPuerto!=Integer.parseInt(direccion.split(":")[2])){
              if (Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]))<=cercania)
                  {
                     cercania = Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]));
                     seleccion = direccion.split(":")[0] + ":" +direccion.split(":")[2];
                  }
+             }
              iteracion++;
          }
         return seleccion;     
@@ -90,6 +91,23 @@ public class ControladorC {
             }
          }
        return 0; 
+    }
+    
+    public static void recargandoRecursos(){
+      File f = new File("canciones"+Sistema.miPuerto);
+      File[] ficheros = f.listFiles();
+      DaoC interno = new DaoC(); 
+      interno.crearXML();
+      for (int x=0;x<ficheros.length;x++){
+          interno.agregarRecurso(new Recurso(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode(),ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")),
+                  ficheros[x].getPath(),Sistema.ip,Math.abs(Sistema.ip.hashCode()))); 
+          String destino = seleccionarNodo(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()); 
+          if (!destino.equals("")){
+             String data = "2:"+Integer.toString(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode())+":"+Math.abs(Sistema.ip.hashCode());
+             Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[1]));
+          } 
+      }
+      
     }
 
 }

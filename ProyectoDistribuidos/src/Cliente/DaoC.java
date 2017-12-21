@@ -35,7 +35,7 @@ public class DaoC {
     private static final int iterations = 20*1000;
     private static final int saltLen = 32;
     private static final int desiredKeyLen = 256;
-    String filelocation = "cliente.xml";
+    String filelocation = "cliente"+Sistema.miPuerto+".xml";
     Element root;
     
     /*
@@ -176,7 +176,7 @@ public class DaoC {
     }
     
    public static String buscarArchivo(int nombre){
-      File f = new File("canciones");
+      File f = new File("canciones"+Sistema.miPuerto);
       File[] ficheros = f.listFiles();
       for (int x=0;x<ficheros.length;x++){
           if(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()==nombre){

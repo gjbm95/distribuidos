@@ -8,6 +8,7 @@ package Cliente.Red;
 import Cliente.DaoC;
 import static Cliente.DaoC.buscarArchivo;
 import Dominio.Recurso;
+import Dominio.Sistema;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
@@ -58,7 +59,7 @@ public class EnvioArchivo extends Thread {
                      ObjectInputStream ois = new ObjectInputStream(connection.getInputStream());
                      solicitud = (String)ois.readObject();
                      String [] dt = solicitud.split(":");
-                     File localFile = new File("canciones/"+buscarArchivo(Integer.parseInt(dt[1])));
+                     File localFile = new File("canciones"+Sistema.miPuerto+"/"+buscarArchivo(Integer.parseInt(dt[1])));
                      System.out.println("El archivos es: " + buscarArchivo(Integer.parseInt(dt[1])));
                      bis = new BufferedInputStream(new FileInputStream(localFile));
                      bos = new BufferedOutputStream(connection.getOutputStream());       
