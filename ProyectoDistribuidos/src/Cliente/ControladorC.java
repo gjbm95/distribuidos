@@ -39,13 +39,13 @@ public class ControladorC {
       for (int x=0;x<ficheros.length;x++){
         if(ficheros[x].getName().equals(nombre)){
           DaoC interno = new DaoC(); 
-          interno.agregarRecurso(new Recurso(nombre.hashCode(),nombre,
-                  ficheros[x].getPath(),Sistema.ip,Sistema.ip.hashCode()));
+          interno.agregarRecurso(new Recurso(Math.abs(nombre.hashCode()),nombre,
+                  ficheros[x].getPath(),Sistema.ip,Math.abs(Sistema.ip.hashCode())));
         }
       }
-      String destino = seleccionarNodo(nombre.hashCode()); 
+      String destino = seleccionarNodo(Math.abs(nombre.hashCode())); 
       if (!destino.equals("")){
-         String data = "2:"+Integer.toString(nombre.hashCode())+":"+Math.abs(Sistema.ip.hashCode());
+         String data = "2:"+Integer.toString(Math.abs(nombre.hashCode()))+":"+Math.abs(Sistema.ip.hashCode());
          Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[1]));
       } 
     } 
