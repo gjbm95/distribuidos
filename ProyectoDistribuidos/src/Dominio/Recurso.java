@@ -16,6 +16,7 @@ public class Recurso {
     private String propietario;
     private int codigoprop;
     private int descargas=0;
+    private String estado;
     
     public Recurso(int id, String nombre, String ruta,String propietario,int codigoprop) {
         this.id = id;
@@ -30,7 +31,9 @@ public class Recurso {
         this.codigoprop = codigoprop;
     }
     
+    public Recurso(){
     
+    }
     
 
     public int getId() {
@@ -81,6 +84,12 @@ public class Recurso {
         this.descargas = descargas;
     }
 
-    
-    
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
 }

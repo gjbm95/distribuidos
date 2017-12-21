@@ -43,6 +43,11 @@ public class ReciboArchivo {
                      file = dis.readUTF();
                      String [] d = file.split(":");                    
                      d[0] = d[0].substring(d[0].indexOf('\\')+1,d[0].length());
+                     Recurso re = new Recurso();
+                     re.setNombre(d[0]);
+                     re.setId(d[0].hashCode());
+                     re.setEstado("Descargando...");
+                     Sistema.agregarRecibo(re);
                      //La data recibida, vendran en paquetes de 1024 bytes. 
                      receivedData = new byte[1024];
                      //Para guardar fichero recibido
@@ -58,6 +63,7 @@ public class ReciboArchivo {
                      dis.close();
                      System.out.println("Finalizando proceso de descarga de archivo");
                      aumentarReporte(nombre);
+                     Sistema.estadoRecibo(d[0].hashCode(),"Descarga Completa");
                      }catch (Exception e ) {
                          System.err.println(e);
                     }

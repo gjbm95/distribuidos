@@ -60,7 +60,12 @@ public class EnvioArchivo extends Thread {
                      solicitud = (String)ois.readObject();
                      String [] dt = solicitud.split(":");
                      File localFile = new File("canciones"+Sistema.miPuerto+"/"+buscarArchivo(Integer.parseInt(dt[1])));
-                     System.out.println("El archivos es: " + buscarArchivo(Integer.parseInt(dt[1])));
+                     System.out.println("El archivo es: " + buscarArchivo(Integer.parseInt(dt[1])));
+                     Recurso re = new Recurso();
+                     re.setNombre(buscarArchivo(Integer.parseInt(dt[1])));
+                     re.setId(buscarArchivo(Integer.parseInt(dt[1])).hashCode());
+                     re.setEstado("Enviando...");
+                     Sistema.agregarEnvio(re);
                      bis = new BufferedInputStream(new FileInputStream(localFile));
                      bos = new BufferedOutputStream(connection.getOutputStream());       
                      //Enviamos el nombre del fichero
@@ -78,6 +83,7 @@ public class EnvioArchivo extends Thread {
                       bis.close();
                       bos.close();
                        System.out.println("Envio de Archivo finalizado!");
+                       Sistema.estadoEnvio(buscarArchivo(Integer.parseInt(dt[1])).hashCode(),"Envio Completo");
                     }catch ( Exception e ) {
                       System.out.println("Error de Envio!");
                       Logger.getLogger(GestionArchivo.class.getName()).log(Level.SEVERE, null, e);

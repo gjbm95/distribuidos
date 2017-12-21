@@ -36,6 +36,8 @@ public class Sistema {
     //Aspectos de Reportes y Estadisticas: 
     //------------------------------------------------------------
     public static ArrayList<Recurso> recursos = new ArrayList<Recurso>();
+    public static ArrayList<Recurso> recibiendo = new ArrayList<Recurso>();
+    public static ArrayList<Recurso> enviando = new ArrayList<Recurso>();
     //------------------------------------------------------------
     
     private static String obtenerIP(){
@@ -86,5 +88,55 @@ public class Sistema {
             }
         }
         return direccion;
+    }
+    
+    public static void agregarRecibo(Recurso r){
+      recibiendo.add(r);
+    }
+    
+    public static void eliminarRecibo(int id){
+        for (Recurso r : recibiendo)
+        {
+           if (r.getId()==id)
+           {
+              recibiendo.remove(r);
+              break;
+           }
+        }
+    }
+    
+    public static void estadoRecibo(int id,String estado){
+        for (Recurso r : recibiendo)
+        {
+           if (r.getId()==id)
+           {
+              r.setEstado(estado);
+           }
+        }
+    }
+    
+    public static void agregarEnvio(Recurso r){
+      enviando.add(r);
+    }
+    
+    public static void eliminarEnvio(int id){
+       for (Recurso r : enviando)
+        {
+           if (r.getId()==id)
+           {
+              enviando.remove(r);
+              break;
+           }
+        }
+    }
+    
+    public static void estadoEnvio(int id,String estado){
+        for (Recurso r : enviando)
+        {
+           if (r.getId()==id)
+           {
+              r.setEstado(estado);
+           }
+        }
     }
 }

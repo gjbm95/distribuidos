@@ -167,5 +167,31 @@ public class ControladorC {
       pauser.nextLine();  
     
     }
+    
+    public static void verEstadoRecurso(){
+        System.out.println("Estado de recursos");
+        System.out.println("----------------------------------------------------------");
+          for(Recurso r : Sistema.recibiendo){
+              System.out.println("Nombre: "+r.getNombre()+" | Estado: "+r.getEstado());
+          }
+        System.out.println("----------------------------------------------------------");
+        System.out.println("Presione una tecla para continuar...");
+      Scanner pauser = new Scanner (System.in);
+      pauser.nextLine();  
+    
+    }
+    
+     public static void verEstadoRespuestas(){
+        System.out.println("Estado de Respuestas");
+        System.out.println("----------------------------------------------------------");
+          for(Recurso r : Sistema.enviando){
+              System.out.println("Nombre: "+r.getNombre()+" | Estado: "+r.getEstado());
+          }
+        System.out.println("----------------------------------------------------------");
+        System.out.println("Presione una tecla para continuar...");
+      Scanner pauser = new Scanner (System.in);
+      pauser.nextLine();  
+    
+    }
 
 }

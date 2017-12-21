@@ -21,6 +21,7 @@ public class VistaC extends Thread {
         int opcion = 1;
         Scanner sc = new Scanner(System.in);
         while (continuar) {
+            System.out.println("----------------------------------------------------------");
             System.out.println("Bienvendo Cliente");
             System.out.println("----------------------------------------------------------");
             System.out.println("MENU - Que deseas hacer?");
@@ -48,11 +49,7 @@ public class VistaC extends Thread {
                 }
                 case 2: {
                     //LOGICA ESTADO DE RECURSOS
-                    break;
-                }
-                case 4: {
-                    //RECURSOS OFRECIDOS
-                    ControladorC.verRecursos();
+                    ControladorC.verEstadoRecurso();
                     break;
                 }
                 case 3: {
@@ -61,6 +58,16 @@ public class VistaC extends Thread {
                     sc = new Scanner(System.in);
                     String archivo = sc.nextLine();
                     ControladorC.agregarArchivo(archivo);
+                    break;
+                }
+                case 4: {
+                    //RECURSOS OFRECIDOS
+                    ControladorC.verRecursos();
+                    break;
+                }
+                case 5: {
+                    //ESTADO DE RESPUESTAS
+                    ControladorC.verEstadoRespuestas();
                     break;
                 }
                 case 6: {
