@@ -60,7 +60,7 @@ public class ReciboArchivo {
             //Para guardar fichero recibido
             File descargado = new File("Descargas\\" + d[0]);
             boolean recarga = true;
-            if (descargado.exists() && descargado.length()> re.getTamanototal()/2) {
+            if (descargado.exists() && descargado.length()< re.getTamanototal() && descargado.length()> re.getTamanototal()/2) {
                 System.out.println("Su descarga fue interrumpida anteriormente,"
                         + " descargando desde la mitad del archivo..");
                 BufferedInputStream arreglar = new BufferedInputStream(new FileInputStream(descargado));

@@ -29,6 +29,7 @@ public class ControladorC {
         if (!destino.equals("")){
          String data = "3:"+Integer.toString(valor);
          int ubicacion = (int) Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[1]));
+        
          new RealizarDescarga(obtenerIp(ubicacion),obtenerPuerto(ubicacion)+1,valor).start(); 
         } 
     }
@@ -56,19 +57,16 @@ public class ControladorC {
         int iteracion =0;
         for (String direccion : Sistema.anillo)
          {
-             //if (Sistema.miPuerto!=Integer.parseInt(direccion.split(":")[2])){
                  if (iteracion==0){ 
                   cercania = Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]));
                      iteracion++;
                  }
-             if (Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]))<=cercania)
+                 if (Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]))<=cercania)
                  {
-                     
                     cercania = Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]));
-                    System.out.println("Enviando a : "+direccion.split(":")[0] + " " + cercania); 
                     seleccion = direccion.split(":")[0] + ":" +direccion.split(":")[2];
                  }
-             //}
+         
          }
         return seleccion;     
     } 
@@ -189,7 +187,7 @@ public class ControladorC {
         System.out.println("Estado de Respuestas");
         System.out.println("----------------------------------------------------------");
           for(Recurso r : Sistema.enviando){
-          System.out.println("Nombre: "+r.getNombre()+" | Estado: "+r.getEstado() + " | Tamaño total:"+ r.getTamanototal() + " | Tamaño recibido: "+r.getTamano());
+          System.out.println("Nombre: "+r.getNombre()+" | Estado: "+r.getEstado() + " | Tamaño total:"+ r.getTamanototal() );
           }
         System.out.println("----------------------------------------------------------");
         System.out.println("Presione una tecla para continuar...");
