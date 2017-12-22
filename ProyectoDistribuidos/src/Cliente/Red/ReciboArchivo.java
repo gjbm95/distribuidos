@@ -59,22 +59,26 @@ public class ReciboArchivo {
             receivedData = new byte[1024];
             //Para guardar fichero recibido
             File descargado = new File("Descargas\\" + d[0]);
-            boolean recarga = true;
+            boolean recarga;
             if (descargado.exists() && descargado.length()< re.getTamanototal() && descargado.length()> re.getTamanototal()/2) {
-                System.out.println("Su descarga fue interrumpida anteriormente,"
-                        + " descargando desde la mitad del archivo..");
-                BufferedInputStream arreglar = new BufferedInputStream(new FileInputStream(descargado));
-                byte [] arreglo = new byte[re.getTamanototal()/2];
-                in=arreglar.read(arreglo);
-                recarga = false;
-                arreglar.close();
-                bos = new BufferedOutputStream(new FileOutputStream("Descargas\\" + d[0]));
-                bos.write(arreglo, 0, in);
-                bos.close();
-                bos= new BufferedOutputStream(new FileOutputStream("Descargas\\" + d[0],true));
+                recarga=true;
+                BufferedInputStream arreglar = new BufferedInputStream(new FileInputStream(descargado)); 
+                byte [] arreglo = new byte[re.getTamanototal()/2]; 
+                in=arreglar.read(arreglo); 
+                recarga = false; 
+                arreglar.close(); 
+                bos = new BufferedOutputStream(new FileOutputStream("Descargas\\" + d[0])); 
+                bos.write(arreglo, 0, in); 
+                bos.close(); 
+                salidaObjeto.writeObject(1);
+                bos = new BufferedOutputStream(new FileOutputStream("Descargas\\" + d[0],true));
             }
-            else
+            else{
+                recarga=false;
+                salidaObjeto.writeObject(0);
                 bos = new BufferedOutputStream(new FileOutputStream("Descargas\\" + d[0]));
+            }
+                
             
 
             int l = 0;
@@ -83,16 +87,13 @@ public class ReciboArchivo {
 
             System.out.println("Tamano total: " + re.getTamanototal());
             while ((in = bis.read(receivedData)) != -1) {
-                if (recarga) {
                    // System.out.println("entro");
                     bos.write(receivedData, 0, in);
-                }
-                re.setTamano(re.getTamano() + in);
+                    re.setTamano(re.getTamano() + in);
                 if (partido && l > (re.getTamanototal() / 2)) {
+                    partido=false;
                     System.out.println("El archivo ha alcanzado el 50%");
                     bos.close();
-                    partido = false;
-                    recarga = true;
                     bos = new BufferedOutputStream(new FileOutputStream("Descargas\\" + d[0], true));
                 }
 
@@ -110,6 +111,7 @@ public class ReciboArchivo {
                 re.setEstado("Fallido");
                 System.out.println("Usted o el servidor ha perdido la conexion");
                 dis.close();
+                bos.close();
                 //System.err.println(e);
             } catch (IOException ex) {
                 Logger.getLogger(ReciboArchivo.class.getName()).log(Level.SEVERE, null, ex);

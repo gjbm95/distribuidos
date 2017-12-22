@@ -75,16 +75,24 @@ public class EnvioArchivo extends Thread {
                      //Enviamos el nombre del fichero
                      DataOutputStream dos=new DataOutputStream(connection.getOutputStream());
                      dos.writeUTF(localFile.getName()+":"+Integer.toString((int)localFile.length()));
+                        int tamano = (int)localFile.length();
+                     if((int)ois.readObject()==0){
                      //Enviamos el fichero
-                     int tamano = (int)localFile.length();
                      re.setTamanototal(tamano);
-                     mitad=new byte[tamano/2];
-                    byteArray = new byte[(int)localFile.length()];  
+                    byteArray = new byte[(int)localFile.length()];
                      //Mando:
                      int k=0;
                       while ((in = bis.read(byteArray)) != -1){        
                       bos.write(byteArray,0,in); 
                       k+=in; 
+                     }
+                     }
+                     else{
+                     re.setTamanototal(tamano);
+                     byteArray = new byte[tamano];
+                     while ((in = bis.read(byteArray,tamano/2,tamano)) != -1){        
+                      bos.write(byteArray,tamano/2,in); 
+                        }
                      }
                       // Se cierra la conexion
                       bis.close();
