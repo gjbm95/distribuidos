@@ -110,14 +110,14 @@ public class ControladorC {
       DaoC interno = new DaoC(); 
       interno.crearXML();
       for (int x=0;x<ficheros.length;x++){
-          Recurso r = new Recurso(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode(),ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")),
+          Recurso r = new Recurso(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()),ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")),
                   ficheros[x].getPath(),Sistema.ip,Math.abs(Sistema.ip.hashCode()));
           interno.agregarRecurso(r); 
            if (!estaRegistrado(r))
              Sistema.recursos.add(r);
-          String destino = seleccionarNodo(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()); 
+          String destino = seleccionarNodo(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode())); 
           if (!destino.equals("")){
-             String data = "2:"+Integer.toString(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode())+":"+Math.abs(Sistema.ip.hashCode());
+             String data = "2:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+Math.abs(Sistema.ip.hashCode());
              Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[1]));
           } 
       }
