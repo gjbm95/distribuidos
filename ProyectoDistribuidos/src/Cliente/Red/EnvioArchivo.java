@@ -90,8 +90,8 @@ public class EnvioArchivo extends Thread {
                       bis.close();
                       bos.close();
                        System.out.println("Envio de Archivo finalizado!");
-                       aumentarEstadistica(Math.abs(buscarArchivo(Integer.parseInt(dt[1])).hashCode()));
-                       Sistema.estadoEnvio(buscarArchivo(Integer.parseInt(dt[1])).hashCode(),"Envio Completo");
+                       aumentarEstadistica(re.getId());
+                       Sistema.estadoEnvio(re.getId(),"Envio Completo");
                     }catch ( Exception e ) {
                             try {
                                 System.out.println("Error de Envio del archivo "+dt[1]+ ". Usted o el cliente ha perdido la conexion");
@@ -117,7 +117,7 @@ public class EnvioArchivo extends Thread {
     public void aumentarEstadistica(int nombre){
       for (Recurso r : Sistema.recursos )
        {
-          if ((r.getId()==nombre))
+          if (r.getId()==nombre)
           {
             r.setDescargas(r.getDescargas()+1);
           }
