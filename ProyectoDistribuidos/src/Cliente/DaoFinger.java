@@ -73,7 +73,7 @@ public class DaoFinger {
                     XMLOutputter outputter = new XMLOutputter();
                     outputter.setFormat(Format.getPrettyFormat());
                     outputter.output(document, writer);
-                    //outputter.output(document, System.out);
+                    outputter.output(document, System.out);
                     writer.close(); // close writer
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -123,7 +123,7 @@ public class DaoFinger {
                     XMLOutputter outputter = new XMLOutputter();
                     outputter.setFormat(Format.getPrettyFormat());
                     outputter.output(document, writer);
-                    //outputter.output(document, System.out);
+                    outputter.output(document, System.out);
                     writer.close(); // close writer
                 } catch (IOException e) {
                     e.printStackTrace();

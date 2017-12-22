@@ -63,8 +63,9 @@ public class ControladorC {
                  }
              if (Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]))<=cercania)
                  {
-                     System.out.println("Enviando a : "+direccion.split(":")[0]); 
+                     
                     cercania = Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]));
+                    System.out.println("Enviando a : "+direccion.split(":")[0] + " " + cercania); 
                     seleccion = direccion.split(":")[0] + ":" +direccion.split(":")[2];
                  }
              //}

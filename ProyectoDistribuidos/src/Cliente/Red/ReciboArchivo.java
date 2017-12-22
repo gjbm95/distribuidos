@@ -14,8 +14,11 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -33,6 +36,7 @@ public class ReciboArchivo {
     public void descargarArchivo(String ip, int puerto, int nombre) {
         String[] d = null;
         Recurso re = new Recurso();
+        DataInputStream dis = null;
         try {
             System.out.println("Iniciando proceso de descarga de archivo");
             // Se abre una conexion con Servidor Socket
@@ -41,7 +45,7 @@ public class ReciboArchivo {
             //Solicito el archivo:
             salidaObjeto.writeObject("4:" + nombre);
             bis = new BufferedInputStream(cliente.getInputStream());
-            DataInputStream dis = new DataInputStream(cliente.getInputStream());
+            dis = new DataInputStream(cliente.getInputStream());
             //Recibimos el nombre del fichero
             file = dis.readUTF();
             d = file.split(":");
@@ -101,9 +105,15 @@ public class ReciboArchivo {
             aumentarReporte(nombre);
             Sistema.estadoRecibo(d[0].hashCode(), "Descarga Completa");
         } catch (Exception e) {
-            System.out.println("La descarga del archivo " + d[0] + " ha fallado");
-            re.setEstado("Fallido");
-            System.err.println(e);
+            try {
+                System.out.println("La descarga del archivo " + d[0] + " ha fallado");
+                re.setEstado("Fallido");
+                System.out.println("Usted o el servidor ha perdido la conexion");
+                dis.close();
+                //System.err.println(e);
+            } catch (IOException ex) {
+                Logger.getLogger(ReciboArchivo.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }
