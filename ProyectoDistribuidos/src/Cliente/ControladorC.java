@@ -158,11 +158,21 @@ public class ControladorC {
     
     }
     
+    public static int cantidadD(int id){
+        int d=0; 
+        for (Recurso r  : Sistema.enviando)
+        {
+          if (r.getId()==id)
+              d++;
+        }
+      return d; 
+    }
+    
     public static void verNDescargas(){
         System.out.println("Cantidad de Descargas por Recursos");
         System.out.println("----------------------------------------------------------");
           for(Recurso r : Sistema.recursos){
-              System.out.println("Nombre: "+r.getNombre()+" | Nº Descargas: "+r.getDescargas());
+              System.out.println("Nombre: "+r.getNombre()+" | Nº Descargas: "+cantidadD(r.getId()));
           }
         System.out.println("----------------------------------------------------------");
         System.out.println("Presione una tecla para continuar...");
