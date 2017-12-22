@@ -58,6 +58,7 @@ public class Gestion extends Thread {
                        case "3":
                          almacen = new DaoFinger(); 
                          Recurso archivo = almacen.obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
+                         if(archivo!=null)
                          respuesta = archivo.getCodigoprop(); 
                        break;
                     }
