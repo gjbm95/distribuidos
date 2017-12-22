@@ -89,9 +89,10 @@ public class EnvioArchivo extends Thread {
                      }
                      else{
                      re.setTamanototal(tamano);
-                     byteArray = new byte[tamano];
-                     while ((in = bis.read(byteArray,tamano/2,tamano)) != -1){        
-                      bos.write(byteArray,tamano/2,in); 
+                     byteArray = new byte[tamano/2];
+                     bis.skip(new Long(tamano/2));
+                     while ((in = bis.read(byteArray,0,byteArray.length)) != -1){        
+                      bos.write(byteArray,0,in); 
                         }
                      }
                       // Se cierra la conexion
@@ -104,6 +105,7 @@ public class EnvioArchivo extends Thread {
                                 System.out.println("Error de Envio del archivo "+dt[1]+ ". Usted o el cliente ha perdido la conexion");
                                 re.setEstado("Fallido");
                                 bis.close();
+                                Logger.getLogger(EnvioArchivo.class.getName()).log(Level.SEVERE, null, e);
                             } catch (IOException ex) {
                                 Logger.getLogger(EnvioArchivo.class.getName()).log(Level.SEVERE, null, ex);
                             }
