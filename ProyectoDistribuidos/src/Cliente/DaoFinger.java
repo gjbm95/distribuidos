@@ -40,6 +40,8 @@ public class DaoFinger {
       Agregando elemento a archivo XML
     */
     public void agregarRecurso(Recurso archivo){
+        
+        if (obtenerRecurso(archivo.getId())==null){ 
         File xmlFile = new File(filelocation);
         Document document = null;
         
@@ -78,6 +80,7 @@ public class DaoFinger {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+        }
     }
     /*
       Elimina un recurso del cliente 
