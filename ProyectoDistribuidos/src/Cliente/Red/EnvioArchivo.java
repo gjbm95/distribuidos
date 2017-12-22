@@ -90,6 +90,7 @@ public class EnvioArchivo extends Thread {
                       bis.close();
                       bos.close();
                        System.out.println("Envio de Archivo finalizado!");
+                       aumentarEstadistica(Math.abs(buscarArchivo(Integer.parseInt(dt[1])).hashCode()));
                        Sistema.estadoEnvio(buscarArchivo(Integer.parseInt(dt[1])).hashCode(),"Envio Completo");
                     }catch ( Exception e ) {
                             try {
@@ -111,5 +112,16 @@ public class EnvioArchivo extends Thread {
           }
        }
       return false; 
+    } 
+    
+    public void aumentarEstadistica(int nombre){
+      for (Recurso r : Sistema.recursos )
+       {
+          if ((r.getId()==nombre))
+          {
+            r.setDescargas(r.getDescargas()+1);
+          }
+       }
+    
     } 
 }
