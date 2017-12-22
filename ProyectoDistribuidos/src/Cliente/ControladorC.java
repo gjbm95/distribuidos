@@ -131,10 +131,8 @@ public class ControladorC {
            for (Recurso r : new DaoFinger().obtenerRecursos()){
                i=0;
                for (String direccion : Sistema.anillo){                        
-                   if (Integer.parseInt(direccion.split(":")[2])!=Sistema.miPuerto){
                        if(Integer.parseInt(direccion.split(":")[1])==r.getCodigoprop()) 
                         i++; 
-                   }
                } 
                if (i==0)
                {
