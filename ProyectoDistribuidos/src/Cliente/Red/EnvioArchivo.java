@@ -15,6 +15,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -55,15 +56,15 @@ public class EnvioArchivo extends Thread {
     public void run (){
                 String [] dt=null;
                 Recurso re=null;
-               try{    
-                     System.out.println("Iniciando proceso de envio de archivo.");
+               try{
                      int id=0;
                      ObjectInputStream ois = new ObjectInputStream(connection.getInputStream());
                      solicitud = (String)ois.readObject();
                      dt = solicitud.split(":");
+                      System.out.println("Iniciando proceso de envio del archivo: "+ buscarArchivo(Integer.parseInt(dt[1])));
                      File localFile = new File("canciones"+Sistema.miPuerto+"/"+buscarArchivo(Integer.parseInt(dt[1])));
-                     System.out.println("Recibido es: " + solicitud);
-                     System.out.println("El archivo es: " + buscarArchivo(Integer.parseInt(dt[1])));
+                     //System.out.println("Recibido es: " + solicitud);
+                     //System.out.println("El archivo es: " + buscarArchivo(Integer.parseInt(dt[1])));
                      re = new Recurso();
                      re.setNombre(buscarArchivo(Integer.parseInt(dt[1])));
                      re.setId(Math.abs(buscarArchivo(Integer.parseInt(dt[1])).hashCode()));
@@ -76,6 +77,7 @@ public class EnvioArchivo extends Thread {
                      dos.writeUTF(localFile.getName()+":"+Integer.toString((int)localFile.length()));
                      //Enviamos el fichero
                      int tamano = (int)localFile.length();
+                     re.setTamanototal(tamano);
                      mitad=new byte[tamano/2];
                     byteArray = new byte[(int)localFile.length()];  
                      //Mando:
@@ -83,7 +85,6 @@ public class EnvioArchivo extends Thread {
                       while ((in = bis.read(byteArray)) != -1){        
                       bos.write(byteArray,0,in); 
                       k+=in; 
-                       System.out.println("Enviada parte: "+k);
                      }
                       // Se cierra la conexion
                       bis.close();
@@ -91,9 +92,13 @@ public class EnvioArchivo extends Thread {
                        System.out.println("Envio de Archivo finalizado!");
                        Sistema.estadoEnvio(buscarArchivo(Integer.parseInt(dt[1])).hashCode(),"Envio Completo");
                     }catch ( Exception e ) {
-                      System.out.println("Error de Envio del archivo "+dt[1]);
-                      re.setEstado("Fallido");
-                      Logger.getLogger(GestionArchivo.class.getName()).log(Level.SEVERE, null, e);
+                    try {
+                        System.out.println("Error de Envio del archivo "+dt[1]+ ". Usted o el cliente ha perdido la conexion");
+                        re.setEstado("Fallido");
+                        bis.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(EnvioArchivo.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     }
     }
         

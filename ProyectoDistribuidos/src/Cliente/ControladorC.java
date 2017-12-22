@@ -29,6 +29,7 @@ public class ControladorC {
         if (!destino.equals("")){
          String data = "3:"+Integer.toString(valor);
          int ubicacion = (int) Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[1]));
+        
          new RealizarDescarga(obtenerIp(ubicacion),obtenerPuerto(ubicacion)+1,valor).start(); 
         } 
     }
@@ -63,7 +64,7 @@ public class ControladorC {
                  }
              if (Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]))<=cercania)
                  {
-                     System.out.println("Enviando a : "+direccion.split(":")[0]); 
+                     //System.out.println("Enviando a : "+direccion.split(":")[0]); 
                     cercania = Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]));
                     seleccion = direccion.split(":")[0] + ":" +direccion.split(":")[2];
                  }
@@ -188,7 +189,7 @@ public class ControladorC {
         System.out.println("Estado de Respuestas");
         System.out.println("----------------------------------------------------------");
           for(Recurso r : Sistema.enviando){
-          System.out.println("Nombre: "+r.getNombre()+" | Estado: "+r.getEstado() + " | Tamaño total:"+ r.getTamanototal() + " | Tamaño recibido: "+r.getTamano());
+          System.out.println("Nombre: "+r.getNombre()+" | Estado: "+r.getEstado() + " | Tamaño total:"+ r.getTamanototal() );
           }
         System.out.println("----------------------------------------------------------");
         System.out.println("Presione una tecla para continuar...");
