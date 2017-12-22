@@ -41,7 +41,7 @@ public class DaoFinger {
     */
     public void agregarRecurso(Recurso archivo){
         
-        if (new DaoC().obtenerRecurso(archivo.getId())==null){ 
+        if (new DaoFinger().obtenerRecurso(archivo.getId())==null){ 
         File xmlFile = new File(filelocation);
         Document document = null;
         
