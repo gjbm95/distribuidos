@@ -25,7 +25,7 @@ public class ControladorC {
       
     public static void buscarRecurso(int valor){
       
-        String destino = seleccionarNodo2(valor); 
+        String destino = seleccionarNodo(valor); 
         if (!destino.equals("")){
          String data = "3:"+Integer.toString(valor);
          int ubicacion = (int) Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[1]));
@@ -56,7 +56,7 @@ public class ControladorC {
         int iteracion =0;
         for (String direccion : Sistema.anillo)
          {
-             if (Sistema.miPuerto!=Integer.parseInt(direccion.split(":")[2])){
+             //if (Sistema.miPuerto!=Integer.parseInt(direccion.split(":")[2])){
                  if (iteracion==0){ 
                   cercania = Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]));
                      iteracion++;
@@ -67,31 +67,11 @@ public class ControladorC {
                     cercania = Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]));
                     seleccion = direccion.split(":")[0] + ":" +direccion.split(":")[2];
                  }
-             }
+             //}
          }
         return seleccion;     
     } 
     
-    public static String seleccionarNodo2(int recurso){
-        int cercania =0;
-        String seleccion =""; 
-        int iteracion =0;
-        for (String direccion : Sistema.anillo)
-         {
-                 if (iteracion==0){ 
-                  cercania = Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]));
-                     iteracion++;
-                 }
-             if (Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]))<=cercania)
-                 {
-                     System.out.println("Enviando a : "+direccion.split(":")[0]); 
-                    cercania = Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]));
-                    seleccion = direccion.split(":")[0] + ":" +direccion.split(":")[2];
-                 }
-           
-         }
-        return seleccion;     
-    } 
     
     public static String obtenerIp(int hash){
        String direccion; 
