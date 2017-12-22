@@ -41,7 +41,7 @@ public class DaoFinger {
     */
     public void agregarRecurso(Recurso archivo){
         
-        if (new DaoFinger().obtenerRecurso(archivo.getId())==null){ 
+        if (existe(archivo.getId())==0){ 
         File xmlFile = new File(filelocation);
         Document document = null;
         
@@ -169,7 +169,15 @@ public class DaoFinger {
 
         return null; 
     }
-    
+    public int existe(int id){
+      int resultado =0; 
+         for (Recurso r : this.obtenerRecursos())
+          {
+            if (id==r.getId())
+                resultado++;
+          }
+      return resultado; 
+    } 
     
     /*
      Devuelve un recurso del cliente
