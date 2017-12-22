@@ -38,7 +38,7 @@ public class ControladorC {
     }
     
     public static void agregarArchivo(String nombre){
-      File f = new File("canciones");
+      File f = new File("canciones"+Sistema.miPuerto);
       File[] ficheros = f.listFiles();
       for (int x=0;x<ficheros.length;x++){
         if(ficheros[x].getName().equals(nombre)){
