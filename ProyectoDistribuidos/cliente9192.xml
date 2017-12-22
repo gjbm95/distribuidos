@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <anillo>
+<<<<<<< HEAD
+  <recurso id="482902545" nombre="Como te atreves - Morat" hash="Como te atreves - Morat" ruta="canciones9192\Como te atreves - Morat.mp3" ip="25.49.219.233" iphash="421375456" />
+=======
   <recurso id="550219925" nombre="cancion" hash="cancion" ruta="canciones9192\cancion.mp3" ip="25.49.53.42" iphash="2125283952" />
+>>>>>>> ee4132a8f7cf9ecbf6a0c1f521ee798a60e0c69c
 </anillo>
 
