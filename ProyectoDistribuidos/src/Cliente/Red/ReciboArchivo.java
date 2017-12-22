@@ -55,10 +55,20 @@ public class ReciboArchivo {
                      //Para guardar fichero recibido
                      bos = new BufferedOutputStream(new FileOutputStream("Descargas\\"+d[0]));
                      int l =0;
+                     boolean partido=true;
                      //Se manejan los datos acerca del libro recibido
+                     
+                      System.out.println("Tamano total: "+re.getTamanototal());
                      while ((in = bis.read(receivedData)) != -1){     
                         bos.write(receivedData,0,in);  
                         re.setTamano(re.getTamano()+in);
+                        if(partido && l>(re.getTamanototal()/2)){
+                            System.out.println("El archivo ha alcanzado el 50%");
+                            bos.close();
+                            partido=false;
+                            bos = new BufferedOutputStream(new FileOutputStream("Descargas\\"+d[0],true));
+                        }
+                            
                         l+=in;
                      }
                      //Se cierra la conexion con el servidor de descarga. 

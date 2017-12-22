@@ -34,6 +34,7 @@ public class EnvioArchivo extends Thread {
     Socket connection;
     int in;
     byte[] byteArray;
+     byte[] mitad;
     //Fichero a transferir
     String solicitud= null;
     String ip; 
@@ -53,7 +54,7 @@ public class EnvioArchivo extends Thread {
     
     public void run (){
                 String [] dt=null;
-                Recurso re = new Recurso();
+                Recurso re=null;
                try{    
                      System.out.println("Iniciando proceso de envio de archivo.");
                      int id=0;
@@ -61,9 +62,11 @@ public class EnvioArchivo extends Thread {
                      solicitud = (String)ois.readObject();
                      dt = solicitud.split(":");
                      File localFile = new File("canciones"+Sistema.miPuerto+"/"+buscarArchivo(Integer.parseInt(dt[1])));
+                     System.out.println("Recibido es: " + solicitud);
                      System.out.println("El archivo es: " + buscarArchivo(Integer.parseInt(dt[1])));
+                     re = new Recurso();
                      re.setNombre(buscarArchivo(Integer.parseInt(dt[1])));
-                     re.setId(buscarArchivo(Integer.parseInt(dt[1])).hashCode());
+                     re.setId(Math.abs(buscarArchivo(Integer.parseInt(dt[1])).hashCode()));
                      re.setEstado("Enviando...");
                      Sistema.agregarEnvio(re);
                      bis = new BufferedInputStream(new FileInputStream(localFile));
@@ -72,12 +75,15 @@ public class EnvioArchivo extends Thread {
                      DataOutputStream dos=new DataOutputStream(connection.getOutputStream());
                      dos.writeUTF(localFile.getName()+":"+Integer.toString((int)localFile.length()));
                      //Enviamos el fichero
-                     byteArray = new byte[(int)localFile.length()];             
+                     int tamano = (int)localFile.length();
+                     mitad=new byte[tamano/2];
+                    byteArray = new byte[(int)localFile.length()];  
                      //Mando:
                      int k=0;
-                     while ((in = bis.read(byteArray)) != -1){       
-                      bos.write(byteArray,0,in);
-                      k+=in;
+                      while ((in = bis.read(byteArray)) != -1){        
+                      bos.write(byteArray,0,in); 
+                      k+=in; 
+                       System.out.println("Enviada parte: "+k);
                      }
                       // Se cierra la conexion
                       bis.close();
