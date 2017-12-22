@@ -162,7 +162,7 @@ public class ControladorC {
         int d=0; 
         for (Recurso r  : Sistema.enviando)
         {
-          if (r.getId()==id)
+          if (Math.abs(r.getNombre().substring(0,r.getNombre().lastIndexOf(".")).hashCode())==id)
               d++;
         }
       return d; 
@@ -172,6 +172,7 @@ public class ControladorC {
         System.out.println("Cantidad de Descargas por Recursos");
         System.out.println("----------------------------------------------------------");
           for(Recurso r : Sistema.recursos){
+              System.out.println("");
               System.out.println("Nombre: "+r.getNombre()+" | Nº Descargas: "+cantidadD(r.getId()));
           }
         System.out.println("----------------------------------------------------------");
