@@ -56,16 +56,18 @@ public class ControladorC {
         int iteracion =0;
         for (String direccion : Sistema.anillo)
          {
-             if (iteracion==0) 
-             cercania = Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]));
              if (Sistema.miPuerto!=Integer.parseInt(direccion.split(":")[2])){
+                 if (iteracion==0){ 
+                  cercania = Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]));
+                     iteracion++;
+                 }
              if (Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]))<=cercania)
                  {
+                     System.out.println("Enviando a : "+direccion.split(":")[0]); 
                     cercania = Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]));
                     seleccion = direccion.split(":")[0] + ":" +direccion.split(":")[2];
                  }
              }
-             iteracion++;
          }
         return seleccion;     
     } 
