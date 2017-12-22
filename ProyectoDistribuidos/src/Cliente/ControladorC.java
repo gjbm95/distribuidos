@@ -28,9 +28,12 @@ public class ControladorC {
         String destino = seleccionarNodo(valor); 
         if (!destino.equals("")){
          String data = "3:"+Integer.toString(valor);
-         int ubicacion = (int) Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[1]));
-        
+         Object obj =  Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[1]));
+         if (obj!=null){ 
+         int ubicacion = (int)obj;
          new RealizarDescarga(obtenerIp(ubicacion),obtenerPuerto(ubicacion)+1,valor).start(); 
+         }else 
+           System.out.println("Recurso no encontrado!");
         } 
     }
     

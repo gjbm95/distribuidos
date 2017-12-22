@@ -59,7 +59,7 @@ public class Gestion extends Thread{
                     distribuirUsuarios(almacen.obtenerIps());
                     break;
                     case"2":
-                    conexiones = conexiones + almacen.numeroNodos();  
+                    conexiones = conexiones + almacen.numeroNodos()+1;  
                     respuesta = conexiones; 
                     System.out.println("Cantidad de nodos es : " + (int)respuesta);
                     break;

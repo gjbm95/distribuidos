@@ -18,7 +18,7 @@ public class VistaC extends Thread {
 
     public void run() {
         boolean continuar = true;
-        int opcion = 1;
+        String opcion ="";
         Scanner sc = new Scanner(System.in);
         while (continuar) {
             System.out.println("----------------------------------------------------------");
@@ -35,11 +35,11 @@ public class VistaC extends Thread {
             System.out.println("Presiona 7 para salir");
             System.out.println("----------------------------------------------------------");
             System.out.println("Ingresa tu opcion: ");
-            opcion = sc.nextInt();
+            opcion = sc.nextLine();
 
             switch (opcion) {
 
-                case 1: {
+                case "1": {
                     System.out.println("Introduzca el nombre del recurso que desea buscar: ");
                      sc = new Scanner(System.in);
                     String recurso = sc.nextLine();
@@ -47,12 +47,12 @@ public class VistaC extends Thread {
                     ControladorC.buscarRecurso(hash);
                     break;
                 }
-                case 2: {
+                case "2": {
                     //LOGICA ESTADO DE RECURSOS
                     ControladorC.verEstadoRecurso();
                     break;
                 }
-                case 3: {
+                case "3": {
                     //LOGICA AGREGAR ARCHIVOS
                     System.out.println("Ingrese el nombre del archivo:");
                     sc = new Scanner(System.in);
@@ -60,22 +60,22 @@ public class VistaC extends Thread {
                     ControladorC.agregarArchivo(archivo);
                     break;
                 }
-                case 4: {
+                case "4": {
                     //RECURSOS OFRECIDOS
                     ControladorC.verRecursos();
                     break;
                 }
-                case 5: {
+                case "5": {
                     //ESTADO DE RESPUESTAS
                     ControladorC.verEstadoRespuestas();
                     break;
                 }
-                case 6: {
+                case "6": {
                     //VER LAS CANTIDAD DE DESCARGAS DE LOS RECURSOS OFRECIDOS
                     ControladorC.verNDescargas();
                     break;
                 }
-                case 7: {
+                case "7": {
                     // LOGICA SALIR
                     Envio.enviardato("1:"+Sistema.ip+":"+Sistema.miPuerto,"center");
                     continuar = false;
@@ -83,8 +83,7 @@ public class VistaC extends Thread {
                     break;
                 }
                 default: {
-                    System.out.println("Opcion erronea, saliendo del programa...");
-                    continuar = false;
+                    System.out.println("Opcion erronea");
                 }
 
             }

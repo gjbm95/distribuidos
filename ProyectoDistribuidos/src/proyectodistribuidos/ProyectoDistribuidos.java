@@ -5,7 +5,6 @@
  */
 package proyectodistribuidos;
 
-import Central.Controlador;
 import Central.DaoCentral;
 import Cliente.ControladorC;
 import Cliente.DaoFinger;
@@ -25,14 +24,15 @@ public class ProyectoDistribuidos {
      */
     public static void main(String[] args) {
         Sistema sistema = new Sistema(); 
-        
+        int estado =1;
+        while(estado!=0){ 
         Scanner sc = new Scanner(System.in);
         System.out.println("----------------------------------------------------------");
         System.out.println("Bienvendo al Proyecto de Distribuidos");
         System.out.println("----------------------------------------------------------");
         System.out.println("Realizado por:");
-        System.out.println("Carlos Valero");
-        System.out.println("Garry Bruno");
+        System.out.println("- Carlos Valero");
+        System.out.println("- Garry Bruno");
         System.out.println("----------------------------------------------------------");
         System.out.println("Con que rol deseas entrar?");
         System.out.println("Presiona 1 para entrar como Nodo");
@@ -40,9 +40,9 @@ public class ProyectoDistribuidos {
         System.out.println("Presiona 3 para Salir");
         System.out.println("----------------------------------------------------------");
         System.out.println("Ingresa tu opcion: ");
-        int i = sc.nextInt();
+        String i = sc.nextLine();
         switch(i){
-            case 1:{
+            case "1":{
             // LOGICA CLIENTE
             int cantidad = (int)Envio.enviardato("2:","center");
             Sistema.miPuerto=9092+100*cantidad;
@@ -57,23 +57,26 @@ public class ProyectoDistribuidos {
             new ControladorC();
             break;
             }
-            case 2:{
+            case "2":{
             // LOGICA SERVIDOR FANTASMA
+            new DaoCentral().crearXML();
             Sistema.miPuerto=9090;
             new Central.Red.Recepcion().start();
-                new Controlador();
+            System.out.println("Servidor Fantasma Iniciado...");
+            System.out.println("Esperando peticiones...");
             break;
             }
-            case 3: {
+            case "3": {
             // SALIR
+              estado =0;
               System.exit(0);
             break;
             }
             default:
-                System.out.println("Opcion erronea, saliendo del programa...");
-                System.exit(0);
+                System.out.println("Opcion erronea");
+               
             }
-        
+        }
     }
     
 }
