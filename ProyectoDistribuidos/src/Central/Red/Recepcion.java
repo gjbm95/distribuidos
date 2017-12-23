@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Central.Red;
 
 import Dominio.Sistema;
@@ -13,14 +8,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author pepo
+ * Universidad Catolica Andres Bello
+ * Facultad de Ingenieria
+ * Escuela de Ingenieria Informatica 
+ * Sistemas Distribuidos 
+ * ----------------------------------
+ * Integrantes: 
+ * --------------
+ * Garry Bruno 
+ * Carlos Valero
  */
 public class Recepcion extends Thread {
     
     public Recepcion(){
     }
-    
+    /**
+     * Este metodo permite la ejecucion del hilo que se encarga de recibiir las 
+     * solicitudes de los nodos que se encuentran en el anillo. 
+     */
     public void run () 
     {
       try {     

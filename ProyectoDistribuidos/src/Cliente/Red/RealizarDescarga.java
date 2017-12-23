@@ -1,12 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Cliente.Red;
-
 import Dominio.Sistema;
-
+/**
+ * Universidad Catolica Andres Bello
+ * Facultad de Ingenieria
+ * Escuela de Ingenieria Informatica 
+ * Sistemas Distribuidos 
+ * ----------------------------------
+ * Integrantes: 
+ * --------------
+ * Garry Bruno 
+ * Carlos Valero
+ */
 public class RealizarDescarga extends Thread
 {
         String ip;
@@ -19,7 +23,9 @@ public class RealizarDescarga extends Thread
         this.nombre = nombre;
     }
         
-
+        /**
+         * Inicializa el hilo encargado de la descarga del archivo.
+         */
         public void run()
         { 
            new ReciboArchivo().descargarArchivo(ip,Puerto,nombre);

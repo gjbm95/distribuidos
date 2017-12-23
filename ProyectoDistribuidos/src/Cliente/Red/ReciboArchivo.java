@@ -115,7 +115,7 @@ public class ReciboArchivo {
                 bos.close();
                 //System.err.println(e);
             } catch (IOException ex) {
-                Logger.getLogger(ReciboArchivo.class.getName()).log(Level.SEVERE, null, ex);
+                //Logger.getLogger(ReciboArchivo.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 

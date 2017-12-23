@@ -17,8 +17,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Junior
+ * Universidad Catolica Andres Bello
+ * Facultad de Ingenieria
+ * Escuela de Ingenieria Informatica 
+ * Sistemas Distribuidos 
+ * ----------------------------------
+ * Integrantes: 
+ * --------------
+ * Garry Bruno 
+ * Carlos Valero
  */
 public class Envio {
     
@@ -28,11 +35,17 @@ public class Envio {
     byte[] receivedData;
     int in;
     
-    
+     /**
+      * Este metodo se encarga de enviar datos en forma de objetos serializados 
+      * bien sea al servidor fantasma o a otro nodo del anillo
+      * @param dato
+      * @param tiposerver
+      * @return 
+      */
      public static Object enviardato(Object dato,String tiposerver){
          try {
                ObjectOutputStream salidaObjeto;      
-               //Se colocan los datos del servidor central (Direccion IP y Puerto).
+               //Se colocan los datos del que funge como servidor (Direccion IP y Puerto).
                Socket reves = null;
                if(tiposerver.equals("server")) 
                reves = new Socket (Sistema.ipserver,Sistema.puertoserver);
@@ -57,6 +70,14 @@ public class Envio {
          return null;
      }
      
+     /**
+      * Este metodo se encarga de enviar datos en forma de objetos serializados 
+      * a un nodo (fantasma o de anillo) que cuya ip y puerto se conoce perfectamente. 
+      * @param dato
+      * @param ip
+      * @param puerto
+      * @return 
+      */
      public static Object enviardato(Object dato,String ip, int puerto){
          try {
                ObjectOutputStream salidaObjeto;      

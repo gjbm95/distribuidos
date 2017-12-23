@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package proyectodistribuidos;
 
 import Central.DaoCentral;
@@ -14,12 +9,21 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- *
- * @author Junior
+ * Universidad Catolica Andres Bello
+ * Facultad de Ingenieria
+ * Escuela de Ingenieria Informatica 
+ * Sistemas Distribuidos 
+ * ----------------------------------
+ * Integrantes: 
+ * --------------
+ * Garry Bruno 
+ * Carlos Valero
  */
 public class ProyectoDistribuidos {
 
     /**
+     * Este es el programa principal donde inicia todo. Aqui el usuario selecciona
+     * en que modalidad quiere ejecutar el programa. (Como fantasma o nodo del anillo). 
      * @param args the command line arguments
      */
     public static void main(String[] args) {

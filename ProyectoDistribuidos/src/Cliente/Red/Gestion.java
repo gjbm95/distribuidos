@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Cliente.Red;
-
 import Cliente.ControladorC;
 import Cliente.DaoFinger;
 import Dominio.Recurso;
@@ -17,8 +11,15 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 /**
- *
- * @author Junior
+ * Universidad Catolica Andres Bello
+ * Facultad de Ingenieria
+ * Escuela de Ingenieria Informatica 
+ * Sistemas Distribuidos 
+ * ----------------------------------
+ * Integrantes: 
+ * --------------
+ * Garry Bruno 
+ * Carlos Valero
  */
 public class Gestion extends Thread {
     ServerSocket reves6;
@@ -33,6 +34,11 @@ public class Gestion extends Thread {
         this.proceso = proceso;
     }
    
+    /**
+     * Este hilo se encarga de la recepcion de datos enviados desde el servidor 
+     * fantasma y los otros nodos. Gestiona las actualizaciones de tablas finger
+     * y el envio de referencias acerca de la ubicacion de otros recursos. 
+     */
     @Override
     public void run()
     {
@@ -50,12 +56,14 @@ public class Gestion extends Thread {
                     String dato = (String)mensaje; 
                    switch(dato.split(":")[0]){
                        case "2":
+                         //Aqui se actualiza la tabla finger cuando se requiera. 
                          almacen = new DaoFinger(); 
                          almacen.agregarRecurso(new Recurso(Integer.parseInt(dato.split(":")[1]),
                          Integer.parseInt(dato.split(":")[2]))); 
                          System.out.println("Actualizando tabla Finger");
                        break;
                        case "3":
+                          //Aqui se informa sobre la ubicacion de un recurso en un nodo
                          almacen = new DaoFinger(); 
                          Recurso archivo = almacen.obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
                          if(archivo!=null)
@@ -63,7 +71,7 @@ public class Gestion extends Thread {
                        break;
                     }
                } 
-               
+               //Se encarga de recibir las actualizaciones de la conformacion del  anillo
                if (mensaje instanceof ArrayList){
                  Sistema.anillo = (ArrayList<String>)mensaje; 
                    System.out.println("Actualizando tabla de direcciones");

@@ -26,13 +26,18 @@ import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
 
+/**
+ * Universidad Catolica Andres Bello
+ * Facultad de Ingenieria
+ * Escuela de Ingenieria Informatica 
+ * Sistemas Distribuidos 
+ * ----------------------------------
+ * Integrantes: 
+ * --------------
+ * Garry Bruno 
+ * Carlos Valero
+ */
 public class DaoFinger {
-    // The higher the number of iterations the more 
-    // expensive computing the hash is for us and
-    // also for an attacker.
-    private static final int iterations = 20*1000;
-    private static final int saltLen = 32;
-    private static final int desiredKeyLen = 256;
     String filelocation = "tabla-"+Math.abs(Sistema.ip.hashCode())+"-"+Sistema.miPuerto+".xml";
     Element root;
     
@@ -169,6 +174,11 @@ public class DaoFinger {
 
         return null; 
     }
+    /**
+     * Verifica si un recurso existe dentro de la tabla finger.
+     * @param id
+     * @return 
+     */
     public int existe(int id){
       int resultado =0; 
          for (Recurso r : this.obtenerRecursos())

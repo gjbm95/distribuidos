@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Central.Red;
 
 import Central.DaoCentral;
@@ -15,8 +10,15 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 /**
- *
- * @author pepo
+ * Universidad Catolica Andres Bello
+ * Facultad de Ingenieria
+ * Escuela de Ingenieria Informatica 
+ * Sistemas Distribuidos 
+ * ----------------------------------
+ * Integrantes: 
+ * --------------
+ * Garry Bruno 
+ * Carlos Valero
  */
 public class Gestion extends Thread{
 
@@ -34,7 +36,11 @@ public class Gestion extends Thread{
         this.proceso = proceso;
         this.dao= new DaoCentral();
     }
-    
+    /**
+     * Este hilo permite la recepcion de cada una de las solicitudes de los nodos 
+     * que conforman al anillo. Este permite registrar a un nodo en su tabla o 
+     * eliminarlos. Asi como difundir su lista de nodos registrados. 
+     */
     @Override
     public void run()
     {
@@ -79,7 +85,11 @@ public class Gestion extends Thread{
                //Logger.getLogger(GestionSolicitudes.class.getName()).log(Level.SEVERE, null, ex);
            }
     }
-    
+    /**
+     * Este metodo permite la difucion de datos acerca de los nodos que se 
+     * encuentran dentro del anillo. 
+     * @param almacen 
+     */
     private void distribuirUsuarios(ArrayList<String> almacen){
         for (String direccion : almacen){
           Envio.enviardato(almacen,direccion.split(":")[0],

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Cliente.Red;
 
 import Dominio.Sistema;
@@ -11,8 +6,15 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- *
- * @author Junior
+ * Universidad Catolica Andres Bello
+ * Facultad de Ingenieria
+ * Escuela de Ingenieria Informatica 
+ * Sistemas Distribuidos 
+ * ----------------------------------
+ * Integrantes: 
+ * --------------
+ * Garry Bruno 
+ * Carlos Valero
  */
 public class RecepcionArchivo extends Thread {
     
@@ -21,6 +23,9 @@ public class RecepcionArchivo extends Thread {
 
     }
     
+    /**
+     * Inicializa el hilo encargado del envio de archivos 
+     */
     public void run () 
     {
        //Solicitudes concurrentes:       
