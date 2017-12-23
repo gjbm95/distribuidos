@@ -61,6 +61,7 @@ public class ReciboArchivo {
             File descargado = new File("Descargas\\" + d[0]);
             boolean recarga;
             if (descargado.exists() && descargado.length()< re.getTamanototal() && descargado.length()> re.getTamanototal()/2) {
+                System.out.println("Su descarga habia sido interrumpida.. descargando nuevamente desde el 50% ");
                 recarga=true;
                 BufferedInputStream arreglar = new BufferedInputStream(new FileInputStream(descargado)); 
                 byte [] arreglo = new byte[re.getTamanototal()/2]; 
