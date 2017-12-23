@@ -105,8 +105,7 @@ public class EnvioArchivo extends Thread {
                                 System.out.println("Error de Envio del archivo "+dt[1]+ ". Usted o el cliente ha perdido la conexion");
                                 re.setEstado("Fallido");
                                 bis.close();
-                                Logger.getLogger(EnvioArchivo.class.getName()).log(Level.SEVERE, null, e);
-                            } catch (IOException ex) {
+                               } catch (IOException ex) {
                                 Logger.getLogger(EnvioArchivo.class.getName()).log(Level.SEVERE, null, ex);
                             }
                     }
