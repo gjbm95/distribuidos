@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Central;
 import Dominio.Recurso;
 import java.io.File;
@@ -37,8 +32,15 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 /**
- *
- * @author Junior
+ * Universidad Catolica Andres Bello
+ * Facultad de Ingenieria
+ * Escuela de Ingenieria Informatica 
+ * Sistemas Distribuidos 
+ * ----------------------------------
+ * Integrantes: 
+ * --------------
+ * Garry Bruno 
+ * Carlos Valero
  */
 public class DaoCentral {
     
@@ -89,7 +91,10 @@ public class DaoCentral {
                     e.printStackTrace();
                 }
     }
-    
+    /**
+     * Este metodo permite eliminar los datos de un nodo que se sale del anillo.
+     * @param direccion 
+     */
     public void eliminarNodo(String direccion){
        
         File xmlFile = new File(filelocation);
@@ -175,7 +180,10 @@ public class DaoCentral {
         return null; 
     }
     
-    
+    /**
+     * Este metodo recoge los datos de los nodos registrados para luego difundirlo
+     * @return 
+     */
     public ArrayList<String> obtenerIps(){
        File xmlFile = new File(filelocation);
         Document document = null;
@@ -209,7 +217,11 @@ public class DaoCentral {
          } 
         return null; 
     }
-  
+   /**
+    * Este metodo cuenta la cantidad de nodos registrados con el fin de que se puedan 
+    * calcular los puertos que son dinamicos para cada nodo. 
+    * @return 
+    */
     public int numeroNodos(){
        File xmlFile = new File(filelocation);
         Document document = null;

@@ -11,11 +11,22 @@ import Dominio.Sistema;
 import java.util.Scanner;
 
 /**
- *
- * @author Junior
+ * Universidad Catolica Andres Bello
+ * Facultad de Ingenieria
+ * Escuela de Ingenieria Informatica 
+ * Sistemas Distribuidos 
+ * ----------------------------------
+ * Integrantes: 
+ * --------------
+ * Garry Bruno 
+ * Carlos Valero
  */
 public class VistaC extends Thread {
-
+    /**
+     * Este metodo es un hilo que se encarga de ejecutar el menu principal de 
+     * la aplicacion y permite al usuario ejecutar cada una de las funcionalidades
+     * que ofrece. 
+     */ 
     public void run() {
         boolean continuar = true;
         String opcion ="";
@@ -40,6 +51,7 @@ public class VistaC extends Thread {
             switch (opcion) {
 
                 case "1": {
+                    //LOGICA PARA LA BUSQUEDA DE ARCHIVOS
                     System.out.println("Introduzca el nombre del recurso que desea buscar: ");
                      sc = new Scanner(System.in);
                     String recurso = sc.nextLine();

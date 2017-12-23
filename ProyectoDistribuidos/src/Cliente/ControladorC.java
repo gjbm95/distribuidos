@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Cliente;
 
 import Cliente.Red.Envio;
@@ -13,8 +8,15 @@ import java.io.File;
 import java.util.Scanner;
 
 /**
- *
- * @author Junior
+ * Universidad Catolica Andres Bello
+ * Facultad de Ingenieria
+ * Escuela de Ingenieria Informatica 
+ * Sistemas Distribuidos 
+ * ----------------------------------
+ * Integrantes: 
+ * --------------
+ * Garry Bruno 
+ * Carlos Valero
  */
 public class ControladorC {
 
@@ -22,7 +24,11 @@ public class ControladorC {
          new VistaC().run();
     }
     
-      
+    /**
+     * Metodo encargado de la buqueda de un archivo determinado y de la ejecucion 
+     * de la descarga del archivo en el nodo correspondiente. 
+     * @param valor 
+     */   
     public static void buscarRecurso(int valor){
       
         String destino = seleccionarNodo(valor); 
@@ -36,7 +42,11 @@ public class ControladorC {
            System.out.println("Recurso no encontrado!");
         } 
     }
-    
+    /**
+     * Metodo que se encarga de agregar un archivo manualmente a la lista de recursos 
+     * de un nodo determinado. 
+     * @param nombre 
+     */
     public static void agregarArchivo(String nombre){
       File f = new File("canciones"+Sistema.miPuerto);
       File[] ficheros = f.listFiles();
@@ -54,6 +64,13 @@ public class ControladorC {
       } 
     } 
     
+    /**
+     * Metodo que se encarga de la seleccionar el nodo cuyo hash sea el mas 
+     * cercano al hash del archivo solicitado bien sea para descargarlo o bien sea 
+     * para informarle a ese nodo cercano que guarde la referencia en su tabla finger. 
+     * @param recurso
+     * @return 
+     */
     public static String seleccionarNodo(int recurso){
         int cercania =0;
         String seleccion =""; 
@@ -74,7 +91,11 @@ public class ControladorC {
         return seleccion;     
     } 
     
-    
+    /**
+     * Devuelve la ip de un nodo, dado un hash 
+     * @param hash
+     * @return 
+     */
     public static String obtenerIp(int hash){
        String direccion; 
          for(String ip : Sistema.anillo) 
@@ -86,7 +107,11 @@ public class ControladorC {
          }
        return null; 
     } 
-
+   /**
+    * Devuelve el puerto de un nodo dado un hash. 
+    * @param hash
+    * @return 
+    */
     public static int obtenerPuerto(int hash){
        int puerto; 
          for(String ip : Sistema.anillo) 
@@ -98,7 +123,12 @@ public class ControladorC {
          }
        return 0; 
     }
-    
+    /**
+     * Verifica si un archivo determinado se encuentra registrado en la memoria 
+     * de un nodo. 
+     * @param recurso
+     * @return 
+     */
     public static boolean estaRegistrado(Recurso recurso){
         for (Recurso r :Sistema.recursos)
            {
@@ -107,7 +137,12 @@ public class ControladorC {
            }
       return false; 
     }
-    
+    /**
+     * Este metodo se encarga de cargar en memoria informacion acerca de los recursos 
+     * propios que posee un nodo determinado para que posteriormente le envie a los nodos 
+     * cuyas ips tienen los hash mas cercanos a ellos y los almanece en las tablas fingers 
+     * correspondientes. 
+     */
     public static void recargandoRecursos(){
       File f = new File("canciones"+Sistema.miPuerto);
       f.mkdir();
@@ -127,7 +162,10 @@ public class ControladorC {
           } 
       }
     }
-    
+    /**
+     * Este metodo se encarga de eliminar de la tabla finger de un nodo determinado 
+     * informacion acerca de un nodo que ya no se encuentre dentro del anillo. 
+     */
     public static void limpiarFinger(){
         int i=0;
         int captura =0;
@@ -144,7 +182,9 @@ public class ControladorC {
            }
 
     }
-    
+    /**
+     * Este metodo permite mostrar por pantalla los recursos que tiene un nodo localmente. 
+     */
     public static void verRecursos(){
         System.out.println("Recursos Ofrecidos");
         System.out.println("----------------------------------------------------------");
@@ -157,7 +197,11 @@ public class ControladorC {
       pauser.nextLine();  
     
     }
-    
+    /** 
+     * Este metodo permite calcular la cantidad de veces que un recurso fue enviado.
+     * @param id
+     * @return 
+     */
     public static int cantidadD(int id){
         int d=0; 
         for (Recurso r  : Sistema.enviando)
@@ -167,7 +211,9 @@ public class ControladorC {
         }
       return d; 
     }
-    
+    /**
+     * Este metodo permite visualizar la cantidad de veces que fue enviado cada recurso. 
+     */
     public static void verNDescargas(){
         System.out.println("Cantidad de Descargas por Recursos");
         System.out.println("----------------------------------------------------------");
@@ -181,7 +227,10 @@ public class ControladorC {
       pauser.nextLine();  
     
     }
-    
+    /**
+     * Este metodo permite visualizar el estado en el que se encuentran los recursos 
+     * que se estan descargando. 
+     */
     public static void verEstadoRecurso(){
         System.out.println("Estado de recursos");
         System.out.println("----------------------------------------------------------");
@@ -194,7 +243,10 @@ public class ControladorC {
       pauser.nextLine();  
     
     }
-    
+     /**
+      * Este metodo permite visualizar el estado de los recursos que se encuetran 
+      * enviandose a otros nodos .
+      */
      public static void verEstadoRespuestas(){
         System.out.println("Estado de Respuestas");
         System.out.println("----------------------------------------------------------");

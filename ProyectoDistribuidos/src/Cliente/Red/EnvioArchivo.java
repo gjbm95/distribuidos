@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Cliente.Red;
-
 import Cliente.DaoC;
 import static Cliente.DaoC.buscarArchivo;
 import Dominio.Recurso;
@@ -23,8 +17,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author Junior
+ * Universidad Catolica Andres Bello
+ * Facultad de Ingenieria
+ * Escuela de Ingenieria Informatica 
+ * Sistemas Distribuidos 
+ * ----------------------------------
+ * Integrantes: 
+ * --------------
+ * Garry Bruno 
+ * Carlos Valero
  */
 public class EnvioArchivo extends Thread {
     
@@ -52,7 +53,9 @@ public class EnvioArchivo extends Thread {
         this.server = server;
     }
     
-    
+    /**
+     * Este hilo se encarga del envio de archivos al nodo que lo solicite
+     */
     public void run (){
                 String [] dt=null;
                 Recurso re=null;
@@ -105,13 +108,18 @@ public class EnvioArchivo extends Thread {
                                 System.out.println("Error de Envio del archivo "+dt[1]+ ". Usted o el cliente ha perdido la conexion");
                                 re.setEstado("Fallido");
                                 bis.close();
-                                Logger.getLogger(EnvioArchivo.class.getName()).log(Level.SEVERE, null, e);
+                                //Logger.getLogger(EnvioArchivo.class.getName()).log(Level.SEVERE, null, e);
                             } catch (IOException ex) {
-                                Logger.getLogger(EnvioArchivo.class.getName()).log(Level.SEVERE, null, ex);
+                                //Logger.getLogger(EnvioArchivo.class.getName()).log(Level.SEVERE, null, ex);
                             }
                     }
     }
         
+    /**
+     * Este nodo se encarga de reanudar la descarga en caso de ser necesario. 
+     * @param nombre
+     * @return 
+     */
     public boolean reanudarDescarga(int nombre){
        for (Recurso r : Sistema.recibiendo )
        {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Central.Red;
 
 import Dominio.Sistema;
@@ -15,8 +10,15 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 /**
- *
- * @author pepo
+ * Universidad Catolica Andres Bello
+ * Facultad de Ingenieria
+ * Escuela de Ingenieria Informatica 
+ * Sistemas Distribuidos 
+ * ----------------------------------
+ * Integrantes: 
+ * --------------
+ * Garry Bruno 
+ * Carlos Valero
  */
 public class Envio {
     DataOutputStream output;
@@ -25,11 +27,18 @@ public class Envio {
     byte[] receivedData;
     int in;
     
-    
+     /**
+      * Este metodo se encarga del envio de objtos serializados a los diferentes 
+      * nodos que conforman al anillo. 
+      * @param dato
+      * @param ip
+      * @param puerto
+      * @return 
+      */
      public static Object enviardato(Object dato,String ip,int puerto){
          try {
                ObjectOutputStream salidaObjeto;      
-               //Se colocan los datos del servidor central (Direccion IP y Puerto).
+               //Se colocan los datos del nodo (Direccion IP y Puerto).
                Socket reves = null;
                reves = new Socket (ip,puerto);
                salidaObjeto = new ObjectOutputStream(reves.getOutputStream());
