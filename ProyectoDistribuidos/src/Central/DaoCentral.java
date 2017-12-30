@@ -74,11 +74,11 @@ public class DaoCentral {
          } 
             Element nodo = new Element("nodo");
             nodo.setAttribute(new Attribute("ip",direccion));
-            nodo.setAttribute(new Attribute("id",Integer.toString(Math.abs(direccion.hashCode()))));
+            nodo.setAttribute(new Attribute("id",Integer.toString((int) (Math.abs(direccion.hashCode())))));
             nodo.setAttribute(new Attribute("port",puerto));
             root.addContent(nodo);
             document.removeContent();
-            document.addContent(root);
+            document.addContent(root.detach());
             
                 try {
                     FileWriter writer = new FileWriter(xmlFile);
@@ -219,7 +219,7 @@ public class DaoCentral {
     }
    /**
     * Este metodo cuenta la cantidad de nodos registrados con el fin de que se puedan 
-    * calcular los puertos que son dinamicos para cada nodo. 
+    * calcular los puertos que son dinamicos para cada nodo y la formula (k+2^(n-1)). 
     * @return 
     */
     public int numeroNodos(){

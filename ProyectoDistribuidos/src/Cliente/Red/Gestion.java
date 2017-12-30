@@ -63,7 +63,7 @@ public class Gestion extends Thread {
                          System.out.println("Actualizando tabla Finger");
                        break;
                        case "3":
-                          //Aqui se informa sobre la ubicacion de un recurso en un nodo
+                         //Aqui se informa sobre la ubicacion de un recurso en un nodo
                          almacen = new DaoFinger(); 
                          Recurso archivo = almacen.obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
                          if(archivo!=null)

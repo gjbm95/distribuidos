@@ -25,6 +25,7 @@ public class Sistema {
     //Aspecto de Red: 
     //-----------------------------------------------------------
     public static String ip = obtenerIP(); 
+    public static int iphash = 0;
     public static String ipserver ="localhost"; 
     public static String ipcenter =obtenerIPCentral(); 
     public static int miPuerto = 9092;

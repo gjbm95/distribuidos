@@ -72,22 +72,24 @@ public class ControladorC {
      * @return 
      */
     public static String seleccionarNodo(int recurso){
-        int cercania =0;
+        int cercania = 0;
+        String anterior = "";
         String seleccion =""; 
         int iteracion =0;
         for (String direccion : Sistema.anillo)
          {
                  if (iteracion==0){ 
                   cercania = Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]));
-                     iteracion++;
+                  iteracion++;
                  }
                  if (Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]))<=cercania)
                  {
                     cercania = Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]));
                     seleccion = direccion.split(":")[0] + ":" +direccion.split(":")[2];
-                 }
-         
+                 }     
          }
+             
+             
         return seleccion;     
     } 
     
@@ -124,6 +126,23 @@ public class ControladorC {
        return 0; 
     }
     /**
+     * Obtener numero de nodos del Anillo 
+     */
+    public static int obtenerNumeroNodos(){
+      return Sistema.anillo.size();
+    }
+    /**
+     * Obtener Hash de ip actual 
+     * 
+     */
+    public static String ipactual(){
+       for (String direcciones : Sistema.anillo){
+          if ((Integer.parseInt(direcciones.split(":")[2])==Sistema.miPuerto)&&(Integer.parseInt(direcciones.split(":")[1])==((Sistema.ip).hashCode()+Math.pow(2,Sistema.anillo.size()-1)))); 
+            return Integer.toString((int) Math.abs((Sistema.ip).hashCode()+Math.pow(2,Sistema.anillo.size()-1)));
+       } 
+        return null; 
+    }
+    /**
      * Verifica si un archivo determinado se encuentra registrado en la memoria 
      * de un nodo. 
      * @param recurso
@@ -158,6 +177,7 @@ public class ControladorC {
           String destino = seleccionarNodo(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode())); 
           if (!destino.equals("")){
              String data = "2:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+Math.abs(Sistema.ip.hashCode());
+             //String data = "2:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+ipactual();
              Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[1]));
           } 
       }
