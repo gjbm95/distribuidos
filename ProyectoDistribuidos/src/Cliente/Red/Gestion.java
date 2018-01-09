@@ -91,6 +91,7 @@ public class Gestion extends Thread {
                if (mensaje instanceof ArrayList){
                  Sistema.anillo = (ArrayList<String>)mensaje; 
                    System.out.println("Actualizando tabla de direcciones (Antecesor y Sucesor)");
+                   ControladorC.resetearAlmacen();
                    ControladorC.recargandoRecursos();
                    //ControladorC.limpiarFinger();
                } 

@@ -196,12 +196,12 @@ public class ControladorC {
                   {
                     String parametros = Sistema.anillo.get(Sistema.anillo.size()-1);
                     String data = "8:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+Math.abs(Sistema.ip.hashCode());
-                    String ubicacionfinal = (String)Envio.enviardato(data,parametros.split(":")[0],Integer.parseInt(parametros.split(":")[1]));
+                    String ubicacionfinal = (String)Envio.enviardato(data,parametros.split(":")[0],Integer.parseInt(parametros.split(":")[2]));
                     System.out.println("El nodo: " + ubicacionfinal + " se quedo con los recursos");
                   }else if (!destino.equals("")){
                      String data = "2:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+Math.abs(Sistema.ip.hashCode());
                      //String data = "2:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+ipactual();
-                     Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[1]));
+                     Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[2]));
                   } 
            }
       }
@@ -226,8 +226,12 @@ public class ControladorC {
                    new DaoFinger().eliminarRecurso(r.getId());
                }
            }
-
     }
+    
+    public static void resetearAlmacen(){
+       new DaoFinger().eliminarArchivo();
+    }
+    
     /**
      * Este metodo permite mostrar por pantalla los recursos que tiene un nodo localmente. 
      */
