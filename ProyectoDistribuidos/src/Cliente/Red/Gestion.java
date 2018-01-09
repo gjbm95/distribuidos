@@ -1,5 +1,6 @@
 package Cliente.Red;
 import Cliente.ControladorC;
+import static Cliente.ControladorC.seleccionarNodo;
 import Cliente.DaoFinger;
 import Dominio.Recurso;
 import Dominio.Sistema;
@@ -69,19 +70,29 @@ public class Gestion extends Thread {
                          if(archivo!=null)
                          respuesta = archivo.getCodigoprop(); 
                        break;
+                       case "8":
+                         //Aqui rebota la informacion de la ubicacion del archivo
+                         String destino = seleccionarNodo(Integer.parseInt(dato.split(":")[1]));
+                         if (!destino.equals("")){
+                             almacen = new DaoFinger(); 
+                             almacen.agregarRecurso(new Recurso(Integer.parseInt(dato.split(":")[1]),
+                             Integer.parseInt(dato.split(":")[2]))); 
+                         }else if (Sistema.anillo.size()==1){
+                             almacen = new DaoFinger(); 
+                             almacen.agregarRecurso(new Recurso(Integer.parseInt(dato.split(":")[1]),
+                             Integer.parseInt(dato.split(":")[2]))); 
+                             respuesta = "7:"+Sistema.ip+":"+Integer.toString(Sistema.miPuerto);
+                         }
+                         
+                       break;
                     }
                } 
                //Se encarga de recibir las actualizaciones de la conformacion del  anillo
                if (mensaje instanceof ArrayList){
                  Sistema.anillo = (ArrayList<String>)mensaje; 
                    System.out.println("Actualizando tabla de direcciones (Antecesor y Sucesor)");
-                   System.out.println("Esto es lo que hay");
-                   for(String r : Sistema.anillo)
-                   {
-                       System.out.println(r);
-                   }
                    ControladorC.recargandoRecursos();
-                   ControladorC.limpiarFinger();
+                   //ControladorC.limpiarFinger();
                } 
                  
                //Con este codigo es que responde el servidor:

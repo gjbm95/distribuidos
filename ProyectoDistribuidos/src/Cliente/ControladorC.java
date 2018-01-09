@@ -76,20 +76,21 @@ public class ControladorC {
         String anterior = "";
         String seleccion =""; 
         int iteracion =0;
+        int mayor =0; 
         for (String direccion : Sistema.anillo)
          {
-                 if (iteracion==0){ 
-                  cercania = (int) Math.abs(recurso-(Integer.parseInt(direccion.split(":")[1])+Math.pow(2,obtenerNumeroNodos()-1)));
-                  iteracion++;
-                 }
-                 if (Math.abs(recurso-(Integer.parseInt(direccion.split(":")[1])+Math.pow(2,obtenerNumeroNodos()-1)))<=cercania)
-                 {
-                    cercania = Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]));
-                    seleccion = direccion.split(":")[0] + ":" +direccion.split(":")[2];
-                 }     
-         }
-             
-             
+//                 if (iteracion==0){ 
+//                  cercania = (int) Math.abs(recurso-(Integer.parseInt(direccion.split(":")[1])+Math.pow(2,obtenerNumeroNodos()-1)));
+//                  iteracion++;
+//                 }
+//                 if (Math.abs(recurso-(Integer.parseInt(direccion.split(":")[1])+Math.pow(2,obtenerNumeroNodos()-1)))<=cercania)
+//                 {
+//                    cercania = Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]));
+//                    seleccion = direccion.split(":")[0] + ":" +direccion.split(":")[2];
+//                 }  
+              if(recurso<Math.abs(Integer.parseInt(direccion.split(":")[1])))
+                  seleccion = direccion;         
+         }    
         return seleccion;     
     } 
     
@@ -155,6 +156,17 @@ public class ControladorC {
            }
       return false; 
     }
+    
+    private static boolean soyelprimero(){
+       for(String nodo : Sistema.anillo)
+       {
+          if (Sistema.ip.equals(nodo.split(":")[0]))
+              return true; 
+       }
+      return false; 
+    }
+    
+    
     /**
      * Este metodo se encarga de cargar en memoria informacion acerca de los recursos 
      * propios que posee un nodo determinado para que posteriormente le envie a los nodos 
@@ -173,14 +185,29 @@ public class ControladorC {
           interno.agregarRecurso(r); 
            if (!estaRegistrado(r))
              Sistema.recursos.add(r);
-          String destino = seleccionarNodo(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode())); 
-          if (!destino.equals("")){
+          
+           if (soyelprimero()){
              String data = "2:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+Math.abs(Sistema.ip.hashCode());
              //String data = "2:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+ipactual();
-             Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[1]));
-          } 
+             Envio.enviardato(data,Sistema.ip,Sistema.miPuerto);
+           }else {
+                  String destino = seleccionarNodo(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode())); 
+                  if (destino.equals(""))
+                  {
+                    String parametros = Sistema.anillo.get(Sistema.anillo.size()-1);
+                    String data = "8:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+Math.abs(Sistema.ip.hashCode());
+                    String ubicacionfinal = (String)Envio.enviardato(data,parametros.split(":")[0],Integer.parseInt(parametros.split(":")[1]));
+                    System.out.println("El nodo: " + ubicacionfinal + " se quedo con los recursos");
+                  }else if (!destino.equals("")){
+                     String data = "2:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+Math.abs(Sistema.ip.hashCode());
+                     //String data = "2:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+ipactual();
+                     Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[1]));
+                  } 
+           }
       }
     }
+    
+    
     /**
      * Este metodo se encarga de eliminar de la tabla finger de un nodo determinado 
      * informacion acerca de un nodo que ya no se encuentre dentro del anillo. 

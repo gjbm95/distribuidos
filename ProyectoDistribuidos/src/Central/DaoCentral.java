@@ -234,14 +234,13 @@ public class DaoCentral {
         for(String nodo : anillo){
          if(nodo.equals(actual))
           {
-             if((index+1)<=(anillo.size()-1))
+             if((index+1)<(anillo.size()-1))
                sucesor = anillo.get(index+1);
              else 
                sucesor = anillo.get(0);
           }
              index++;
         } 
-        System.out.println(sucesor);
         return sucesor;
     }
     
@@ -266,8 +265,10 @@ public class DaoCentral {
                }
                    index++;
             }
-            if (nada)
+            if (nada){
             respuesta.add(obtenerSucesor (actual,anillo));
+            break;                                                                              
+            }
             
              potencia++;
         }
