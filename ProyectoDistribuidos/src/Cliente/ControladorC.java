@@ -89,15 +89,6 @@ public class ControladorC {
         String seleccion =""; 
         for (String direccion : Sistema.tablafinger)
          {
-//                 if (iteracion==0){ 
-//                  cercania = (int) Math.abs(recurso-(Integer.parseInt(direccion.split(":")[1])+Math.pow(2,obtenerNumeroNodos()-1)));
-//                  iteracion++;
-//                 }
-//                 if (Math.abs(recurso-(Integer.parseInt(direccion.split(":")[1])+Math.pow(2,obtenerNumeroNodos()-1)))<=cercania)
-//                 {
-//                    cercania = Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]));
-//                    seleccion = direccion.split(":")[0] + ":" +direccion.split(":")[2];
-//                 }  
               if(recurso<Math.abs(Integer.parseInt(direccion.split(":")[1])))
                   seleccion = direccion;         
          }    
@@ -341,3 +332,18 @@ public class ControladorC {
     }
 
 }
+
+
+
+
+
+
+//                 if (iteracion==0){ 
+//                  cercania = (int) Math.abs(recurso-(Integer.parseInt(direccion.split(":")[1])+Math.pow(2,obtenerNumeroNodos()-1)));
+//                  iteracion++;
+//                 }
+//                 if (Math.abs(recurso-(Integer.parseInt(direccion.split(":")[1])+Math.pow(2,obtenerNumeroNodos()-1)))<=cercania)
+//                 {
+//                    cercania = Math.abs(recurso-Integer.parseInt(direccion.split(":")[1]));
+//                    seleccion = direccion.split(":")[0] + ":" +direccion.split(":")[2];
+//                 }  
