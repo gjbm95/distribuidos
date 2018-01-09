@@ -36,11 +36,25 @@ public class ControladorC {
          String data = "3:"+Integer.toString(valor);
          Object obj =  Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[1]));
          if (obj!=null){ 
-         int ubicacion = (int)obj;
+         int ubicacion = Integer.parseInt(((String)obj).split(":")[0]);
+         
          new RealizarDescarga(obtenerIp(ubicacion),obtenerPuerto(ubicacion)+1,valor).start(); 
          }else 
            System.out.println("Recurso no encontrado!");
-        } 
+        }else if (destino.equals(""))
+          {
+            String parametros = Sistema.anillo.get(Sistema.anillo.size()-1);
+            String data = "7:"+Integer.toString(valor);
+            String ubicacionfinal = (String)Envio.enviardato(data,parametros.split(":")[0],Integer.parseInt(parametros.split(":")[2]));
+            String data2 = "3:"+Integer.toString(valor);
+             Object obj =  Envio.enviardato(data2,ubicacionfinal.split(":")[0],Integer.parseInt(ubicacionfinal.split(":")[2]));
+             if (obj!=null){ 
+             int ubicacion = Integer.parseInt(((String)obj).split(":")[0]);
+             new RealizarDescarga((ubicacionfinal).split(":")[0],Integer.parseInt(((String)obj).split(":")[2])+1,valor).start(); 
+             }else 
+                System.out.println("Recurso no encontrado!"); 
+          }
+            
     }
     /**
      * Metodo que se encarga de agregar un archivo manualmente a la lista de recursos 
@@ -72,11 +86,7 @@ public class ControladorC {
      * @return 
      */
     public static String seleccionarNodo(int recurso){
-        int cercania = 0;
-        String anterior = "";
         String seleccion =""; 
-        int iteracion =0;
-        int mayor =0; 
         for (String direccion : Sistema.anillo)
          {
 //                 if (iteracion==0){ 
@@ -93,6 +103,7 @@ public class ControladorC {
          }    
         return seleccion;     
     } 
+    
     
     /**
      * Devuelve la ip de un nodo, dado un hash 
@@ -187,7 +198,7 @@ public class ControladorC {
              Sistema.recursos.add(r);
           
            if (soyelprimero()){
-             String data = "2:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+Math.abs(Sistema.ip.hashCode());
+             String data = "2:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+Math.abs(Sistema.ip.hashCode())+":"+Sistema.ip+":"+Sistema.miPuerto;
              //String data = "2:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+ipactual();
              Envio.enviardato(data,Sistema.ip,Sistema.miPuerto);
            }else {
@@ -195,12 +206,11 @@ public class ControladorC {
                   if (destino.equals(""))
                   {
                     String parametros = Sistema.anillo.get(Sistema.anillo.size()-1);
-                    String data = "8:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+Math.abs(Sistema.ip.hashCode());
+                    String data = "8:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+Math.abs(Sistema.ip.hashCode())+":"+Sistema.ip+":"+Sistema.miPuerto;
                     String ubicacionfinal = (String)Envio.enviardato(data,parametros.split(":")[0],Integer.parseInt(parametros.split(":")[2]));
                     System.out.println("El nodo: " + ubicacionfinal + " se quedo con los recursos");
                   }else if (!destino.equals("")){
-                     String data = "2:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+Math.abs(Sistema.ip.hashCode());
-                     //String data = "2:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+ipactual();
+                     String data = "2:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+Math.abs(Sistema.ip.hashCode())+":"+Sistema.ip+":"+Sistema.miPuerto;
                      Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[2]));
                   } 
            }
@@ -230,6 +240,7 @@ public class ControladorC {
     
     public static void resetearAlmacen(){
        new DaoFinger().eliminarArchivo();
+        System.out.println("Eliminando");
     }
     
     /**
@@ -302,6 +313,25 @@ public class ControladorC {
         System.out.println("----------------------------------------------------------");
           for(Recurso r : Sistema.enviando){
           System.out.println("Nombre: "+r.getNombre()+" | Estado: "+r.getEstado() + " | Tamaño total:"+ r.getTamanototal() );
+          }
+        System.out.println("----------------------------------------------------------");
+        System.out.println("Presione una tecla para continuar...");
+      Scanner pauser = new Scanner (System.in);
+      pauser.nextLine();  
+    
+    }
+     
+     /**
+      * Este metodo permite visualizar la tabla finger 
+      * enviandose a otros nodos .
+      */
+     public static void verFinger(){
+        System.out.println("Tabla Finger");
+        System.out.println("----------------------------------------------------------");
+          int i =1;
+          for(String r : Sistema.anillo){
+          System.out.println("I: "+i+" | Sucesor: "+r.split(":")[1]);
+          i++;
           }
         System.out.println("----------------------------------------------------------");
         System.out.println("Presione una tecla para continuar...");

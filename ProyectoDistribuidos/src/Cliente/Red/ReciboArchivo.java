@@ -114,16 +114,17 @@ public class ReciboArchivo {
             aumentarReporte(nombre);
             Sistema.estadoRecibo(d[0].hashCode(), "Descarga Completa");
         } catch (Exception e) {
-            try {
-                System.out.println("La descarga del archivo " + d[0] + " ha fallado");
-                re.setEstado("Fallido");
-                System.out.println("Usted o el servidor ha perdido la conexion");
-                dis.close();
-                bos.close();
-                //System.err.println(e);
-            } catch (IOException ex) {
-                //Logger.getLogger(ReciboArchivo.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            try {
+//                System.out.println("La descarga del archivo " + d[0] + " ha fallado");
+//                re.setEstado("Fallido");
+//                System.out.println("Usted o el servidor ha perdido la conexion");
+//                dis.close();
+//                bos.close();
+//                //System.err.println(e);
+//            } catch (IOException ex) {
+//                Logger.getLogger(ReciboArchivo.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+            Logger.getLogger(ReciboArchivo.class.getName()).log(Level.SEVERE, null, e);
         }
 
     }

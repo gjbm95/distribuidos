@@ -60,7 +60,7 @@ public class Gestion extends Thread {
                          //Aqui se actualiza la tabla finger cuando se requiera. 
                          almacen = new DaoFinger(); 
                          almacen.agregarRecurso(new Recurso(Integer.parseInt(dato.split(":")[1]),
-                         Integer.parseInt(dato.split(":")[2]))); 
+                         Integer.parseInt(dato.split(":")[2]),dato.split(":")[3],Integer.parseInt(dato.split(":")[4]))); 
                          System.out.println("Actualizando tabla Finger");
                        break;
                        case "3":
@@ -68,7 +68,7 @@ public class Gestion extends Thread {
                          almacen = new DaoFinger(); 
                          Recurso archivo = almacen.obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
                          if(archivo!=null)
-                         respuesta = archivo.getCodigoprop(); 
+                         respuesta = archivo.getCodigoprop()+":"+archivo.getPropietario()+":"+Integer.toString(archivo.getPuerto()); 
                        break;
                        case "8":
                          //Aqui rebota la informacion de la ubicacion del archivo
@@ -81,9 +81,29 @@ public class Gestion extends Thread {
                              almacen = new DaoFinger(); 
                              almacen.agregarRecurso(new Recurso(Integer.parseInt(dato.split(":")[1]),
                              Integer.parseInt(dato.split(":")[2]))); 
-                             respuesta = "7:"+Sistema.ip+":"+Integer.toString(Sistema.miPuerto);
+                             respuesta = "6:"+Sistema.ip+":"+Integer.toString(Sistema.miPuerto);
+                         }else if(destino.equals(""))
+                          {
+                            String parametros = Sistema.anillo.get(Sistema.anillo.size()-1);
+                            respuesta = (String)Envio.enviardato(dato,parametros.split(":")[0],Integer.parseInt(parametros.split(":")[2]));
+                          }
+                       break;
+                       case "7":
+                         //Aqui rebota la informacion de la ubicacion del archivo
+                         String destino2 = seleccionarNodo(Integer.parseInt(dato.split(":")[1]));
+                         if (!destino2.equals("")){
+                             respuesta = destino2;
+                         }else if (Sistema.anillo.size()==1){
+                             //Aqui se informa sobre la ubicacion de un recurso en un nodo
+                             almacen = new DaoFinger(); 
+                             Recurso archivo2 = almacen.obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
+                             if(archivo2!=null)
+                             respuesta = archivo2.getPropietario()+":"+archivo2.getCodigoprop()+":"+Integer.toString(archivo2.getPuerto());                   
+                         }else if (destino2.equals("")){
+                             String parametros = Sistema.anillo.get(Sistema.anillo.size()-1);
+                             respuesta = (String)Envio.enviardato(dato,parametros.split(":")[0],Integer.parseInt(parametros.split(":")[2]));
                          }
-                         
+                           
                        break;
                     }
                } 

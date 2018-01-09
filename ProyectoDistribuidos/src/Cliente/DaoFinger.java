@@ -71,6 +71,9 @@ public class DaoFinger {
             Element recurso = new Element("recurso");
             recurso.setAttribute("id", Integer.toString(archivo.getId()));
             recurso.setAttribute("iphash",Integer.toString(archivo.getCodigoprop()));
+            recurso.setAttribute("ip",archivo.getPropietario());
+            recurso.setAttribute("puerto",Integer.toString(archivo.getPuerto()));
+            
             root.addContent(recurso);
             document.removeContent();
             document.addContent(root);
@@ -161,7 +164,8 @@ public class DaoFinger {
                     aux = obtenerIdRecurso(nodos,id);
                     if(aux != null) {
                          resultado =  new Recurso(Integer.parseInt(aux.getAttributeValue("id"))
-                                 ,Integer.parseInt(aux.getAttributeValue("iphash")));
+                                 ,Integer.parseInt(aux.getAttributeValue("iphash")),aux.getAttributeValue("ip"),
+                                 Integer.parseInt(aux.getAttributeValue("puerto")));
                     }
                 fis.close();
                 return resultado; 
@@ -212,8 +216,9 @@ public class DaoFinger {
                       Iterator i = nodos.iterator();
                          while (i.hasNext()) {
                               Element e = (Element) i.next();
-                              resultados.add(new Recurso(Integer.parseInt(e.getAttributeValue("id"))
-                                 ,Integer.parseInt(e.getAttributeValue("iphash"))));
+                              resultados.add(new Recurso(Integer.parseInt(aux.getAttributeValue("id"))
+                                 ,Integer.parseInt(aux.getAttributeValue("iphash")),aux.getAttributeValue("ip"),
+                                 Integer.parseInt(aux.getAttributeValue("puerto"))));
                           }    
                 fis.close();
                 return resultados; 

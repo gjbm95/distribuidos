@@ -21,6 +21,7 @@ public class Recurso {
     private String estado;
     private int tamano;
     private int tamanototal; 
+    private int puerto;
     
     public Recurso(int id, String nombre, String ruta,String propietario,int codigoprop) {
         this.id = id;
@@ -33,6 +34,13 @@ public class Recurso {
     public Recurso(int id, int codigoprop) {
         this.id = id;
         this.codigoprop = codigoprop;
+    }
+    
+    public Recurso(int id, int codigopropm,String ip,int puerto) {
+        this.id = id;
+        this.codigoprop = codigoprop;
+        this.propietario = ip; 
+        this.puerto = puerto; 
     }
     
     public Recurso(){
@@ -110,6 +118,14 @@ public class Recurso {
 
     public void setTamanototal(int tamanototal) {
         this.tamanototal = tamanototal;
+    }
+
+    public int getPuerto() {
+        return puerto;
+    }
+
+    public void setPuerto(int puerto) {
+        this.puerto = puerto;
     }
     
     
