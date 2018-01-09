@@ -49,8 +49,8 @@ public class ControladorC {
             String data2 = "3:"+Integer.toString(valor);
              Object obj =  Envio.enviardato(data2,ubicacionfinal.split(":")[0],Integer.parseInt(ubicacionfinal.split(":")[2]));
              if (obj!=null){ 
-             int ubicacion = Integer.parseInt(((String)obj).split(":")[0]);
-             new RealizarDescarga((ubicacionfinal).split(":")[0],Integer.parseInt(((String)obj).split(":")[2])+1,valor).start(); 
+             //int ubicacion = Integer.parseInt(((String)obj).split(":")[1]);
+             new RealizarDescarga(((String)obj).split(":")[1],Integer.parseInt(((String)obj).split(":")[2])+1,valor).start(); 
              }else 
                 System.out.println("Recurso no encontrado!"); 
           }
