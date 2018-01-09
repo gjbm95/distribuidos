@@ -76,11 +76,11 @@ public class Gestion extends Thread {
                          if (!destino.equals("")){
                              almacen = new DaoFinger(); 
                              almacen.agregarRecurso(new Recurso(Integer.parseInt(dato.split(":")[1]),
-                             Integer.parseInt(dato.split(":")[2]))); 
+                         Integer.parseInt(dato.split(":")[2]),dato.split(":")[3],Integer.parseInt(dato.split(":")[4]))); 
                          }else if (Sistema.anillo.size()==1){
                              almacen = new DaoFinger(); 
                              almacen.agregarRecurso(new Recurso(Integer.parseInt(dato.split(":")[1]),
-                             Integer.parseInt(dato.split(":")[2]))); 
+                         Integer.parseInt(dato.split(":")[2]),dato.split(":")[3],Integer.parseInt(dato.split(":")[4]))); 
                              respuesta = "6:"+Sistema.ip+":"+Integer.toString(Sistema.miPuerto);
                          }else if(destino.equals(""))
                           {

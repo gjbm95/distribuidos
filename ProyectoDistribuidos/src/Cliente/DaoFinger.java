@@ -216,9 +216,9 @@ public class DaoFinger {
                       Iterator i = nodos.iterator();
                          while (i.hasNext()) {
                               Element e = (Element) i.next();
-                              resultados.add(new Recurso(Integer.parseInt(aux.getAttributeValue("id"))
-                                 ,Integer.parseInt(aux.getAttributeValue("iphash")),aux.getAttributeValue("ip"),
-                                 Integer.parseInt(aux.getAttributeValue("puerto"))));
+                              resultados.add(new Recurso(Integer.parseInt(e.getAttributeValue("id"))
+                                 ,Integer.parseInt(e.getAttributeValue("iphash")),e.getAttributeValue("ip"),
+                                 Integer.parseInt(e.getAttributeValue("puerto"))));
                           }    
                 fis.close();
                 return resultados; 
