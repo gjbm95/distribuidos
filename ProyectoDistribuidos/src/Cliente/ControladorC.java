@@ -43,7 +43,7 @@ public class ControladorC {
            System.out.println("Recurso no encontrado!");
         }else if (destino.equals(""))
           {
-            String parametros = Sistema.anillo.get(Sistema.anillo.size()-1);
+            String parametros = Sistema.tablafinger.get(Sistema.tablafinger.size()-1);
             String data = "7:"+Integer.toString(valor);
             String ubicacionfinal = (String)Envio.enviardato(data,parametros.split(":")[0],Integer.parseInt(parametros.split(":")[2]));
             String data2 = "3:"+Integer.toString(valor);
@@ -87,7 +87,7 @@ public class ControladorC {
      */
     public static String seleccionarNodo(int recurso){
         String seleccion =""; 
-        for (String direccion : Sistema.anillo)
+        for (String direccion : Sistema.tablafinger)
          {
 //                 if (iteracion==0){ 
 //                  cercania = (int) Math.abs(recurso-(Integer.parseInt(direccion.split(":")[1])+Math.pow(2,obtenerNumeroNodos()-1)));
@@ -112,7 +112,7 @@ public class ControladorC {
      */
     public static String obtenerIp(int hash){
        String direccion; 
-         for(String ip : Sistema.anillo) 
+         for(String ip : Sistema.tablafinger) 
          {
            if(hash==Integer.parseInt(ip.split(":")[1]))
             {
@@ -127,7 +127,7 @@ public class ControladorC {
     * @return 
     */
     public static int obtenerPuerto(int hash){
-         for(String ip : Sistema.anillo) 
+         for(String ip : Sistema.tablafinger) 
          {
            if(hash==Integer.parseInt(ip.split(":")[1]))
             {
@@ -140,16 +140,16 @@ public class ControladorC {
      * Obtener numero de nodos del Anillo 
      */
     public static int obtenerNumeroNodos(){
-      return Sistema.anillo.size();
+      return Sistema.tablafinger.size();
     }
     /**
      * Obtener Hash de ip actual 
      * 
      */
     public static String ipactual(){
-       for (String direcciones : Sistema.anillo){
-          if ((Integer.parseInt(direcciones.split(":")[2])==Sistema.miPuerto)&&(Integer.parseInt(direcciones.split(":")[1])==((Sistema.ip).hashCode()+Math.pow(2,Sistema.anillo.size()-1)))); 
-            return Integer.toString((int) Math.abs((Sistema.ip).hashCode()+Math.pow(2,Sistema.anillo.size()-1)));
+       for (String direcciones : Sistema.tablafinger){
+          if ((Integer.parseInt(direcciones.split(":")[2])==Sistema.miPuerto)&&(Integer.parseInt(direcciones.split(":")[1])==((Sistema.ip).hashCode()+Math.pow(2,Sistema.tablafinger.size()-1)))); 
+            return Integer.toString((int) Math.abs((Sistema.ip).hashCode()+Math.pow(2,Sistema.tablafinger.size()-1)));
        } 
         return null; 
     }
@@ -169,7 +169,7 @@ public class ControladorC {
     }
     
     private static boolean soyelprimero(){
-       for(String nodo : Sistema.anillo)
+       for(String nodo : Sistema.tablafinger)
        {
           if (Sistema.ip.equals(nodo.split(":")[0]))
               return true; 
@@ -205,7 +205,7 @@ public class ControladorC {
                   String destino = seleccionarNodo(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode())); 
                   if (destino.equals(""))
                   {
-                    String parametros = Sistema.anillo.get(Sistema.anillo.size()-1);
+                    String parametros = Sistema.tablafinger.get(Sistema.tablafinger.size()-1);
                     String data = "8:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+Math.abs(Sistema.ip.hashCode())+":"+Sistema.ip+":"+Sistema.miPuerto;
                     String ubicacionfinal = (String)Envio.enviardato(data,parametros.split(":")[0],Integer.parseInt(parametros.split(":")[2]));
                     System.out.println("El nodo: " + ubicacionfinal + " se quedo con los recursos");
@@ -227,7 +227,7 @@ public class ControladorC {
         int captura =0;
            for (Recurso r : new DaoFinger().obtenerRecursos()){
                i=0;
-               for (String direccion : Sistema.anillo){                        
+               for (String direccion : Sistema.tablafinger){                        
                        if(Integer.parseInt(direccion.split(":")[1])==r.getCodigoprop()) 
                         i++; 
                } 
@@ -329,7 +329,7 @@ public class ControladorC {
         System.out.println("Tabla Finger");
         System.out.println("----------------------------------------------------------");
           int i =1;
-          for(String r : Sistema.anillo){
+          for(String r : Sistema.tablafinger){
           System.out.println("I: "+i+" | Sucesor: "+r.split(":")[1]);
           i++;
           }

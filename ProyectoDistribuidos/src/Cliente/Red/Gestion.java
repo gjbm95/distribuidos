@@ -61,10 +61,11 @@ public class Gestion extends Thread {
                          almacen = new DaoFinger(); 
                          almacen.agregarRecurso(new Recurso(Integer.parseInt(dato.split(":")[1]),
                          Integer.parseInt(dato.split(":")[2]),dato.split(":")[3],Integer.parseInt(dato.split(":")[4]))); 
-                         System.out.println("Actualizando tabla Finger");
+                         System.out.println("Actualizando tabla de Recursos");
                        break;
                        case "3":
                          //Aqui se informa sobre la ubicacion de un recurso en un nodo
+                         System.out.println("Retornando ubicación de recurso");
                          almacen = new DaoFinger(); 
                          Recurso archivo = almacen.obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
                          if(archivo!=null)
@@ -74,17 +75,20 @@ public class Gestion extends Thread {
                          //Aqui rebota la informacion de la ubicacion del archivo
                          String destino = seleccionarNodo(Integer.parseInt(dato.split(":")[1]));
                          if (!destino.equals("")){
+                             System.out.println("Registrando en tabla finger");
                              almacen = new DaoFinger(); 
                              almacen.agregarRecurso(new Recurso(Integer.parseInt(dato.split(":")[1]),
-                         Integer.parseInt(dato.split(":")[2]),dato.split(":")[3],Integer.parseInt(dato.split(":")[4]))); 
-                         }else if (Sistema.anillo.size()==1){
+                             Integer.parseInt(dato.split(":")[2]),dato.split(":")[3],Integer.parseInt(dato.split(":")[4]))); 
+                         }else if (Sistema.tablafinger.size()==1){
+                             System.out.println("Registrando en tabla finger");
                              almacen = new DaoFinger(); 
                              almacen.agregarRecurso(new Recurso(Integer.parseInt(dato.split(":")[1]),
-                         Integer.parseInt(dato.split(":")[2]),dato.split(":")[3],Integer.parseInt(dato.split(":")[4]))); 
+                             Integer.parseInt(dato.split(":")[2]),dato.split(":")[3],Integer.parseInt(dato.split(":")[4]))); 
                              respuesta = "6:"+Sistema.ip+":"+Integer.toString(Sistema.miPuerto);
                          }else if(destino.equals(""))
                           {
-                            String parametros = Sistema.anillo.get(Sistema.anillo.size()-1);
+                            System.out.println("Redireccionando Peticion de registro en tabla finger");
+                            String parametros = Sistema.tablafinger.get(Sistema.tablafinger.size()-1);
                             respuesta = (String)Envio.enviardato(dato,parametros.split(":")[0],Integer.parseInt(parametros.split(":")[2]));
                           }
                        break;
@@ -92,15 +96,18 @@ public class Gestion extends Thread {
                          //Aqui rebota la informacion de la ubicacion del archivo
                          String destino2 = seleccionarNodo(Integer.parseInt(dato.split(":")[1]));
                          if (!destino2.equals("")){
+                             System.out.println("Informando sobre ubicacion de recurso");
                              respuesta = destino2;
-                         }else if (Sistema.anillo.size()==1){
+                         }else if (Sistema.tablafinger.size()==1){
                              //Aqui se informa sobre la ubicacion de un recurso en un nodo
+                             System.out.println("Informando sobre ubicación de recurso");
                              almacen = new DaoFinger(); 
                              Recurso archivo2 = almacen.obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
                              if(archivo2!=null)
                              respuesta = archivo2.getPropietario()+":"+archivo2.getCodigoprop()+":"+Integer.toString(archivo2.getPuerto());                   
                          }else if (destino2.equals("")){
-                             String parametros = Sistema.anillo.get(Sistema.anillo.size()-1);
+                             System.out.println("Redireccionando Peticion");
+                             String parametros = Sistema.tablafinger.get(Sistema.tablafinger.size()-1);
                              respuesta = (String)Envio.enviardato(dato,parametros.split(":")[0],Integer.parseInt(parametros.split(":")[2]));
                          }
                            
@@ -109,8 +116,8 @@ public class Gestion extends Thread {
                } 
                //Se encarga de recibir las actualizaciones de la conformacion del  anillo
                if (mensaje instanceof ArrayList){
-                 Sistema.anillo = (ArrayList<String>)mensaje; 
-                   System.out.println("Actualizando tabla de direcciones (Antecesor y Sucesor)");
+                 Sistema.tablafinger = (ArrayList<String>)mensaje; 
+                   System.out.println("Actualizando tabla finger de direccionamiento");
                    ControladorC.resetearAlmacen();
                    ControladorC.recargandoRecursos();
                    //ControladorC.limpiarFinger();

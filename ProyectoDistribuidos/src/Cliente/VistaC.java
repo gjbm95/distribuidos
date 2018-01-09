@@ -43,8 +43,8 @@ public class VistaC extends Thread {
             System.out.println("Presiona 4 para ver Recursos ofrecidos");
             System.out.println("Presiona 5 para ver el estado de respuestas");
             System.out.println("Presiona 6 para ver el numero de descargas por archivo");
-            System.out.println("Presiona 8 para ver tabla finger");
-            System.out.println("Presiona 7 para salir");
+            System.out.println("Presiona 7 para ver tabla finger");
+            System.out.println("Presiona 8 para salir");
             System.out.println("----------------------------------------------------------");
             System.out.println("Ingresa tu opcion: ");
             opcion = sc.nextLine();
@@ -87,17 +87,17 @@ public class VistaC extends Thread {
                     //VER LAS CANTIDAD DE DESCARGAS DE LOS RECURSOS OFRECIDOS
                     ControladorC.verNDescargas();
                     break;
-                }
+                }   
                 case "7": {
+                    // LOGICA TABLA FINGER
+                    ControladorC.verFinger(); 
+                    break;
+                }
+                case "8": {
                     // LOGICA SALIR
                     Envio.enviardato("1:"+Sistema.ip+":"+Sistema.miPuerto,"center");
                     continuar = false;
                     System.exit(0);
-                    break;
-                }
-                case "8": {
-                    // LOGICA TABLA FINGER
-                    ControladorC.verFinger(); 
                     break;
                 }
                 default: {
