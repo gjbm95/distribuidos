@@ -1,10 +1,12 @@
 package Central;
+import Dominio.Sistema;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -191,9 +193,10 @@ public class DaoCentral {
                               Element e = (Element) i.next();
                               resultados.add(e.getAttributeValue("ip")+":"+e.getAttributeValue("id")
                                       +":"+e.getAttributeValue("port"));
+                            
                           }    
                 fis.close();
-                return resultados; 
+                return ordenarLista(resultados); 
             } catch (JDOMException ex) {
                 Logger.getLogger(DaoCentral.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -202,6 +205,78 @@ public class DaoCentral {
          } 
         return null; 
     }
+    /**
+     * Este metodo se encarga de ordenar de menor a mayor por hash las IPs
+     * @param lista
+     * @return 
+     */
+    private ArrayList<String> ordenarLista(ArrayList<String> lista){
+        ArrayList<Integer> numerico = new ArrayList<Integer>();
+        ArrayList<String> resultado = new ArrayList<String>();
+        
+        for (String elemento : lista)
+        {
+           numerico.add(Integer.parseInt(elemento.split(":")[1]));
+        }
+        Collections.sort(numerico);
+        for(Integer elemento : numerico){
+          for(String organizando : lista){
+            if (elemento == Integer.parseInt(organizando.split(":")[1])) 
+              resultado.add(organizando);
+          }
+        } 
+        return resultado;
+    }
+    
+    public static String obtenerSucesor (String actual,ArrayList<String> anillo){
+     int index =0;
+     String sucesor="";
+        for(String nodo : anillo){
+         if(nodo.equals(actual))
+          {
+             if((index+1)<=(anillo.size()-1))
+               sucesor = anillo.get(index+1);
+             else 
+               sucesor = anillo.get(0);
+          }
+             index++;
+        } 
+        System.out.println(sucesor);
+        return sucesor;
+    }
+    
+    public static ArrayList<String> construirTabla(String actual,ArrayList<String> anillo){
+     ArrayList<String> respuesta = new ArrayList<String>();
+     int hash = Integer.parseInt(actual.split(":")[1]);
+     int potencia =0;
+     boolean nada; 
+        while(potencia<2){
+            nada = true;
+            int numero = (int) (hash + Math.pow(2,potencia));  
+            int index =0; 
+            for (String nodo : anillo)     
+            {
+               if((index-1)!=-1){
+                   if ((numero>Integer.parseInt(anillo.get(index-1).split(":")[1]))&&(numero<(Integer.parseInt(nodo.split(":")[1]))))
+                   {    
+                     respuesta.add(nodo);
+                     nada = false;
+                     break; 
+                   }
+               }
+                   index++;
+            }
+            if (nada)
+            respuesta.add(obtenerSucesor (actual,anillo));
+            
+             potencia++;
+        }
+        
+        
+        return respuesta;
+  
+    }
+    
    /**
     * Este metodo cuenta la cantidad de nodos registrados con el fin de que se puedan 
     * calcular los puertos que son dinamicos para cada nodo y la formula (k+2^(n-1)). 

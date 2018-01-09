@@ -35,6 +35,8 @@ public class Sistema {
     public static int puertocenterArchivo = 9093; 
     public static int puertoserverArchivo = 9094;
     public static ArrayList<String> anillo;
+    public static String antecesor;
+    public static String sucesor;
     //------------------------------------------------------------
     //Aspectos de Reportes y Estadisticas: 
     //------------------------------------------------------------

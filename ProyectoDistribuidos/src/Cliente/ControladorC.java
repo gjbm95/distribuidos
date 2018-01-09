@@ -115,7 +115,6 @@ public class ControladorC {
     * @return 
     */
     public static int obtenerPuerto(int hash){
-       int puerto; 
          for(String ip : Sistema.anillo) 
          {
            if(hash==Integer.parseInt(ip.split(":")[1]))

@@ -74,7 +74,12 @@ public class Gestion extends Thread {
                //Se encarga de recibir las actualizaciones de la conformacion del  anillo
                if (mensaje instanceof ArrayList){
                  Sistema.anillo = (ArrayList<String>)mensaje; 
-                   System.out.println("Actualizando tabla de direcciones");
+                   System.out.println("Actualizando tabla de direcciones (Antecesor y Sucesor)");
+                   System.out.println("Esto es lo que hay");
+                   for(String r : Sistema.anillo)
+                   {
+                       System.out.println(r);
+                   }
                    ControladorC.recargandoRecursos();
                    ControladorC.limpiarFinger();
                } 

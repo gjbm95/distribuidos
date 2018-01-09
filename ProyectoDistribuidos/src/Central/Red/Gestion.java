@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Universidad Catolica Andres Bello
@@ -91,10 +92,11 @@ public class Gestion extends Thread{
      * @param almacen 
      */
     private void distribuirUsuarios(ArrayList<String> almacen){
-        for (String direccion : almacen){
-          Envio.enviardato(almacen,direccion.split(":")[0],
+        for (String direccion : almacen){ 
+          Envio.enviardato(DaoCentral.construirTabla(direccion,almacen),direccion.split(":")[0],
                   Integer.parseInt(direccion.split(":")[2]));
         } 
     
     }
+
 }
