@@ -5,6 +5,7 @@ import Cliente.Red.RealizarDescarga;
 import Dominio.Recurso;
 import Dominio.Sistema;
 import java.io.File;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -34,11 +35,10 @@ public class ControladorC {
         String destino = seleccionarNodo(valor); 
         if (!destino.equals("")){
          String data = "3:"+Integer.toString(valor);
-         Object obj =  Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[1]));
+         Object obj =  Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[2]));
          if (obj!=null){ 
-         int ubicacion = Integer.parseInt(((String)obj).split(":")[0]);
-         
-         new RealizarDescarga(obtenerIp(ubicacion),obtenerPuerto(ubicacion)+1,valor).start(); 
+         String ubicacion =(String)obj;    
+         new RealizarDescarga(ubicacion.split(":")[1],Integer.parseInt(ubicacion.split(":")[2])+1,valor).start(); 
          }else 
            System.out.println("Recurso no encontrado!");
         }else if (destino.equals(""))
@@ -48,6 +48,7 @@ public class ControladorC {
             String ubicacionfinal = (String)Envio.enviardato(data,parametros.split(":")[0],Integer.parseInt(parametros.split(":")[2]));
             String data2 = "3:"+Integer.toString(valor);
              Object obj =  Envio.enviardato(data2,ubicacionfinal.split(":")[0],Integer.parseInt(ubicacionfinal.split(":")[2]));
+             
              if (obj!=null){ 
              //int ubicacion = Integer.parseInt(((String)obj).split(":")[1]);
              new RealizarDescarga(((String)obj).split(":")[1],Integer.parseInt(((String)obj).split(":")[2])+1,valor).start(); 
@@ -182,14 +183,17 @@ public class ControladorC {
       DaoC interno = new DaoC(); 
       interno.crearXML();
       for (int x=0;x<ficheros.length;x++){
-          Recurso r = new Recurso(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()),ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")),
-                  ficheros[x].getPath(),Sistema.ip,Math.abs(Sistema.ip.hashCode()));
+          Random aleatorio = new Random(System.currentTimeMillis());
+          int archivohash = aleatorio.nextInt(100);; 
+ 
+          Recurso r = new Recurso(archivohash,ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")),
+                  ficheros[x].getPath(),Sistema.ip,Sistema.iphash);
           interno.agregarRecurso(r); 
            if (!estaRegistrado(r))
              Sistema.recursos.add(r);
           
            if (soyelprimero()){
-             String data = "2:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+Math.abs(Sistema.ip.hashCode())+":"+Sistema.ip+":"+Sistema.miPuerto;
+             String data = "2:"+archivohash+":"+Sistema.iphash+":"+Sistema.ip+":"+Sistema.miPuerto;
              //String data = "2:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+ipactual();
              Envio.enviardato(data,Sistema.ip,Sistema.miPuerto);
            }else {
@@ -197,11 +201,11 @@ public class ControladorC {
                   if (destino.equals(""))
                   {
                     String parametros = Sistema.tablafinger.get(Sistema.tablafinger.size()-1);
-                    String data = "8:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+Math.abs(Sistema.ip.hashCode())+":"+Sistema.ip+":"+Sistema.miPuerto;
+                    String data = "2:"+archivohash+":"+Sistema.iphash+":"+Sistema.ip+":"+Sistema.miPuerto;
                     String ubicacionfinal = (String)Envio.enviardato(data,parametros.split(":")[0],Integer.parseInt(parametros.split(":")[2]));
                     System.out.println("El nodo: " + ubicacionfinal + " se quedo con los recursos");
                   }else if (!destino.equals("")){
-                     String data = "2:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+Math.abs(Sistema.ip.hashCode())+":"+Sistema.ip+":"+Sistema.miPuerto;
+                     String data = "2:"+archivohash+":"+Sistema.iphash+":"+Sistema.ip+":"+Sistema.miPuerto;
                      Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[2]));
                   } 
            }
@@ -231,7 +235,6 @@ public class ControladorC {
     
     public static void resetearAlmacen(){
        new DaoFinger().eliminarArchivo();
-        System.out.println("Eliminando");
     }
     
     /**

@@ -27,7 +27,7 @@ public class ProyectoDistribuidos {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Sistema sistema = new Sistema(); 
+        Sistema sistema = new Sistema();   
         int estado =1;
         while(estado!=0){ 
         Scanner sc = new Scanner(System.in);
@@ -56,7 +56,10 @@ public class ProyectoDistribuidos {
             new Cliente.Red.Recepcion().start();
             new Cliente.Red.RecepcionArchivo().start();
             new DaoFinger().crearXML();
-            Envio.enviardato("0:"+Sistema.ip+":"+Sistema.miPuerto,"center");
+            System.out.println("Indique su Hash de IP");
+            i = sc.nextLine();
+            Sistema.iphash = Integer.parseInt(i);
+            Envio.enviardato("0:"+Sistema.ip+":"+Sistema.miPuerto+":"+Sistema.iphash,"center");
             //Sistema.anillo = (ArrayList<String>)Envio.enviardato("4:","center");
             new ControladorC();
             break;

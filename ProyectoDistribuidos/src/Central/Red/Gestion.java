@@ -58,7 +58,7 @@ public class Gestion extends Thread{
                //----------------------------------------------------------------------
                switch(mensaje.split(":")[0]){
                     case "0":
-                    almacen.agregarNodo(mensaje.split(":")[1],mensaje.split(":")[2]);
+                    almacen.agregarNodo(mensaje.split(":")[1],mensaje.split(":")[2],mensaje.split(":")[3]);
                     distribuirUsuarios(almacen.obtenerIps());
                     break;
                     case"1":

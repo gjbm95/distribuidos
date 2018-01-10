@@ -37,7 +37,7 @@ public class DaoCentral {
     /*
       Agregando elemento a archivo XML
     */
-    public void agregarNodo(String direccion,String puerto){
+    public void agregarNodo(String direccion,String puerto,String hash){
         File xmlFile = new File(filelocation);
         Document document = null;
         
@@ -61,7 +61,7 @@ public class DaoCentral {
          } 
             Element nodo = new Element("nodo");
             nodo.setAttribute(new Attribute("ip",direccion));
-            nodo.setAttribute(new Attribute("id",Integer.toString((int) (Math.abs(direccion.hashCode())))));
+            nodo.setAttribute(new Attribute("id",hash));
             nodo.setAttribute(new Attribute("port",puerto));
             root.addContent(nodo);
             document.removeContent();
