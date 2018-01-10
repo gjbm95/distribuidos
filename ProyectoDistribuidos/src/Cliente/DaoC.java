@@ -187,7 +187,7 @@ public class DaoC {
       File f = new File("canciones"+Sistema.miPuerto);
       File[] ficheros = f.listFiles();
       for (int x=0;x<ficheros.length;x++){
-          if(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode())==nombre){
+          if(ControladorC.sacarHash(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")))==nombre){
            return ficheros[x].getName();
         }
       }

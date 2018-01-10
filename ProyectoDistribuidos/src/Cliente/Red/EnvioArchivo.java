@@ -1,4 +1,5 @@
 package Cliente.Red;
+import Cliente.ControladorC;
 import Cliente.DaoC;
 import static Cliente.DaoC.buscarArchivo;
 import Dominio.Recurso;
@@ -70,7 +71,7 @@ public class EnvioArchivo extends Thread {
                      //System.out.println("El archivo es: " + buscarArchivo(Integer.parseInt(dt[1])));
                      re = new Recurso();
                      re.setNombre(buscarArchivo(Integer.parseInt(dt[1])));
-                     re.setId(Math.abs(buscarArchivo(Integer.parseInt(dt[1])).hashCode()));
+                     re.setId(ControladorC.sacarHash(re.getNombre()));
                      re.setEstado("Enviando...");
                      Sistema.agregarEnvio(re);
                      bis = new BufferedInputStream(new FileInputStream(localFile));
@@ -104,13 +105,14 @@ public class EnvioArchivo extends Thread {
                        System.out.println("Envio de Archivo finalizado!");
                        Sistema.estadoEnvio(re.getId(),"Envio Completo");
                     }catch ( Exception e ) {
-                            try {
-                                System.out.println("Error de Envio del archivo "+dt[1]+ ". Usted o el cliente ha perdido la conexion");
-                                re.setEstado("Fallido");
-                                bis.close();
-                               } catch (IOException ex) {
-                                Logger.getLogger(EnvioArchivo.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+//                            try {
+//                                System.out.println("Error de Envio del archivo "+dt[1]+ ". Usted o el cliente ha perdido la conexion");
+//                                re.setEstado("Fallido");
+//                                bis.close();
+//                               } catch (IOException ex) {
+//                                Logger.getLogger(EnvioArchivo.class.getName()).log(Level.SEVERE, null, ex);
+//                            }
+                    Logger.getLogger(EnvioArchivo.class.getName()).log(Level.SEVERE, null, e);
                     }
     }
         

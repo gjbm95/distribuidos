@@ -57,7 +57,9 @@ public class VistaC extends Thread {
                      sc = new Scanner(System.in);
                     String recurso = sc.nextLine();
                     int hash = Math.abs(recurso.hashCode());
-                    ControladorC.buscarRecurso(hash);
+                    String hashoriginal = Integer.toString((int)Math.abs(hash)); 
+                    int archivohash = Integer.parseInt(hashoriginal.substring(0,2));
+                    ControladorC.buscarRecurso(archivohash);
                     break;
                 }
                 case "2": {

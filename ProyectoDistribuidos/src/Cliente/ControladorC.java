@@ -57,6 +57,12 @@ public class ControladorC {
           }
             
     }
+    
+    public static int sacarHash(String nombre){
+          String hashoriginal = Integer.toString((int)Math.abs(nombre.hashCode())); 
+          return Integer.parseInt(hashoriginal.substring(0,2));
+    }
+    
     /**
      * Metodo que se encarga de agregar un archivo manualmente a la lista de recursos 
      * de un nodo determinado. 
@@ -183,9 +189,9 @@ public class ControladorC {
       DaoC interno = new DaoC(); 
       interno.crearXML();
       for (int x=0;x<ficheros.length;x++){
-          Random aleatorio = new Random(System.currentTimeMillis());
-          int archivohash = aleatorio.nextInt(100);; 
- 
+          
+          String hashoriginal = Integer.toString((int)Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode())); 
+          int archivohash = Integer.parseInt(hashoriginal.substring(0,2));
           Recurso r = new Recurso(archivohash,ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")),
                   ficheros[x].getPath(),Sistema.ip,Sistema.iphash);
           interno.agregarRecurso(r); 
@@ -197,7 +203,7 @@ public class ControladorC {
              //String data = "2:"+Integer.toString(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode()))+":"+ipactual();
              Envio.enviardato(data,Sistema.ip,Sistema.miPuerto);
            }else {
-                  String destino = seleccionarNodo(Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode())); 
+                  String destino = seleccionarNodo(archivohash); 
                   if (destino.equals(""))
                   {
                     String parametros = Sistema.tablafinger.get(Sistema.tablafinger.size()-1);
