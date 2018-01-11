@@ -256,7 +256,7 @@ public class DaoCentral {
             for (String nodo : anillo)     
             {
                if((index-1)!=-1){
-                   if ((numero>Integer.parseInt(anillo.get(index-1).split(":")[1]))&&(numero<(Integer.parseInt(nodo.split(":")[1]))))
+                   if ((numero>Integer.parseInt(anillo.get(index-1).split(":")[1]))&&(numero<=(Integer.parseInt(nodo.split(":")[1]))))
                    {    
                      respuesta.add(nodo);
                      nada = false;
