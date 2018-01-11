@@ -65,13 +65,16 @@ public class ControladorC {
             String data = "7:"+Integer.toString(valor);
             String ubicacionfinal = (String)Envio.enviardato(data,parametros.split(":")[0],Integer.parseInt(parametros.split(":")[2]));
             String data2 = "3:"+Integer.toString(valor);
-             Object obj =  Envio.enviardato(data2,ubicacionfinal.split(":")[0],Integer.parseInt(ubicacionfinal.split(":")[2]));
+            Object obj = null; 
+             if (ubicacionfinal!=null) 
+             obj =  Envio.enviardato(data2,ubicacionfinal.split(":")[0],Integer.parseInt(ubicacionfinal.split(":")[2]));
              
              if (obj!=null){ 
              //int ubicacion = Integer.parseInt(((String)obj).split(":")[1]);
              new RealizarDescarga(((String)obj).split(":")[1],Integer.parseInt(((String)obj).split(":")[2])+1,valor).start(); 
-             }else 
+             }else{
                 System.out.println("Recurso no encontrado!"); 
+             }
           }
             
     }
@@ -231,6 +234,7 @@ public class ControladorC {
                     String data = "8:"+archivohash+":"+Sistema.iphash+":"+Sistema.ip+":"+Sistema.miPuerto;
                     String ubicacionfinal = (String) Envio.enviardato(data,parametros.split(":")[0],Integer.parseInt(parametros.split(":")[2]));
                     System.out.println("El nodo: " + ubicacionfinal.split(":")[1] + " se quedo con los recursos");
+                     
                   }else if (!destino.equals("")){
                      String data = "2:"+archivohash+":"+Sistema.iphash+":"+Sistema.ip+":"+Sistema.miPuerto;
                      Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[2]));

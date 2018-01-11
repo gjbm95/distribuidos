@@ -82,7 +82,7 @@ public class DaoCentral {
      * Este metodo permite eliminar los datos de un nodo que se sale del anillo.
      * @param direccion 
      */
-    public void eliminarNodo(String direccion){
+    public void eliminarNodo(String hash){
        
         File xmlFile = new File(filelocation);
         Document document = null;
@@ -109,7 +109,7 @@ public class DaoCentral {
             Element aux = new Element("nodo");
             List nodos = root.getChildren("nodo");
             while (aux != null) {
-                aux = obtenerIpNodo(nodos,direccion);
+                aux = obtenerIpNodo(nodos,hash);
                 if (aux != null) {
                     nodos.remove(aux);
                     updateDocument();   
@@ -319,13 +319,13 @@ public class DaoCentral {
     /*
      Retorna la ip del nodo en HASH almacenada
     */
-    public Element obtenerIpNodo(List raiz,String direccion){
+    public Element obtenerIpNodo(List raiz,String hash){
         
          Iterator i = raiz.iterator();
           while (i.hasNext()) {
             //System.out.println("i tiene algo");
             Element e = (Element) i.next();
-            if (direccion.equals(e.getAttributeValue("ip"))) {
+            if (hash.equals(e.getAttributeValue("id"))) {
                 return e;
             }
         }

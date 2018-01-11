@@ -64,7 +64,7 @@ public class Gestion extends Thread{
                     senalUsuarios(almacen.obtenerIps());
                     break;
                     case"1":
-                    almacen.eliminarNodo(mensaje.split(":")[1]); 
+                    almacen.eliminarNodo(mensaje.split(":")[3]); 
                     distribuirUsuarios(almacen.obtenerIps());
                     senalUsuarios(almacen.obtenerIps());
                     Sistema.conexiones--;

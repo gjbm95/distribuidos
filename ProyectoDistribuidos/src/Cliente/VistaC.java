@@ -97,7 +97,8 @@ public class VistaC extends Thread {
                 }
                 case "8": {
                     // LOGICA SALIR
-                    Envio.enviardato("1:"+Sistema.ip+":"+Sistema.miPuerto,"center");
+                    Envio.enviardato("1:"+Sistema.ip+":"+Sistema.miPuerto+":"+Sistema.iphash,"center");
+                    ControladorC.resetearAlmacen(); 
                     continuar = false;
                     System.exit(0);
                     break;

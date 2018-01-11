@@ -76,11 +76,13 @@ public class Gestion extends Thread {
                          
                          //Si no lo consigo en el otro, me reviso a mi mismo
                          if (respuesta.equals("")){
+                             System.out.println("Iniciando busqueda interna en Tabla Finger");
                             Recurso r = new DaoFinger().obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
                             if (r!=null)
                             respuesta = r.getCodigoprop()+":"+r.getPropietario()+":"+Integer.toString(r.getPuerto()); 
                          }
                          if (respuesta.equals("")){
+                             System.out.println("Iniciando busqueda interna en Tabla de Recursos");
                             Recurso r = new DaoC().obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
                             if (r!=null)
                             respuesta = r.getCodigoprop()+":"+r.getPropietario()+":"+Integer.toString(r.getPuerto()); 
@@ -112,18 +114,6 @@ public class Gestion extends Thread {
                        case "8":
                          //Aqui rebota la informacion de la ubicacion del archivo
                          String destino = ControladorC.seleccionarNodo(Integer.parseInt(dato.split(":")[1]));
-                         //Si no lo consigo en el otro, me reviso a mi mismo
-                         if (destino.equals("")){
-                            Recurso r = new DaoFinger().obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
-                            if (r!=null)
-                            destino = r.getCodigoprop()+":"+r.getPropietario()+":"+Integer.toString(r.getPuerto()); 
-                         }
-                         if (destino.equals("")){
-                            Recurso r = new DaoC().obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
-                            if (r!=null)
-                            destino = r.getCodigoprop()+":"+r.getPropietario()+":"+Integer.toString(r.getPuerto()); 
-                         }
-                         
                          if (!destino.equals("")){
                              System.out.println("Redireccionando recurso en el siguiente nodo");
                              String data = "2:"+dato.split(":")[1]+":"+dato.split(":")[2]+":"+dato.split(":")[3]+":"+dato.split(":")[4];
@@ -140,6 +130,18 @@ public class Gestion extends Thread {
                             String parametros = Sistema.tablafinger.get(Sistema.tablafinger.size()-1);
                             respuesta = (String)Envio.enviardato(dato,parametros.split(":")[0],Integer.parseInt(parametros.split(":")[2]));
                           }
+                         
+                         //Si no lo consigo en el otro, me reviso a mi mismo
+                         if ((destino.equals(""))&&(respuesta!=null)){
+                            Recurso r = new DaoFinger().obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
+                            if (r!=null)
+                            destino = r.getCodigoprop()+":"+r.getPropietario()+":"+Integer.toString(r.getPuerto()); 
+                         }
+                         if (destino.equals("")&&(respuesta!=null)){
+                            Recurso r = new DaoC().obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
+                            if (r!=null)
+                            destino = r.getCodigoprop()+":"+r.getPropietario()+":"+Integer.toString(r.getPuerto()); 
+                         }
                        break;
                        case "7":
                          if (!Sistema.general){
