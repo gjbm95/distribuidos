@@ -247,8 +247,13 @@ public class DaoFinger {
     }
     
     public void eliminarArchivo(){
-      File fichero = new File(filelocation);
-      fichero.delete();
+          File fichero = new File(filelocation);
+          if (fichero.exists()) 
+              System.out.println("Si existe");
+          else 
+              System.out.println("No existe");
+          fichero.delete();
+        
     }
     
 

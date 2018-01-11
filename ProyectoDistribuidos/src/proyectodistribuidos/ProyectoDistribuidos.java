@@ -48,6 +48,7 @@ public class ProyectoDistribuidos {
         switch(i){
             case "1":{
             // LOGICA CLIENTE
+
             int cantidad = (int)Envio.enviardato("2:","center");
             Sistema.miPuerto=9092+100*cantidad;
             Sistema.miPuertoArchivo=9092+100*cantidad+1;
@@ -55,6 +56,7 @@ public class ProyectoDistribuidos {
                 System.out.println("Puerto asignado: "+ Sistema.miPuertoArchivo);
             new Cliente.Red.Recepcion().start();
             new Cliente.Red.RecepcionArchivo().start();
+            new DaoFinger().eliminarArchivo();
             new DaoFinger().crearXML();
             System.out.println("Indique su Hash de IP");
             i = sc.nextLine();

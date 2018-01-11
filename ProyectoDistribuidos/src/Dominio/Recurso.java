@@ -38,7 +38,7 @@ public class Recurso {
     
     public Recurso(int id, int codigopropm,String ip,int puerto) {
         this.id = id;
-        this.codigoprop = codigoprop;
+        this.codigoprop = codigopropm;
         this.propietario = ip; 
         this.puerto = puerto; 
     }

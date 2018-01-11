@@ -95,9 +95,11 @@ public class ControladorC {
     public static String seleccionarNodo(int recurso){
         String seleccion =""; 
         for (String direccion : Sistema.tablafinger)
-         {
-              if(recurso<Math.abs(Integer.parseInt(direccion.split(":")[1])))
-                  seleccion = direccion;         
+         {    
+              if(recurso<Math.abs(Integer.parseInt(direccion.split(":")[1]))){
+                 seleccion = direccion;
+              }
+                           
          }    
         return seleccion;     
     } 
@@ -167,9 +169,10 @@ public class ControladorC {
     }
     
     private static boolean soyelprimero(){
+        
        for(String nodo : Sistema.tablafinger)
        {
-          if (Sistema.ip.equals(nodo.split(":")[0]))
+          if (Sistema.iphash==Integer.parseInt(nodo.split(":")[1]))
               return true; 
        }
       return false; 
@@ -207,9 +210,9 @@ public class ControladorC {
                   if (destino.equals(""))
                   {
                     String parametros = Sistema.tablafinger.get(Sistema.tablafinger.size()-1);
-                    String data = "2:"+archivohash+":"+Sistema.iphash+":"+Sistema.ip+":"+Sistema.miPuerto;
-                    String ubicacionfinal = (String)Envio.enviardato(data,parametros.split(":")[0],Integer.parseInt(parametros.split(":")[2]));
-                    System.out.println("El nodo: " + ubicacionfinal + " se quedo con los recursos");
+                    String data = "8:"+archivohash+":"+Sistema.iphash+":"+Sistema.ip+":"+Sistema.miPuerto;
+                    String ubicacionfinal = (String) Envio.enviardato(data,parametros.split(":")[0],Integer.parseInt(parametros.split(":")[2]));
+                    System.out.println("El nodo: " + ubicacionfinal.split(":")[1] + " se quedo con los recursos");
                   }else if (!destino.equals("")){
                      String data = "2:"+archivohash+":"+Sistema.iphash+":"+Sistema.ip+":"+Sistema.miPuerto;
                      Envio.enviardato(data,destino.split(":")[0],Integer.parseInt(destino.split(":")[2]));

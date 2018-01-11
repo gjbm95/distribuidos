@@ -59,11 +59,16 @@ public class Gestion extends Thread{
                switch(mensaje.split(":")[0]){
                     case "0":
                     almacen.agregarNodo(mensaje.split(":")[1],mensaje.split(":")[2],mensaje.split(":")[3]);
+                    Sistema.conexiones++;
                     distribuirUsuarios(almacen.obtenerIps());
+                    senalUsuarios(almacen.obtenerIps());
                     break;
                     case"1":
                     almacen.eliminarNodo(mensaje.split(":")[1]); 
                     distribuirUsuarios(almacen.obtenerIps());
+                    senalUsuarios(almacen.obtenerIps());
+                    Sistema.conexiones--;
+                    System.out.println("Cantidad de nodos (al salir un nodo) es : " + Sistema.conexiones);
                     break;
                     case"2":
                     conexiones = conexiones + almacen.numeroNodos()+1;  
@@ -72,6 +77,12 @@ public class Gestion extends Thread{
                     break;
                     case"3":
                     respuesta = almacen.obtenerIps(); 
+                    break;
+                    case"4":
+                    distribuirUsuarios(almacen.obtenerIps());   
+                    break;    
+                    case"9":
+                    respuesta = almacen.obtenerIps().size(); 
                     break;
                }
     
@@ -96,7 +107,19 @@ public class Gestion extends Thread{
           Envio.enviardato(DaoCentral.construirTabla(direccion,almacen),direccion.split(":")[0],
                   Integer.parseInt(direccion.split(":")[2]));
         } 
+    }
     
+    private void senalUsuarios(ArrayList<String> almacen){
+        for (String direccion : almacen){ 
+          Envio.enviardato("4",direccion.split(":")[0],
+                  Integer.parseInt(direccion.split(":")[2]));
+        } 
+    }
+    
+    private void mandarFinger(String actual){
+          DaoCentral almacen = new DaoCentral(); 
+          Envio.enviardato(DaoCentral.construirTabla(actual,almacen.obtenerIps()),actual.split(":")[0],
+                  Integer.parseInt(actual.split(":")[2]));
     }
 
 }
