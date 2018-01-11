@@ -70,15 +70,14 @@ public class Gestion extends Thread {
                          Recurso archivo = almacen.obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
                          if(archivo!=null){
                          respuesta = archivo.getCodigoprop()+":"+archivo.getPropietario()+":"+Integer.toString(archivo.getPuerto()); 
-                         }
+                         }else
+                            System.out.println("Retorno fallido");
                        break;
-                       case"4":
-                         ControladorC.resetearAlmacen();
+                       case"4":                  
                          ControladorC.recargandoRecursos();      
                        break; 
                        case "8":
                          //Aqui rebota la informacion de la ubicacion del archivo
-                           System.out.println(dato);
                          String destino = ControladorC.seleccionarNodo(Integer.parseInt(dato.split(":")[1]));
                          if (!destino.equals("")){
                              System.out.println("Redireccionando recurso en el siguiente nodo");
@@ -122,6 +121,7 @@ public class Gestion extends Thread {
                } 
                //Se encarga de recibir las actualizaciones de la conformacion del  anillo
                if (mensaje instanceof ArrayList){
+                 ControladorC.resetearAlmacen();    
                  Sistema.tablafinger = (ArrayList<String>)mensaje; 
                    System.out.println("Actualizando tabla finger de direccionamiento");
                    //ControladorC.limpiarFinger();

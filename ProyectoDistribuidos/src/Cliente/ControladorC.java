@@ -5,6 +5,7 @@ import Cliente.Red.RealizarDescarga;
 import Dominio.Recurso;
 import Dominio.Sistema;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -243,7 +244,10 @@ public class ControladorC {
     }
     
     public static void resetearAlmacen(){
-       new DaoFinger().eliminarArchivo();
+       ArrayList<Recurso> recursos = new DaoFinger().obtenerRecursos();
+       for(Recurso r : recursos){
+          new DaoFinger().eliminarRecurso(r.getId());
+       }
     }
     
     /**

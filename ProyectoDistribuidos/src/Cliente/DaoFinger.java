@@ -134,7 +134,7 @@ public class DaoFinger {
                     XMLOutputter outputter = new XMLOutputter();
                     outputter.setFormat(Format.getPrettyFormat());
                     outputter.output(document, writer);
-                    outputter.output(document, System.out);
+//                    outputter.output(document, System.out);
                     writer.close(); // close writer
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -248,10 +248,6 @@ public class DaoFinger {
     
     public void eliminarArchivo(){
           File fichero = new File(filelocation);
-          if (fichero.exists()) 
-              System.out.println("Si existe");
-          else 
-              System.out.println("No existe");
           fichero.delete();
         
     }

@@ -1,6 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<anillo>
-  <nodo ip="25.49.219.233" id="20" port="9192" />
-  <nodo ip="25.49.219.233" id="50" port="9292" />
-</anillo>
+<anillo />
 
