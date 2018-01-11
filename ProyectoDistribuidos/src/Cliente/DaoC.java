@@ -73,6 +73,7 @@ public class DaoC {
             recurso.setAttribute("hash",archivo.getNombre());
             recurso.setAttribute("ruta",archivo.getRuta());
             recurso.setAttribute("ip",archivo.getPropietario());
+            recurso.setAttribute("puerto",Integer.toString(archivo.getPuerto()));
             recurso.setAttribute("iphash",Integer.toString(archivo.getCodigoprop()));
             root.addContent(recurso);
             document.removeContent();
@@ -165,6 +166,7 @@ public class DaoC {
                         resultado =  new Recurso(Integer.parseInt(aux.getAttributeValue("id"))
                                  ,aux.getAttributeValue("nombre"),aux.getAttributeValue("ruta")
                                  ,aux.getAttributeValue("ip"),
+                                 Integer.parseInt(aux.getAttributeValue("puerto")),
                                  Integer.parseInt(aux.getAttributeValue("iphash")));
                     }
                 fis.close();
@@ -221,6 +223,7 @@ public class DaoC {
                               resultados.add(new Recurso(Integer.parseInt(e.getAttributeValue("id"))
                                  ,e.getAttributeValue("nombre"),e.getAttributeValue("ruta")
                                  ,e.getAttributeValue("ip"),
+                                 Integer.parseInt(e.getAttributeValue("puerto")),
                                  Integer.parseInt(e.getAttributeValue("iphash"))));
                           }    
                 fis.close();

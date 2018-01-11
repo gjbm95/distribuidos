@@ -1,5 +1,6 @@
 package Cliente.Red;
 import Cliente.ControladorC;
+import Cliente.DaoC;
 import Cliente.DaoFinger;
 import Dominio.Recurso;
 import Dominio.Sistema;
@@ -64,14 +65,46 @@ public class Gestion extends Thread {
                          respuesta = "6:"+Sistema.iphash+":"+Integer.toString(Sistema.miPuerto);
                        break;
                        case "3":
+                         respuesta ="";
                          //Aqui se informa sobre la ubicacion de un recurso en un nodo
                          System.out.println("Retornando ubicación de recurso");
                          almacen = new DaoFinger(); 
                          Recurso archivo = almacen.obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
                          if(archivo!=null){
                          respuesta = archivo.getCodigoprop()+":"+archivo.getPropietario()+":"+Integer.toString(archivo.getPuerto()); 
-                         }else
-                            System.out.println("Retorno fallido");
+                         }
+                         
+                         //Si no lo consigo en el otro, me reviso a mi mismo
+                         if (respuesta.equals("")){
+                            Recurso r = new DaoFinger().obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
+                            if (r!=null)
+                            respuesta = r.getCodigoprop()+":"+r.getPropietario()+":"+Integer.toString(r.getPuerto()); 
+                         }
+                         if (respuesta.equals("")){
+                            Recurso r = new DaoC().obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
+                            if (r!=null)
+                            respuesta = r.getCodigoprop()+":"+r.getPropietario()+":"+Integer.toString(r.getPuerto()); 
+                         }
+                         
+                         if ((!Sistema.general)&&(archivo==null)&&(respuesta.equals(""))){
+                         //En caso de que no lo tenga le pregunto a mi sucesor por si acaso
+                         System.out.println("Activando busqueda recursiva en el anillo");
+                         Sistema.general = true; 
+                         String parametros2 = Sistema.tablafinger.get(Sistema.tablafinger.size()-1);
+                         String info1 = "7:"+Integer.toString(Integer.parseInt(dato.split(":")[1]));
+                         String ubicacionfinal = (String)Envio.enviardato(info1,parametros2.split(":")[0],Integer.parseInt(parametros2.split(":")[2]));
+                         String info2 = "3:"+Integer.toString(Integer.parseInt(dato.split(":")[1]));
+                         Object obj = null;
+                         if (ubicacionfinal!=null)
+                         obj =  Envio.enviardato(info2,ubicacionfinal.split(":")[0],Integer.parseInt(ubicacionfinal.split(":")[2]));
+                         if (obj!=null)
+                          respuesta = (String)obj; 
+                         Sistema.general = false; 
+                         }
+                         
+                         if (respuesta.equals(""))
+                           respuesta = null;  
+                         
                        break;
                        case"4":                  
                          ControladorC.recargandoRecursos();      
@@ -79,6 +112,18 @@ public class Gestion extends Thread {
                        case "8":
                          //Aqui rebota la informacion de la ubicacion del archivo
                          String destino = ControladorC.seleccionarNodo(Integer.parseInt(dato.split(":")[1]));
+                         //Si no lo consigo en el otro, me reviso a mi mismo
+                         if (destino.equals("")){
+                            Recurso r = new DaoFinger().obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
+                            if (r!=null)
+                            destino = r.getCodigoprop()+":"+r.getPropietario()+":"+Integer.toString(r.getPuerto()); 
+                         }
+                         if (destino.equals("")){
+                            Recurso r = new DaoC().obtenerRecurso(Integer.parseInt(dato.split(":")[1]));
+                            if (r!=null)
+                            destino = r.getCodigoprop()+":"+r.getPropietario()+":"+Integer.toString(r.getPuerto()); 
+                         }
+                         
                          if (!destino.equals("")){
                              System.out.println("Redireccionando recurso en el siguiente nodo");
                              String data = "2:"+dato.split(":")[1]+":"+dato.split(":")[2]+":"+dato.split(":")[3]+":"+dato.split(":")[4];
@@ -97,6 +142,7 @@ public class Gestion extends Thread {
                           }
                        break;
                        case "7":
+                         if (!Sistema.general){
                          //Aqui rebota la informacion de la ubicacion del archivo
                          String destino2 = ControladorC.seleccionarNodo(Integer.parseInt(dato.split(":")[1]));
                          if (!destino2.equals("")){
@@ -114,6 +160,10 @@ public class Gestion extends Thread {
                              System.out.println("Redireccionando Peticion");
                              String parametros = Sistema.tablafinger.get(Sistema.tablafinger.size()-1);
                              respuesta = (String)Envio.enviardato(dato,parametros.split(":")[0],Integer.parseInt(parametros.split(":")[2]));
+                         }
+                         }else{
+                           Sistema.general =false; 
+                           respuesta = null;       
                          }
                            
                        break;

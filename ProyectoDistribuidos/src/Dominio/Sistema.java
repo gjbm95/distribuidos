@@ -36,6 +36,7 @@ public class Sistema {
     public static int puertoserverArchivo = 9094;
     public static ArrayList<String> tablafinger = new ArrayList<String>();
     public static int conexiones =0;
+    public static boolean general=false;
     //------------------------------------------------------------
     //Aspectos de Reportes y Estadisticas: 
     //------------------------------------------------------------

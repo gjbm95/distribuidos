@@ -23,11 +23,12 @@ public class Recurso {
     private int tamanototal; 
     private int puerto;
     
-    public Recurso(int id, String nombre, String ruta,String propietario,int codigoprop) {
+    public Recurso(int id, String nombre, String ruta,String propietario,int puerto,int codigoprop) {
         this.id = id;
         this.nombre = nombre;
         this.ruta = ruta;
-        this.propietario = propietario; 
+        this.propietario = propietario;
+        this.puerto = puerto; 
         this.codigoprop = codigoprop;
     }
 

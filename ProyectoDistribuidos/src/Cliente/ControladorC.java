@@ -40,8 +40,25 @@ public class ControladorC {
          if (obj!=null){ 
          String ubicacion =(String)obj;    
          new RealizarDescarga(ubicacion.split(":")[1],Integer.parseInt(ubicacion.split(":")[2])+1,valor).start(); 
-         }else 
-           System.out.println("Recurso no encontrado!");
+         }else{ 
+             destino="";
+             //Si no lo consigo en el otro, me reviso a mi mismo
+             if (destino.equals("")){
+                Recurso r = new DaoFinger().obtenerRecurso(valor);
+                if (r!=null)
+                destino = r.getCodigoprop()+":"+r.getPropietario()+":"+Integer.toString(r.getPuerto()); 
+             }
+             if (destino.equals("")){
+                Recurso r = new DaoC().obtenerRecurso(valor);
+                if (r!=null)
+                destino = r.getCodigoprop()+":"+r.getPropietario()+":"+Integer.toString(r.getPuerto()); 
+             }
+             if (destino.equals(""))
+              System.out.println("Recurso no encontrado!");
+             else 
+              new RealizarDescarga(destino.split(":")[1],Integer.parseInt(destino.split(":")[2])+1,valor).start();
+         
+           }
         }else if (destino.equals(""))
           {
             String parametros = Sistema.tablafinger.get(Sistema.tablafinger.size()-1);
@@ -76,7 +93,7 @@ public class ControladorC {
         if(ficheros[x].getName().equals(nombre)){
           DaoC interno = new DaoC(); 
           interno.agregarRecurso(new Recurso(Math.abs(nombre.hashCode()),nombre,
-                  ficheros[x].getPath(),Sistema.ip,Math.abs(Sistema.ip.hashCode())));
+                  ficheros[x].getPath(),Sistema.ip,Sistema.miPuerto,Math.abs(Sistema.ip.hashCode())));
         }
       }
       String destino = seleccionarNodo(Math.abs(nombre.hashCode())); 
@@ -197,7 +214,7 @@ public class ControladorC {
           String hashoriginal = Integer.toString((int)Math.abs(ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")).hashCode())); 
           int archivohash = Integer.parseInt(hashoriginal.substring(0,2));
           Recurso r = new Recurso(archivohash,ficheros[x].getName().substring(0, ficheros[x].getName().lastIndexOf(".")),
-                  ficheros[x].getPath(),Sistema.ip,Sistema.iphash);
+                  ficheros[x].getPath(),Sistema.ip,Sistema.miPuerto,Sistema.iphash);
           interno.agregarRecurso(r); 
            if (!estaRegistrado(r))
              Sistema.recursos.add(r);
@@ -242,7 +259,9 @@ public class ControladorC {
                }
            }
     }
-    
+    /**
+     * Borra la tabla de recursos para actualizar
+     */
     public static void resetearAlmacen(){
        ArrayList<Recurso> recursos = new DaoFinger().obtenerRecursos();
        for(Recurso r : recursos){
